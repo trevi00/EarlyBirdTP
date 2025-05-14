@@ -1,6 +1,6 @@
 package prototype.EarlyBird;
-import Bird.BirdManagement;
-import CheckUser.User;
+import prototype.Bird.BirdManagement;
+import prototype.CheckUser.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +33,7 @@ public class EarlyBird {
         backgroundPanel.setLayout(null);
 
         // 버튼 5개 생성 및 배치
-        String[] btnNames = {"출석 체크", "날씨 확인", "일기 작성", "포인트 획득", "새 키우기"};
+        String[] btnNames = {"출석 체크", "날씨 확인", "todo작성", "todo확인", "새 키우기"};
         JButton[] btns = new JButton[5];
 
         for (int i = 0; i < btns.length; i++) {
