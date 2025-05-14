@@ -1,4 +1,4 @@
-package Bird;
+package prototype.Bird;
 
 public class BirdManagement {
 

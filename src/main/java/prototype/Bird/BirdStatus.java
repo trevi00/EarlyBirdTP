@@ -1,4 +1,4 @@
-package prototype.bird;
+package prototype.Bird;
 
 import java.util.List;
 import java.util.Random;

@@ -1,4 +1,4 @@
-package CheckUser;
+package prototype.CheckUser;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

@@ -1,4 +1,4 @@
-package CheckUser;
+package prototype.CheckUser;
 
 public class CheckMain {
 

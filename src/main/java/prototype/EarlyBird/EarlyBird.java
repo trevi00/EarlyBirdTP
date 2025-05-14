@@ -1,4 +1,4 @@
-package EarlyBird;
+package prototype.EarlyBird;
 import Bird.BirdManagement;
 import CheckUser.User;
 
