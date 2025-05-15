@@ -28,14 +28,16 @@ public class BirdManagement {
         }
     }
     
-    public void currentBird(){
-        System.out.println("현재 당신의 새는 "+bird.getStage().getGrowStage()+"입니다.");
-        System.out.println("현재 당신의 포인트는 "+bird.getPoint()+"점 입니다.");
+    public String currentBird(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("현재 당신의 새는 ").append(bird.getStage().getGrowStage()).append("입니다.\n");
+        sb.append("현재 누적 포인트는 ").append(bird.getPoint()).append("점 입니다.\n");
         
-        System.out.println("\n오늘의 조언");
+        sb.append("\n오늘의 조언\n");
         for(String msg:bird.getStage().getRandomMessages(1)){
-            System.out.println(msg);
+            sb.append(msg);
         }
+        return sb.toString();
     }
 
 }
