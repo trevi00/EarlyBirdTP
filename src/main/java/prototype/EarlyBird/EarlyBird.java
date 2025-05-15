@@ -74,10 +74,7 @@ public class EarlyBird {
                             breedingBird.setLayout(null);
                             
                             // 화면 중앙
-                            Dimension myscreen = Toolkit.getDefaultToolkit().getScreenSize();
-                            int axisx = (myscreen.width - breedingBird.getWidth()) / 2;
-                            int axisy = (myscreen.height - breedingBird.getHeight()) / 2;
-                            breedingBird.setLocation(axisx, axisy);
+                            breedingBird.setLocationRelativeTo(frame);
                             
                             String message = management.currentBird();
                             
