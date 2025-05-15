@@ -3,6 +3,9 @@ import prototype.Bird.BirdManagement;
 import prototype.CheckUser.User;
 
 import javax.swing.*;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -47,7 +50,8 @@ public class EarlyBird {
         exitBtn.setBounds(230, 420, 120, 40);
         backgroundPanel.add(exitBtn);
         exitBtn.addActionListener(e -> System.exit(0));
-
+        
+        BirdManagement management = new BirdManagement();
         // 각 버튼에 ActionListener 추가 (팝업 중앙 배치)
         for (int i = 0; i < btns.length; i++) {
             final int idx = i;
@@ -57,13 +61,42 @@ public class EarlyBird {
                     switch(idx){
                         case 0:
                             User user1 = new User("최대호");
-                            BirdManagement management = new BirdManagement();
-
+                            
                             user1.tryCheck();
                             user1.printDate();
                             System.out.println("이번달출석 횟수. : "+user1.MonthCount());
                             management.addPoint(user1.getPoint());
                             management.currentBird();
+                            break;
+                        case 4:
+                            JDialog breedingBird = new JDialog(frame, "EarlyBird - 새 키우기", true);
+                            breedingBird.setSize(600, 600);
+                            breedingBird.setLayout(null);
+                            
+                            // 화면 중앙
+                            Dimension myscreen = Toolkit.getDefaultToolkit().getScreenSize();
+                            int axisx = (myscreen.width - breedingBird.getWidth()) / 2;
+                            int axisy = (myscreen.height - breedingBird.getHeight()) / 2;
+                            breedingBird.setLocation(axisx, axisy);
+                            
+                            String message = management.currentBird();
+                            
+                            JTextPane textpane = new JTextPane();
+                            textpane.setEditable(false);
+                            textpane.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+                            textpane.setBounds(10, 10, 560, 545);
+                            
+                            StyledDocument doc = textpane.getStyledDocument();
+                            SimpleAttributeSet center = new SimpleAttributeSet();
+                            StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+                            doc.setParagraphAttributes(0, doc.getLength(), center, false);
+                            
+                            textpane.setText(message);
+                            breedingBird.add(textpane);
+                            
+                            breedingBird.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                            breedingBird.setVisible(true);
+                            
                             break;
                         default:
                             JDialog popup = new JDialog(frame, "새 창", true);

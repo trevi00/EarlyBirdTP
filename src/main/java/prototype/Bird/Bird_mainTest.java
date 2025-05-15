@@ -19,7 +19,7 @@ public class Bird_mainTest {
             }
             
             management.addPoint(input);
-            management.currentBird();
+            System.out.println(management.currentBird());
             
         }
         
