@@ -71,6 +71,7 @@ public class EarlyBird {
                         case 4:
                             JDialog breedingBird = new JDialog(frame, "EarlyBird - 새 키우기", true);
                             breedingBird.setSize(600, 600);
+                            breedingBird.getContentPane().setBackground(Color.WHITE);
                             breedingBird.setLayout(null);
                             
                             // 화면 중앙
@@ -81,15 +82,21 @@ public class EarlyBird {
                             JTextPane textpane = new JTextPane();
                             textpane.setEditable(false);
                             textpane.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-                            textpane.setBounds(10, 10, 560, 545);
+                            textpane.setText(message);
+                            textpane.setBounds(10, 300, 565, 180);
                             
                             StyledDocument doc = textpane.getStyledDocument();
                             SimpleAttributeSet center = new SimpleAttributeSet();
                             StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
                             doc.setParagraphAttributes(0, doc.getLength(), center, false);
                             
-                            textpane.setText(message);
                             breedingBird.add(textpane);
+                            
+                            JButton closeButton = new JButton("둥지로 돌아가기");
+                            closeButton.setBounds(210, 480, 160, 40);
+                            closeButton.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+                            closeButton.addActionListener(exitBb -> breedingBird.dispose());
+                            breedingBird.add(closeButton);
                             
                             breedingBird.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
                             breedingBird.setVisible(true);
