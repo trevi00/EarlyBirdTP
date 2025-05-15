@@ -3,14 +3,12 @@ package prototype.CheckUser;
 public class User {
 	private String name;
 	private int point;
-	private final CheckLogic logic;
-	private final CheckPrinter plogic;
+	private static final CheckLogic logic = new CheckLogic();
+	private final CheckPrinter plogic = new CheckPrinter();
 	
 	public User(String name) {
 		this.name = name;
 		this.point = 0; //출석 포인트는 0부터 시작
-		this.logic = new CheckLogic();
-		this.plogic = new CheckPrinter();
 	}
 
 	public boolean tryCheck(){

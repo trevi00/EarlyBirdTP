@@ -19,7 +19,9 @@ public class CheckLogic {
         if(DateLogic.contains(today)) {
             return false; //오늘 출석했을시 출석 불가능.
         }
-
+        System.out.println("현재 저장된 출석 날짜들: " + DateLogic);
+        System.out.println("오늘 날짜: " + today);
+        System.out.println("출석 여부: " + DateLogic.contains(today));
         DateLogic.add(today);
         return true;
     }
