@@ -77,13 +77,18 @@ public class EarlyBird {
                             // 화면 중앙
                             breedingBird.setLocationRelativeTo(frame);
                             
+                            JLabel imageLabel = new JLabel();
+                            imageLabel.setBounds(192, 50, 200, 200);
+                            imageLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY)); // 경계선 표시
+                            breedingBird.add(imageLabel);
+                            
                             String message = management.currentBird();
                             
                             JTextPane textpane = new JTextPane();
                             textpane.setEditable(false);
                             textpane.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
                             textpane.setText(message);
-                            textpane.setBounds(10, 300, 565, 180);
+                            textpane.setBounds(42, 300, 500, 180);
                             
                             StyledDocument doc = textpane.getStyledDocument();
                             SimpleAttributeSet center = new SimpleAttributeSet();
@@ -93,7 +98,7 @@ public class EarlyBird {
                             breedingBird.add(textpane);
                             
                             JButton closeButton = new JButton("둥지로 돌아가기");
-                            closeButton.setBounds(210, 480, 160, 40);
+                            closeButton.setBounds(210, 480, 164, 40);
                             closeButton.setFont(new Font("맑은 고딕", Font.BOLD, 14));
                             closeButton.addActionListener(exitBb -> breedingBird.dispose());
                             breedingBird.add(closeButton);
