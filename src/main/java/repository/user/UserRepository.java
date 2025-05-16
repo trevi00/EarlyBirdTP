@@ -1,4 +1,5 @@
 package repository.user;
+import Entity.User;
 
 public interface UserRepository {
 
@@ -6,6 +7,6 @@ public interface UserRepository {
 
     void save(User user);
 
-    boolean existsByUsername(Stirng username);
+    boolean existsByUsername(String username);
 
 }
