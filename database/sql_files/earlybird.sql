@@ -15,7 +15,7 @@ create table users (
 );
 
 create table attendance (
-    user_id     varchar2(64), -- 출석한 유저 아이디
+    user_id     varchar2(64) references users(id), -- 출석한 유저 아이디
     attend_date date -- 출석일자
 );
 
