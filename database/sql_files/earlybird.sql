@@ -1,9 +1,10 @@
+-- 자식 테이블 삭제
 drop table attendance;
-drop table points;
 drop table todos;
 drop table user_coupons;
 
-drop table users;
+-- 부모 테이블 삭제
+drop table users; 
 drop table coupons;
 
 create table users (
@@ -12,6 +13,13 @@ create table users (
     password      varchar2(100) not null, -- 유저 비밀번호 
     point         number not null
 );
+
+create table attendance (
+    user_id     varchar2(64) references users(id), -- 출석한 유저 아이디
+    attend_date date -- 출석일자
+);
+
+alter table attendance add primary key(user_id, attend_date); 
 
 create table todos (
     id         varchar2(64) primary key, -- 투두 아이디
