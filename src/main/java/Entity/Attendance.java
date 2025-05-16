@@ -7,5 +7,4 @@ public class Attendance {
     attend_date date not null,
      */
 
-    private
 }

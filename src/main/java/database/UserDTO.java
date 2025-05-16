@@ -1,24 +1,33 @@
 package database;
 
 public class UserDTO {
-	private String userid;
-	private String name;
+	private String ID;
+	private String USERNAME;
 	private String password;
-	private String displayname;
-	
-	//getter setter toString
-	public String getUserid() {
-		return userid;
-	}
-	public void setUserid(String userid) {
-		this.userid = userid;
+	private String DISPLAY_NAME;
+	private int point;
+
+	public int getPoint() {
+		return point;
 	}
 
-	public String getName() {
-		return name;
+	public void setPoint(int point) {
+		this.point = point;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	//getter setter toString
+	public String getID() {
+		return ID;
+	}
+	public void setID(String ID) {
+		this.ID = ID;
+	}
+
+	public String getUSERNAME() {
+		return USERNAME;
+	}
+	public void setUSERNAME(String USERNAME) {
+		this.USERNAME = USERNAME;
 	}
 
 	public String getPassword() {
@@ -28,17 +37,17 @@ public class UserDTO {
 		this.password = password;
 	}
 
-	public String getDisplayname() {
-		return displayname;
+	public String getDISPLAY_NAME() {
+		return DISPLAY_NAME;
 	}
-	public void setDisplayname(String displayname) {
-		this.displayname = displayname;
+	public void setDISPLAY_NAME(String DISPLAY_NAME) {
+		this.DISPLAY_NAME = DISPLAY_NAME;
 	}
 	
 	@Override
 	public String toString() {
-		return "UserDTO [userid=" + userid + ", name=" + name + ", password=" + password  + ", displayName="
-				+ displayname + "]";
+		return "UserDTO [userid=" + ID + ", name=" + USERNAME + ", password=" + password  + ", displayName="
+				+ DISPLAY_NAME + "]";
 	}
 	
 

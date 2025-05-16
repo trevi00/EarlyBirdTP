@@ -19,13 +19,13 @@ public class SignMain {
         // 새 user를 추가하기 위한 정보 입력받기
         UserDTO insertDto = new UserDTO();
         System.out.print("▶ 아이디 : ");
-        insertDto.setUserid(sc.nextLine());
+        insertDto.setID(sc.nextLine());
         System.out.print("▶ 비밀번호 : ");
         insertDto.setPassword(sc.nextLine());
         System.out.print("▶ 닉네임 : ");
-        insertDto.setDisplayname(sc.nextLine());
+        insertDto.setDISPLAY_NAME(sc.nextLine());
         System.out.print("▶ 이름 : ");
-        insertDto.setName(sc.nextLine());
+        insertDto.setUSERNAME(sc.nextLine());
 
         System.out.println();
 
@@ -33,9 +33,9 @@ public class SignMain {
         System.out.println("====================");
 
         if (row > 0) {
-            System.out.printf("%s 님 등록완료\n", insertDto.getName());
+            System.out.printf("%s 님 등록완료\n", insertDto.getUSERNAME());
         } else {
-            System.out.printf("%s 님 등록실패\n", insertDto.getName());
+            System.out.printf("%s 님 등록실패\n", insertDto.getUSERNAME());
         }
     }
 }

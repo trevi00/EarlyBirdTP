@@ -18,10 +18,10 @@ public class Sign {
             sql += "VALUES (?,?,?,?)";
 
             pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, updateDTO.getUserid());
-            pstmt.setString(2, updateDTO.getName());
+            pstmt.setString(1, updateDTO.getID());
+            pstmt.setString(2, updateDTO.getUSERNAME());
             pstmt.setString(3, updateDTO.getPassword());
-            pstmt.setString(4, updateDTO.getDisplayname());
+            pstmt.setString(4, updateDTO.getDISPLAY_NAME());
 
             rows = pstmt.executeUpdate();
         } catch (Exception e) {

@@ -14,6 +14,6 @@ public interface TodoRepository {
 
     boolean exists(String username, LocalDate date);
 
-    void markAsDone(String username, LocalDate date)
+    void markAsDone(String username, LocalDate date);
 
 }
