@@ -9,7 +9,7 @@ import java.awt.event.*;
 public class EarlyBird {
     public static void main(String[] args) {
         // 바탕화면 사진 경로(본인 환경에 맞게 수정)
-        String imagePath = "C:\\Users\\사용자이름\\Desktop\\두두둥장.jpg";
+        String imagePath = "C:\\두두둥장.png";
         // Mac 예시: String imagePath = "/Users/사용자이름/Desktop/myphoto.jpg";
 
         int frameWidth = 600;
@@ -32,19 +32,43 @@ public class EarlyBird {
         };
         backgroundPanel.setLayout(null);
 
-        // 버튼 5개 생성 및 배치
-        String[] btnNames = {"출석 체크", "날씨 확인", "todo작성", "todo확인", "새 키우기"};
+        // 버튼 이미지 파일 경로 (원하는 경로로 수정하세요)
+        String[] btnImagePaths = {
+                "C://출석 체크.png",
+                "C://날씨 확인.png",
+                "C://일기 작성.png",
+                "C://포인트 획득.png",
+                "C://새 키우기.png"
+        };
+
+        // 버튼 위치 및 크기(예시)
+        int[][] btnBounds = {
+                {200, 60, 200, 100},   // 출석 체크
+                {200, 140, 200, 100},  // 날씨 확인
+                {200, 220, 200, 100},  // 일기 작성
+                {200, 300, 200, 100},  // 포인트 획득
+                {200, 380, 200, 100}   // 새 키우기
+        };
+
         JButton[] btns = new JButton[5];
 
         for (int i = 0; i < btns.length; i++) {
-            btns[i] = new JButton(btnNames[i]);
-            btns[i].setFont(new Font("맑은 고딕", Font.PLAIN, 16));
-            btns[i].setBounds(230, 100 + i * 60, 120, 40);
+            ImageIcon icon = new ImageIcon(btnImagePaths[i]);
+            // 이미지 크기 조정
+            Image scaledImg = icon.getImage().getScaledInstance(btnBounds[i][2], btnBounds[i][3], Image.SCALE_SMOOTH);
+            btns[i] = new JButton(new ImageIcon(scaledImg));
+            btns[i].setBounds(btnBounds[i][0], btnBounds[i][1], btnBounds[i][2], btnBounds[i][3]);
+            btns[i].setContentAreaFilled(false); // 배경 투명
+            btns[i].setBorderPainted(false);     // 테두리 제거
+            btns[i].setFocusPainted(false);      // 포커스 표시 제거
+            btns[i].setText("");                 // 텍스트 제거
+
             backgroundPanel.add(btns[i]);
         }
 
+        // Exit 버튼은 텍스트 버튼으로 유지
         JButton exitBtn = new JButton("Exit");
-        exitBtn.setBounds(230, 420, 120, 40);
+        exitBtn.setBounds(230, 480, 120, 40);
         backgroundPanel.add(exitBtn);
         exitBtn.addActionListener(e -> System.exit(0));
 
