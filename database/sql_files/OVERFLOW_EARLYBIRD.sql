@@ -1,71 +1,38 @@
 drop table attendance;
 drop table points;
-drop table birds;
 drop table todos;
-drop table diary;
 drop table user_coupons;
 
 drop table users;
 drop table coupons;
 
 create table users (
-    id            varchar2(64) primary key,
-    username      varchar2(50) unique not null,
-    password      varchar2(100) not null,
-    display_name  varchar2(100) not null
-);
-
-create table attendance (
-    id          varchar2(64) primary key,
-    user_id     varchar2(64) references users(id),
-    attend_date date not null,
-    constraint uq_attendance unique (user_id, attend_date)
-);
-
-create table points (
-    id        varchar2(64) primary key,
-    user_id   varchar2(64) references users(id),
-    total     number default 0
-);
-
-create table birds (
-    id         varchar2(64) primary key,
-    user_id    varchar2(64) references users(id),
-    stage      varchar2(20),
-    point      number,
-    born_date  date
+    id            varchar2(64) primary key, -- 유저 아이디
+    username      varchar2(50) unique not null, -- 유저 닉네임
+    password      varchar2(100) not null, -- 유저 비밀번호 
+    point         number not null
 );
 
 create table todos (
-    id         varchar2(64) primary key,
-    user_id    varchar2(64) references users(id),
-    todo_date  date,
-    title      varchar2(200),
-    content    clob,
-    done       char(1) check (done in ('y', 'n')),
-    constraint uq_todo unique (user_id, todo_date)
-);
-
-create table diary (
-    id         varchar2(64) primary key,
-    user_id    varchar2(64) references users(id),
-    diary_date date,
-    weather    varchar2(100),
-    title      varchar2(200),
-    content    clob,
-    constraint uq_diary unique (user_id, diary_date)
+    id         varchar2(64) primary key, -- 투두 아이디
+    user_id    varchar2(64) references users(id), -- 투두 리스트를 작성한 유저 아이디
+    todo_date  date, -- 작성된 일자
+    content    varchar2(200), -- 해야될 일
+    done       char(1) check (done in ('y', 'n')) -- 수행 여부 체크
 );
 
 create table coupons (
-    id          varchar2(64) primary key,
-    name        varchar2(100),
-    description varchar2(200),
-    cost        number
+    id          varchar2(64) primary key, -- 쿠폰 일련번호(아이디)
+    name        varchar2(100), -- 쿠폰 이름
+    description varchar2(200), -- 쿠폰 설명
+    cost        number -- 쿠폰 가격
 );
 
 create table user_coupons (
-    id         varchar2(64) primary key,
-    user_id    varchar2(64) references users(id),
-    coupon_id  varchar2(64) references coupons(id),
-    acquired_at date
+    user_id     varchar2(64) references users(id), -- 쿠폰을 소지한 유저 아이디
+    coupon_id   varchar2(64) references coupons(id), -- 쿠폰 일련번호
+    acquired_at date -- 쿠폰 획득일자
 );
+
+alter table user_coupons add primary key(user_id, coupon_id);
+
