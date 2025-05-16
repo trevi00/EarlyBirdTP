@@ -1,6 +1,9 @@
 package repository.todo;
 
+import Entity.Todo;
+
 import java.time.LocalDate;
+import java.util.List;
 
 public interface TodoRepository {
 
@@ -14,6 +17,6 @@ public interface TodoRepository {
 
     boolean exists(String username, LocalDate date);
 
-    void markAsDone(String username, LocalDate date)
+    void markAsDone(String username, LocalDate date);
 
 }
