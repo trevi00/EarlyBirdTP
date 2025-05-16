@@ -10,24 +10,16 @@ public class Attendance {
 
     private String user_id;
 
-    private LocalDate date;
+    private LocalDate attend_date;
 
     public Attendance(String user_id) {
         this.user_id = user_id;
-        date = LocalDate.now();
+        attend_date = LocalDate.now();
     }
 
-    public Attendance(String user_id, LocalDate date) {
+    public Attendance(String user_id, LocalDate attend_date) {
         this.user_id = user_id;
-        this.date = date;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
+        this.attend_date = attend_date;
     }
 
     public String getUser_id() {
@@ -36,5 +28,13 @@ public class Attendance {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public LocalDate getAttend_date() {
+        return attend_date;
+    }
+
+    public void setAttend_date(LocalDate attend_date) {
+        this.attend_date = attend_date;
     }
 }

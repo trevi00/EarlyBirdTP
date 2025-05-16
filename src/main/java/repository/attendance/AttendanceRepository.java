@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public interface AttendanceRepository {
 
-    boolean existsByDate(String username, LocalDate data) throws Exception;
+    boolean existsByDate(String user_id, LocalDate attend_date) throws Exception;
 
-    void save(String username, LocalDate date) throws Exception;
+    void save(String user_id, LocalDate attend_date) throws Exception;
 
 }
