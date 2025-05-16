@@ -17,7 +17,7 @@ create table todos (
     id         varchar2(64) primary key, -- 투두 아이디
     user_id    varchar2(64) references users(id), -- 투두 리스트를 작성한 유저 아이디
     todo_date  date, -- 작성된 일자
-    content      varchar2(200), -- 해야될 일
+    content    varchar2(200), -- 해야될 일
     done       char(1) check (done in ('y', 'n')) -- 수행 여부 체크
 );
 
@@ -29,8 +29,8 @@ create table coupons (
 );
 
 create table user_coupons (
-    user_id    varchar2(64) references users(id), -- 쿠폰을 소지한 유저 아이디
-    coupon_id  varchar2(64) references coupons(id), -- 쿠폰 일련번호
+    user_id     varchar2(64) references users(id), -- 쿠폰을 소지한 유저 아이디
+    coupon_id   varchar2(64) references coupons(id), -- 쿠폰 일련번호
     acquired_at date -- 쿠폰 획득일자
 );
 
