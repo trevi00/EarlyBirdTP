@@ -32,6 +32,5 @@ public class JdbcAttendanceRepository implements AttendanceRepository {
 
     @Override
     public void save(String username, LocalDate date) throws SQLException {
-        final String sql = "insert into attendance(";
     }
 }
