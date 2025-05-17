@@ -24,7 +24,7 @@ public class JdbcUserRepository implements UserRepository {
                 return new User(
                         rs.getString("username"),
                         rs.getString("password"),
-                        rs.getString("display_name")
+                        rs.getString("nickname")
                 );
             }
         } catch (SQLException e) {
@@ -36,12 +36,12 @@ public class JdbcUserRepository implements UserRepository {
 
     @Override
     public void save(User user) {
-        String sql = "INSERT INTO USERS (username, password, display_name) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO USERS (username, password, nickname) VALUES (?, ?, ?)";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, user.getUsername());
             pstmt.setString(2, user.getPassword());
-            pstmt.setString(3, user.getDisplayName());
+            pstmt.setString(3, user.getNickname());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

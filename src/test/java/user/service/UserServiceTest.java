@@ -26,7 +26,7 @@ public class UserServiceTest {
         assertTrue(result, "회원 등록이 성공해야 합니다.");
         User saved = userService.findByUsername("test1");
         assertNotNull(saved);
-        assertEquals("홍길동", saved.getDisplayName());
+        assertEquals("홍길동", saved.getNickname());
     }
 
     @Test
@@ -43,7 +43,7 @@ public class UserServiceTest {
 
         User loginUser = userService.login("test1", "pw123");
         assertNotNull(loginUser, "로그인에 성공해야 합니다.");
-        assertEquals("홍길동", loginUser.getDisplayName());
+        assertEquals("홍길동", loginUser.getNickname());
     }
 
     @Test
