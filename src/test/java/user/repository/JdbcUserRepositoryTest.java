@@ -36,7 +36,7 @@ public class JdbcUserRepositoryTest {
 
         User found = repository.findByUsername("test1");
         assertNotNull(found);
-        assertEquals("홍길동", found.getDisplayName());
+        assertEquals("홍길동", found.getNickname());
     }
 
     @Test
