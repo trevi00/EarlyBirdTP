@@ -11,8 +11,8 @@ import java.sql.SQLException;
  */
 public class DatabaseConfig {
 
-    private static final String URL = "jdbc:oracle:thin:@localhost:1521/XEPDB1"; // ✅ PDB 이름
-    private static final String USER = "overflow";   // ✅ 새 계정
+    private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe"; // ✅ PDB 이름
+    private static final String USER = "earlybird";   // ✅ 새 계정
     private static final String PASSWORD = "12345";  // ✅ 새 비번
 
     /**
