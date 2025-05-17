@@ -13,10 +13,7 @@ import bird.model.Bird;
 import bird.point.DefaultPointService;
 import bird.point.PointManager;
 import bird.point.PointService;
-import bird.repository.BirdRepository;
-import bird.repository.InMemoryBirdRepository;
-import bird.repository.JdbcPointRepository;
-import bird.repository.PointRepository;
+import bird.repository.*;
 import bird.service.BirdService;
 import bird.service.DefaultBirdService;
 import bird.service.StageEvolutionPolicy;
@@ -89,7 +86,7 @@ public class EarlyBirdContext {
         attendanceService = new DefaultAttendanceService(attendanceRepo, pointManager, pointService);
 
         // 새 + 메시지
-        BirdRepository birdRepository = new InMemoryBirdRepository();
+        BirdRepository birdRepository = new JdbcBirdRepository(conn);
         bird = birdRepository.findByUsername(currentUsername);
         birdService = new DefaultBirdService(new StageEvolutionPolicy(), birdRepository, pointService);
         birdMessageProvider = new BirdMessageProvider();

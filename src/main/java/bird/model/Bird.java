@@ -48,4 +48,9 @@ public class Bird {
         }
     }
 
+    public void setStage(String stageName) {
+        this.stage = BirdStage.valueOf(stageName);
+    }
+
+
 }

@@ -7,6 +7,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class JdbcCouponRepository implements CouponRepository {
 
@@ -44,10 +45,11 @@ public class JdbcCouponRepository implements CouponRepository {
      */
     @Override
     public void savePurchase(String username, Coupon coupon) {
-        String sql = "INSERT INTO COUPON_HISTORY (USERNAME, COUPON_ID) VALUES (?, ?)";
+        String sql = "INSERT INTO COUPON_PURCHASES (id, username, coupon_id) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, username);
-            stmt.setString(2, coupon.getId());
+            stmt.setString(1, UUID.randomUUID().toString());
+            stmt.setString(2, username);
+            stmt.setString(3, coupon.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
