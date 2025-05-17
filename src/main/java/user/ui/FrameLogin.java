@@ -10,8 +10,7 @@ import java.awt.*;
 /**
  * [FrameLogin]
  * - 사용자 로그인 UI
- * - 로그인 성공 시 메인 화면으로 이동
- * - 회원가입 버튼 추가
+ * - 로그인 성공 시 username을 FrameMain에 전달
  */
 public class FrameLogin extends JFrame {
 
@@ -41,15 +40,18 @@ public class FrameLogin extends JFrame {
         add(btnLogin);
         add(btnRegister);
 
-        // 로그인 버튼 이벤트
+        // ✅ 로그인 버튼 이벤트
         btnLogin.addActionListener(e -> {
             String username = usernameField.getText().trim();
             String password = new String(passwordField.getPassword());
 
             if (loginHandler.tryLogin(username, password)) {
                 JOptionPane.showMessageDialog(this, "로그인 성공");
+
                 dispose(); // 로그인 창 닫고
-                new FrameMain(); // 메인 창 열기
+
+                // ✅ 로그인된 사용자 이름을 FrameMain에 전달
+                new FrameMain(username);
             } else {
                 JOptionPane.showMessageDialog(this, "로그인 실패. 아이디 또는 비밀번호 확인");
             }
@@ -57,7 +59,7 @@ public class FrameLogin extends JFrame {
 
         // 회원가입 버튼 이벤트
         btnRegister.addActionListener(e -> {
-            UserService userService = loginHandler.getUserService(); // LoginHandler에서 받아옴
+            UserService userService = loginHandler.getUserService();
             new RegisterFrame(userService);
         });
 
