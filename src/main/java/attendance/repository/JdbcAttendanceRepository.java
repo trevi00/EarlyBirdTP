@@ -20,7 +20,7 @@ public class JdbcAttendanceRepository implements AttendanceRepository {
             pstmt.setString(1, username);
             pstmt.setDate(2, Date.valueOf(date));
             ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) return rs.getInt(1) > 0;
+            return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }
