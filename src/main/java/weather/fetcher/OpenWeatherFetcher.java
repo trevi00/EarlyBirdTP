@@ -14,7 +14,7 @@ import java.net.URL;
  */
 public class OpenWeatherFetcher implements WeatherFetcher {
 
-    private static final String API_KEY = "8ee01c131076cf0b6d2f00fdd1ff9836"; // TODO: 본인 OpenWeatherMap API 키 입력
+    private static final String API_KEY = "3c13baa4486e3f6494ad2a02f76cabd8"; // TODO: 본인 OpenWeatherMap API 키 입력(완료)
     private static final String API_URL = "https://api.openweathermap.org/data/2.5/weather";
 
     @Override
