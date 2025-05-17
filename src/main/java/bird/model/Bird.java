@@ -41,9 +41,11 @@ public class Bird {
     }
 
     public void evolve() {
-        if (canEvolve()) {
-            this.stage = stage.getNextStage();
+        BirdStage next = stage.getNextStage();
+        if (next != null) {
+            this.stage = next;
             this.point = 0;
         }
     }
+
 }

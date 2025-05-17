@@ -1,6 +1,7 @@
 package todo.service;
 
 import bird.point.PointManager; // ✅ 패키지 경로 확인
+import bird.point.PointService;
 import todo.model.ToDo;
 import todo.repository.ToDoRepository;
 
@@ -15,21 +16,19 @@ public class DefaultToDoService implements ToDoService {
 
     private final ToDoRepository repository;
     private final PointManager pointManager;
+    private PointService pointService;
 
-    public DefaultToDoService(ToDoRepository repository, PointManager pointManager) {
+    public DefaultToDoService(ToDoRepository repository, PointManager pointManager, PointService pointService) {
         this.repository = repository;
         this.pointManager = pointManager;
+        this.pointService = pointService;
     }
 
     @Override
     public boolean add(ToDo todo) {
-        if (repository.exists(todo.getUsername(), todo.getDate())) {
-            return false;
-        }
-
         boolean result = repository.save(todo);
         if (result) {
-            pointManager.addPoint(5); // ✅ username 제거: bird.point.PointManager는 전역 포인트 누적 구조
+            pointService.addPoint(todo.getUsername(), 5); // ✅ username 제거: bird.point.PointManager는 전역 포인트 누적 구조
         }
         return result;
     }

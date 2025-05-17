@@ -19,8 +19,6 @@ public class StageEvolutionPolicy {
      * 새를 성장시킨다.
      */
     public void evolve(Bird bird) {
-        if (bird.canEvolve()) {
-            bird.evolve();
-        }
+        bird.evolve();
     }
 }

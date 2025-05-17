@@ -6,6 +6,7 @@ import bird.message.BirdMessageManager;
 import bird.message.BirdMessageProvider;
 import bird.model.Bird;
 import bird.point.PointManager;
+import bird.point.PointService;
 import bird.service.BirdService;
 import bird.ui.FrameBird;
 
@@ -20,7 +21,8 @@ public class FrameAttendance extends JFrame {
                            Bird bird,
                            BirdService birdService,
                            BirdMessageProvider birdMessageProvider,
-                           BirdMessageManager messageManager) {
+                           BirdMessageManager messageManager,
+                           PointService pointService) {
 
         setTitle("출석 체크");
         setSize(350, 200);
@@ -35,17 +37,17 @@ public class FrameAttendance extends JFrame {
         add(btnCheck, BorderLayout.SOUTH);
 
         // ✅ 인자 개수 맞춤
-        FrameBird frameBird = new FrameBird(bird, birdService, messageManager);
+        FrameBird frameBird = new FrameBird(bird, birdService, messageManager, pointService);
 
         btnCheck.addActionListener(e -> {
             AttendanceHandler handler = new AttendanceHandler(
                     attendanceService,
-                    pointManager,
                     bird,
                     birdService,
                     birdMessageProvider,
                     frameBird,
-                    messageManager
+                    messageManager,
+                    pointService
             );
 
             boolean result = handler.handleAttendance(this, bird.getUsername(), LocalDate.now());

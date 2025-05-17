@@ -2,6 +2,8 @@ package attendance.service;
 
 import attendance.repository.AttendanceRepository;
 import bird.point.PointManager;
+import bird.point.PointService;
+import user.session.SessionManager;
 
 import java.time.LocalDate;
 
@@ -13,10 +15,13 @@ public class DefaultAttendanceService implements AttendanceService {
 
     private final AttendanceRepository attendanceRepository;
     private final PointManager pointManager;
+    private final PointService pointService;;
 
-    public DefaultAttendanceService(AttendanceRepository attendanceRepository, PointManager pointManager) {
+    public DefaultAttendanceService(AttendanceRepository attendanceRepository, PointManager pointManager, PointService pointService) {
         this.attendanceRepository = attendanceRepository;
         this.pointManager = pointManager;
+        this.pointService = pointService;
+
     }
 
     @Override
@@ -26,7 +31,7 @@ public class DefaultAttendanceService implements AttendanceService {
         }
 
         attendanceRepository.save(username, today);
-        pointManager.addPoint(10); // 출석 시 포인트 적립
+        pointService.addPoint(username, 10); // 출석 시 포인트 적립
         return true;
     }
 }

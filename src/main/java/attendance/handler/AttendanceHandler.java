@@ -5,6 +5,7 @@ import bird.message.BirdMessageManager;
 import bird.message.BirdMessageProvider;
 import bird.model.Bird;
 import bird.point.PointManager;
+import bird.point.PointService;
 import bird.service.BirdService;
 import bird.ui.FrameBird;
 
@@ -18,22 +19,21 @@ import java.time.LocalDate;
 public class AttendanceHandler {
 
     private final AttendanceService attendanceService;
-    private final PointManager pointManager;
     private final Bird bird;
     private final BirdService birdService;
     private final BirdMessageProvider birdMessageProvider;
     private final FrameBird frameBird;
     private final BirdMessageManager messageManager;
+    private PointService pointService;
 
     public AttendanceHandler(AttendanceService attendanceService,
-                             PointManager pointManager,
                              Bird bird,
                              BirdService birdService,
                              BirdMessageProvider birdMessageProvider,
                              FrameBird frameBird,
-                             BirdMessageManager messageManager) {
+                             BirdMessageManager messageManager,
+                             PointService pointService) {
         this.attendanceService = attendanceService;
-        this.pointManager = pointManager;
         this.bird = bird;
         this.birdService = birdService;
         this.birdMessageProvider = birdMessageProvider;
@@ -53,16 +53,9 @@ public class AttendanceHandler {
             messageManager.say("출석 완료! 오늘도 멋져요 😊");
             messageManager.speakRandom();
 
-            if (birdService.canEvolve(bird)) {
-                birdService.evolve(bird);
-                frameBird.refresh();
-
-                messageManager.say("🎉 축하합니다! 새가 성장했습니다! 현재 단계: " + bird.getStage().getName());
-            }
-
             return true;
         } else {
-            JOptionPane.showMessageDialog(parentFrame, "이미 오늘 출석을 완료했습니다!");
+            JOptionPane.showMessageDialog(parentFrame, "이미 오늘 출석을 완료했습니다! 혹은 아쉽게도 출석 시간이 아니네요!");
             return false;
         }
     }

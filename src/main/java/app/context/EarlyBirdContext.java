@@ -10,9 +10,13 @@ import bird.message.BirdMessageDisplayer;
 import bird.message.BirdMessageManager;
 import bird.message.BirdMessageProvider;
 import bird.model.Bird;
+import bird.point.DefaultPointService;
 import bird.point.PointManager;
+import bird.point.PointService;
 import bird.repository.BirdRepository;
 import bird.repository.InMemoryBirdRepository;
+import bird.repository.JdbcPointRepository;
+import bird.repository.PointRepository;
 import bird.service.BirdService;
 import bird.service.DefaultBirdService;
 import bird.service.StageEvolutionPolicy;
@@ -59,6 +63,8 @@ public class EarlyBirdContext {
     private final MessageBannerPanel bannerPanel;
     private final BirdMessageManager birdMessageManager;
 
+    public final PointService pointService;
+
     public EarlyBirdContext(String username) {
         // ✅ MessageBannerPanel 먼저 생성
         this.bannerPanel = new MessageBannerPanel();
@@ -66,20 +72,26 @@ public class EarlyBirdContext {
         // 유저 이름 하드코딩 수정
         this.currentUsername = username;
 
-        // 포인트 관리자
+        // 포인트 관리자 (구)
         pointManager = new PointManager();
+
 
         // DB 연결
         Connection conn = DatabaseConfig.getConnection();
 
+        // point db
+        PointRepository pointRepo = new JdbcPointRepository(conn);
+        pointService = new DefaultPointService(pointRepo);
+
+
         // 출석
         AttendanceRepository attendanceRepo = new JdbcAttendanceRepository(conn);
-        attendanceService = new DefaultAttendanceService(attendanceRepo, pointManager);
+        attendanceService = new DefaultAttendanceService(attendanceRepo, pointManager, pointService);
 
         // 새 + 메시지
         BirdRepository birdRepository = new InMemoryBirdRepository();
         bird = birdRepository.findByUsername(currentUsername);
-        birdService = new DefaultBirdService(new StageEvolutionPolicy(), birdRepository);
+        birdService = new DefaultBirdService(new StageEvolutionPolicy(), birdRepository, pointService);
         birdMessageProvider = new BirdMessageProvider();
         BirdMessageDisplayer displayer = new BannerDisplayer(bannerPanel);
         birdMessageManager = new BirdMessageManager(bird, birdMessageProvider, displayer);
@@ -99,12 +111,13 @@ public class EarlyBirdContext {
 
         // 할 일
         ToDoRepository toDoRepo = new JdbcToDoRepository(conn);
-        toDoService = new DefaultToDoService(toDoRepo, pointManager);
+        toDoService = new DefaultToDoService(toDoRepo, pointManager, pointService);
 
         // 쿠폰
         CouponRepository couponRepo = new JdbcCouponRepository(conn);
         CouponService couponService = new DefaultCouponService(couponRepo, birdService);
         couponController = new CouponController(couponService, couponRepo);
+
     }
 
     public String getCurrentUsername() {
@@ -134,7 +147,8 @@ public class EarlyBirdContext {
                 bird,
                 birdService,
                 birdMessageProvider,
-                birdMessageManager
+                birdMessageManager,
+                pointService
         ).setVisible(true);
     }
 

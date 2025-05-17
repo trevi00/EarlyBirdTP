@@ -16,6 +16,8 @@ import java.awt.*;
  */
 public class MainMenuPanel extends JPanel {
 
+    private JLabel pointLabel;
+
     public MainMenuPanel(EarlyBirdContext context) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
@@ -28,7 +30,8 @@ public class MainMenuPanel extends JPanel {
 
         add(makeButton("🗂️ 할 일 관리", () -> {
             context.getBirdMessageManager().say("🧭 할 일 작성 화면으로 이동 중입니다...");
-            new FrameToDo(context.getToDoService(), context.bird, context.getBirdMessageManager()).setVisible(true);
+            new FrameToDo(context.getToDoService(), context.bird, context.getBirdMessageManager(),
+                    context.birdService, context.pointService).setVisible(true);
         }));
 
         add(Box.createVerticalStrut(15));  // 간격
@@ -45,7 +48,7 @@ public class MainMenuPanel extends JPanel {
 
         add(makeButton("🐣 새 보기", () -> {
             context.getBirdMessageManager().say("🧭 새 상태 화면으로 이동 중입니다...");
-            new FrameBird(context.bird, context.birdService, context.getBirdMessageManager()).setVisible(true);
+            new FrameBird(context.bird, context.birdService, context.getBirdMessageManager(), context.pointService).setVisible(true);
         }));
 
         add(makeButton("🎟️ 쿠폰 보관함", () -> {
@@ -60,6 +63,11 @@ public class MainMenuPanel extends JPanel {
             context.getBirdMessageManager().say("🧭 포인트 상점으로 이동 중입니다...");
             new FrameCouponStore(context.getCouponController(), context.getCurrentUsername()).setVisible(true);
         }));
+    }
+
+    private void refreshPoint(EarlyBirdContext context) {
+        int point = context.pointService.getCurrentPoint(context.getCurrentUsername());
+        pointLabel.setText("🌟 현재 포인트: " + point + "점");
     }
 
     // 🔧 버튼 생성 유틸

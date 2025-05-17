@@ -2,54 +2,72 @@ package todo.ui;
 
 import bird.message.BirdMessageManager;
 import bird.model.Bird;
+import bird.point.PointService;
+import bird.service.BirdService;
+import bird.ui.FrameBird;
 import todo.model.ToDo;
 import todo.service.ToDoService;
 
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
-import java.util.List;
 
-/**
- * [FrameToDo]
- * - 할일 작성 UI 프레임
- */
 public class FrameToDo extends JFrame {
 
-    public FrameToDo(ToDoService toDoService, Bird bird, BirdMessageManager birdMessageManager) {
-        setTitle("오늘의 할일");
-        setSize(400, 300);
+    private final JTextArea[] textAreas = new JTextArea[3];
+    private final BirdService birdService;
+    private final PointService pointService;
+
+    public FrameToDo(ToDoService toDoService, Bird bird, BirdMessageManager birdMessageManager,
+                     BirdService birdService, PointService pointService) {
+        this.birdService = birdService;
+        this.pointService = pointService;
+
+        setTitle("오늘의 할 일 작성");
+        setSize(400, 500);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JTextArea area = new JTextArea();
-        JButton btnSave = new JButton("할일 등록");
+        JPanel inputPanel = new JPanel(new GridLayout(3, 1, 10, 10));
+        inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        add(new JScrollPane(area), BorderLayout.CENTER);
-        add(btnSave, BorderLayout.SOUTH);
+        for (int i = 0; i < 3; i++) {
+            textAreas[i] = new JTextArea();
+            textAreas[i].setLineWrap(true);
+            textAreas[i].setBorder(BorderFactory.createTitledBorder("할 일 " + (i + 1)));
+            inputPanel.add(new JScrollPane(textAreas[i]));
+        }
 
+        JButton btnSave = new JButton("할 일 등록");
         btnSave.addActionListener(e -> {
             String username = bird.getUsername();
-            String content = area.getText().trim();
+            LocalDate today = LocalDate.now();
+            int savedCount = 0;
 
-            if (content.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "내용을 입력하세요.");
-                return;
+            for (JTextArea area : textAreas) {
+                String content = area.getText().trim();
+                if (!content.isEmpty()) {
+                    ToDo todo = new ToDo(username, today, content, content, false);
+                    boolean saved = toDoService.add(todo);
+                    if (saved) savedCount++;
+                }
             }
 
-            // ✅ title, content는 동일하게 넣음. done = false
-            ToDo todo = new ToDo(username, LocalDate.now(), content, content, false);
-            boolean saved = toDoService.add(todo);
+            if (savedCount > 0) {
+                JOptionPane.showMessageDialog(this, savedCount + "개의 할 일이 등록되었습니다.");
+                birdMessageManager.displayRandomMessage();
 
-            if (saved) {
-                JOptionPane.showMessageDialog(this, "할일이 등록되었습니다.");
-                birdMessageManager.displayRandomMessage();  // ✅ 수정된 부분
+                new FrameBird(bird, birdService, birdMessageManager, pointService).setVisible(true);
+
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "이미 등록된 할일이 있습니다.");
+                JOptionPane.showMessageDialog(this, "입력된 할 일이 없습니다.");
             }
         });
+
+        add(inputPanel, BorderLayout.CENTER);
+        add(btnSave, BorderLayout.SOUTH);
 
         setVisible(true);
     }
