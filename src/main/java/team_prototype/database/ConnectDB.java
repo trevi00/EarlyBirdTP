@@ -1,11 +1,11 @@
-package database;
+package team_prototype.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import static database.DatabaseConfig.*;
+import static team_prototype.database.DatabaseConfig.*;
 
 
 public class ConnectDB {

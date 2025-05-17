@@ -1,7 +1,7 @@
-package repository.todo;
+package team_prototype.repository.todo;
 
-import Entity.Todo;
-import database.DatabaseConnection;
+import team_prototype.Entity.Todo;
+import team_prototype.database.DatabaseConnection;
 
 import java.sql.Connection;
 import java.time.LocalDate;

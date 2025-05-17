@@ -1,4 +1,4 @@
-package Entity;
+package team_prototype.Entity;
 
 public class User {
     /*

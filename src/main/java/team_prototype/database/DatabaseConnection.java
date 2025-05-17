@@ -1,4 +1,4 @@
-package database;
+package team_prototype.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,4 +1,4 @@
-package repository.attendance;
+package team_prototype.repository.attendance;
 
 import java.time.LocalDate;
 

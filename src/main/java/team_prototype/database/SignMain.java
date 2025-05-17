@@ -1,4 +1,4 @@
-package database;
+package team_prototype.database;
 
 import java.util.Scanner;
 

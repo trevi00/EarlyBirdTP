@@ -1,6 +1,6 @@
-package repository.user;
+package team_prototype.repository.user;
 
-import Entity.User;
+import team_prototype.Entity.User;
 
 public interface UserRepository {
 

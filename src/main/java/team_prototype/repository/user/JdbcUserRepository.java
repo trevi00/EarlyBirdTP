@@ -1,7 +1,7 @@
-package repository.user;
+package team_prototype.repository.user;
 
-import Entity.User;
-import database.DatabaseConnection;
+import team_prototype.Entity.User;
+import team_prototype.database.DatabaseConnection;
 
 import java.sql.Connection;
 

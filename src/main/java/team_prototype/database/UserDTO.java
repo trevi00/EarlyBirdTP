@@ -1,4 +1,4 @@
-package database;
+package team_prototype.database;
 
 public class UserDTO {
 	private String userid;

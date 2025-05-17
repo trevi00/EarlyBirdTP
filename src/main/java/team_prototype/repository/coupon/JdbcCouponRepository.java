@@ -1,6 +1,6 @@
-package repository.coupon;
+package team_prototype.repository.coupon;
 
-import database.DatabaseConnection;
+import team_prototype.database.DatabaseConnection;
 
 import java.sql.Connection;
 

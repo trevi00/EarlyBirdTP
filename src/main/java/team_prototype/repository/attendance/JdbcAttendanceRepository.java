@@ -1,6 +1,6 @@
-package repository.attendance;
+package team_prototype.repository.attendance;
 
-import database.DatabaseConnection;
+import team_prototype.database.DatabaseConnection;
 
 import java.sql.*;
 import java.time.LocalDate;

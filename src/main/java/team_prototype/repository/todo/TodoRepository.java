@@ -1,6 +1,6 @@
-package repository.todo;
+package team_prototype.repository.todo;
 
-import Entity.Todo;
+import team_prototype.Entity.Todo;
 
 import java.time.LocalDate;
 import java.util.List;
