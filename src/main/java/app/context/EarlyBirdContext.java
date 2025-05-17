@@ -54,15 +54,17 @@ public class EarlyBirdContext {
     public final UserService userService;
     public final ToDoService toDoService;
     public final CouponController couponController;
-
-    private final String currentUsername = "test1";
+    private final String currentUsername;
 
     private final MessageBannerPanel bannerPanel;
     private final BirdMessageManager birdMessageManager;
 
-    public EarlyBirdContext() {
+    public EarlyBirdContext(String username) {
         // ✅ MessageBannerPanel 먼저 생성
         this.bannerPanel = new MessageBannerPanel();
+
+        // 유저 이름 하드코딩 수정
+        this.currentUsername = username;
 
         // 포인트 관리자
         pointManager = new PointManager();
