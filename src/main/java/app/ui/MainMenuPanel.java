@@ -26,11 +26,6 @@ public class MainMenuPanel extends JPanel {
             context.showAttendanceFrame();
         }));
 
-        add(makeButton("📔 일기 쓰기", () -> {
-            context.getBirdMessageManager().say("🧭 일기 화면으로 이동 중입니다...");
-            context.showDiaryFrame();
-        }));
-
         add(makeButton("🗂️ 할 일 관리", () -> {
             context.getBirdMessageManager().say("🧭 할 일 작성 화면으로 이동 중입니다...");
             new FrameToDo(context.getToDoService(), context.bird, context.getBirdMessageManager()).setVisible(true);
