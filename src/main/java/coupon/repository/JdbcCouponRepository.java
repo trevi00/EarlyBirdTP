@@ -23,7 +23,7 @@ public class JdbcCouponRepository implements CouponRepository {
     @Override
     public List<Coupon> findAllAvailable() {
         List<Coupon> list = new ArrayList<>();
-        String sql = "SELECT ID, NAME, PRICE FROM COUPONS";
+        String sql = "SELECT ID, NAME, COST FROM COUPONS";
         try (PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
@@ -31,7 +31,7 @@ public class JdbcCouponRepository implements CouponRepository {
                 list.add(new Coupon(
                         rs.getString("ID"),
                         rs.getString("NAME"),
-                        rs.getInt("PRICE")
+                        rs.getInt("COST")
                 ));
             }
         } catch (SQLException e) {
@@ -62,8 +62,8 @@ public class JdbcCouponRepository implements CouponRepository {
     @Override
     public List<CouponPurchase> findPurchaseHistoryByUsername(String username) {
         List<CouponPurchase> list = new ArrayList<>();
-        String sql = "SELECT c.ID, c.NAME, c.PRICE, h.PURCHASE_DATE " +
-                "FROM COUPON_HISTORY h JOIN COUPONS c ON h.COUPON_ID = c.ID " +
+        String sql = "SELECT c.ID, c.NAME, c.COST, h.PURCHASE_DATE " +
+                "FROM COUPON_PURCHASES h JOIN COUPONS c ON h.COUPON_ID = c.ID " +
                 "WHERE h.USERNAME = ? ORDER BY h.PURCHASE_DATE DESC";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
@@ -72,7 +72,7 @@ public class JdbcCouponRepository implements CouponRepository {
                     Coupon coupon = new Coupon(
                             rs.getString("ID"),
                             rs.getString("NAME"),
-                            rs.getInt("PRICE")
+                            rs.getInt("COST")
                     );
                     Date date = rs.getDate("PURCHASE_DATE");
                     LocalDate localDate = date.toLocalDate();

@@ -16,7 +16,7 @@ DROP TABLE COUPONS;
 CREATE TABLE USERS (
     username VARCHAR2(50) PRIMARY KEY,
     password VARCHAR2(100) NOT NULL,
-    nickname VARCHAR2(50)
+    nickname VARCHAR2(50) NOT NULL
 );
 
 -- 2. ATTENDANCE (출석 기록)
@@ -31,7 +31,7 @@ CREATE TABLE ATTENDANCE (
 CREATE TABLE TODOS (
     id VARCHAR2(100) PRIMARY KEY,
     username VARCHAR2(50) NOT NULL,
-    todo_date DATE NOT NULL,
+    todo_date TIMESTAMP NOT NULL,
     title VARCHAR2(100) NOT NULL,
     content CLOB,
     done NUMBER(1) DEFAULT 0 CHECK (done IN (0, 1)),
