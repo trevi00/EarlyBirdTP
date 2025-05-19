@@ -88,11 +88,12 @@ public class FrameBird extends JFrame {
      * 새 상태를 새로 고친다 (진화 후 또는 초기 표시)
      */
     public void refresh() {
-        String info = "<html>" +
+        String info = "<html><div style='text-align:center; width:220px;'>" +
                 "🐤 현재 단계: " + bird.getStage().getName() + "<br>" +
-                bird.getStage().getDescription() + "<br>" + "<br>" +
+                "<span style='white-space:nowrap; display:inline-block;'>" +
+                bird.getStage().getDescription() + "</span><br><br>" +
                 "🌟 포인트: " + pointService.getCurrentPoint(bird.getUsername()) + "점" +
-                "</html>";
+                "</div></html>";
         lblBirdInfo.setText(info);
         birdRenderer.repaint();
     }
