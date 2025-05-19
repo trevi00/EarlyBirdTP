@@ -1,46 +1,81 @@
+-- 최종 데이터베이스
+
 -- 자식 테이블 삭제
-drop table attendance;
-drop table todos;
-drop table user_coupons;
+DROP TABLE ATTENDANCE;
+DROP TABLE TODOS;
+DROP TABLE DIARY;
+DROP TABLE POINTS;
+DROP TABLE BIRDS;
+DROP TABLE COUPON_PURCHASES;
 
 -- 부모 테이블 삭제
-drop table users; 
-drop table coupons;
+DROP TABLE USERS;
+DROP TABLE COUPONS;
 
-create table users (
-    id            varchar2(64) primary key, -- 유저 아이디
-    username      varchar2(50) unique not null, -- 유저 닉네임
-    password      varchar2(100) not null, -- 유저 비밀번호 
-    point         number not null
+-- 1. USERS (회원 정보)
+CREATE TABLE USERS (
+    username VARCHAR2(50) PRIMARY KEY,
+    password VARCHAR2(100) NOT NULL,
+    nickname VARCHAR2(50) NOT NULL
 );
 
-create table attendance (
-    user_id     varchar2(64) references users(id), -- 출석한 유저 아이디
-    attend_date date -- 출석일자
+-- 2. ATTENDANCE (출석 기록)
+CREATE TABLE ATTENDANCE (
+    id VARCHAR2(100) PRIMARY KEY,
+    username VARCHAR2(50) NOT NULL,
+    attend_date DATE NOT NULL,
+    CONSTRAINT fk_att_user FOREIGN KEY (username) REFERENCES USERS(username)
 );
 
-alter table attendance add primary key(user_id, attend_date); 
-
-create table todos (
-    id         varchar2(64) primary key, -- 투두 아이디
-    user_id    varchar2(64) references users(id), -- 투두 리스트를 작성한 유저 아이디
-    todo_date  date, -- 작성된 일자
-    content    varchar2(200), -- 해야될 일
-    done       char(1) check (done in ('y', 'n')) -- 수행 여부 체크
+-- 3. TODOS (할 일)
+CREATE TABLE TODOS (
+    id VARCHAR2(100) PRIMARY KEY,
+    username VARCHAR2(50) NOT NULL,
+    todo_date TIMESTAMP NOT NULL,
+    title VARCHAR2(100) NOT NULL,
+    content CLOB,
+    done NUMBER(1) DEFAULT 0 CHECK (done IN (0, 1)),
+    CONSTRAINT fk_todo_user FOREIGN KEY (username) REFERENCES USERS(username)
 );
 
-create table coupons (
-    id          varchar2(64) primary key, -- 쿠폰 일련번호(아이디)
-    name        varchar2(100), -- 쿠폰 이름
-    description varchar2(200), -- 쿠폰 설명
-    cost        number -- 쿠폰 가격
+-- 4. DIARY (일기)
+CREATE TABLE DIARY (
+    id VARCHAR2(100) PRIMARY KEY,
+    username VARCHAR2(50) NOT NULL,
+    diary_date DATE NOT NULL,
+    title VARCHAR2(100),
+    content CLOB,
+    weather VARCHAR2(50),
+    CONSTRAINT fk_diary_user FOREIGN KEY (username) REFERENCES USERS(username)
 );
 
-create table user_coupons (
-    user_id     varchar2(64) references users(id), -- 쿠폰을 소지한 유저 아이디
-    coupon_id   varchar2(64) references coupons(id), -- 쿠폰 일련번호
-    acquired_at date -- 쿠폰 획득일자
+-- 5. POINTS (포인트 누적)
+CREATE TABLE POINTS (
+    username VARCHAR2(50) PRIMARY KEY,
+    total_point NUMBER DEFAULT 0,
+    CONSTRAINT fk_point_user FOREIGN KEY (username) REFERENCES USERS(username)
 );
 
-alter table user_coupons add primary key(user_id, coupon_id);
+-- 6. BIRDS (새 상태)
+CREATE TABLE BIRDS (
+    username VARCHAR2(50) PRIMARY KEY,
+    stage VARCHAR2(20), -- 예: "알", "병아리", "성조"
+    CONSTRAINT fk_bird_user FOREIGN KEY (username) REFERENCES USERS(username)
+);
 
+-- 7. COUPONS (쿠폰 목록)
+CREATE TABLE COUPONS (
+    id VARCHAR2(50) PRIMARY KEY,
+    name VARCHAR2(100) NOT NULL,
+    cost NUMBER NOT NULL
+);
+
+-- 8. COUPON_PURCHASES (사용자 쿠폰 보관함)
+CREATE TABLE COUPON_PURCHASES (
+    id VARCHAR2(100) PRIMARY KEY,
+    username VARCHAR2(50) NOT NULL,
+    coupon_id VARCHAR2(50) NOT NULL,
+    purchase_date DATE DEFAULT SYSDATE,
+    CONSTRAINT fk_cp_user FOREIGN KEY (username) REFERENCES USERS(username),
+    CONSTRAINT fk_cp_coupon FOREIGN KEY (coupon_id) REFERENCES COUPONS(id)
+);
