@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -32,23 +34,50 @@ public class FrameCouponStore extends JFrame {
 
     private void initializeUI() {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(0, 1, 10, 10));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // 세로 배치
 
         List<Coupon> coupons = couponController.getAvailableCoupons();
         for (Coupon coupon : coupons) {
-            JButton button = new JButton(coupon.getName() + " - " + coupon.getPrice() + "P");
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    handlePurchase(coupon);
+            JPanel rowPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+            JLabel imageLabel = new JLabel();
+            String resourcePath = null;
+
+            if (coupon.getName().equals("싸이버거")) {
+                resourcePath = "/img/siburger.png";
+            } else if (coupon.getName().equals("박카스")) {
+                resourcePath = "/img/baccas.png";
+            }
+
+            if (resourcePath != null) {
+                URL imageUrl = getClass().getResource(resourcePath);
+                if (imageUrl != null) {
+                    ImageIcon icon = new ImageIcon(imageUrl);
+                    Image img = icon.getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH);
+                    icon = new ImageIcon(img);
+
+                    imageLabel.setIcon(icon);
+                    imageLabel.setPreferredSize(new Dimension(80, 60)); // 크기 지정
+                } else {
+                    System.out.println("❌ 이미지 로딩 실패: " + resourcePath);
                 }
-            });
-            panel.add(button);
+            }
+
+            JButton button = new JButton(coupon.getName() + " - " + coupon.getPrice() + "P");
+            button.setBackground(Color.CYAN);
+            button.addActionListener(e -> handlePurchase(coupon));
+
+            // ✅ 이미지 + 버튼을 하나의 행 패널에 넣는다
+            rowPanel.add(imageLabel);
+            rowPanel.add(Box.createRigidArea(new Dimension(10, 0))); // 간격
+            rowPanel.add(button);
+
+            // ✅ 행 전체를 메인 패널에 넣는다
+            panel.add(rowPanel);
         }
 
         add(panel);
     }
-
     private void handlePurchase(Coupon coupon) {
         boolean success = couponController.purchase(username, coupon);
         if (success) {
