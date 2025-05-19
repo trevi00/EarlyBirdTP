@@ -48,7 +48,7 @@ import java.sql.Connection;
 public class EarlyBirdContext {
 
     public final AttendanceService attendanceService;
-    public final JdbcAttendanceStatsService attendanceStatsService;
+    public final AttendanceStatsService attendanceStatsService;
     public final PointManager pointManager;
     public final Bird bird;
     public final BirdService birdService;

@@ -1,14 +1,15 @@
 package attendance.ui;
 
 import attendance.service.AttendanceStatsService;
-import attendance.service.JdbcAttendanceStatsService;
 
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class FrameAttendanceStats extends JFrame {
 
@@ -42,11 +43,17 @@ public class FrameAttendanceStats extends JFrame {
 
         add(summaryPanel, BorderLayout.NORTH);
 
-        YearMonth yearMonth = YearMonth.now(); // 캘린더 패널 출력
-        JPanel calenderPanel = new CalendarPanel(yearMonth, new HashSet<LocalDate>(statsService.getMonthlyAttendance(username, yearMonth.toString())));
+        // ✅ 날짜 포맷을 "yyyy-MM" 형식으로 맞추어 전달
+        YearMonth yearMonth = YearMonth.now();
+        String formatted = yearMonth.format(DateTimeFormatter.ofPattern("yyyy-MM"));
 
-        add(calenderPanel, BorderLayout.NORTH);
-        
+        List<LocalDate> dateList = statsService.getMonthlyAttendance(username, formatted);
+        Set<LocalDate> attendanceSet = new HashSet<>(dateList);
+
+        // ✅ CalendarPanel에 출석 날짜 전달
+        CalendarPanel calendarPanel = new CalendarPanel(yearMonth, attendanceSet);
+        add(calendarPanel, BorderLayout.CENTER);
+
         // 닫기 버튼
         JButton closeButton = new JButton("닫기");
         closeButton.addActionListener(e -> dispose());
