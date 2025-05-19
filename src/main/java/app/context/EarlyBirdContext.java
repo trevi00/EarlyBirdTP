@@ -86,7 +86,7 @@ public class EarlyBirdContext {
 
         // 출석
         AttendanceRepository attendanceRepo = new JdbcAttendanceRepository(conn);
-        attendanceService = new DefaultAttendanceService(attendanceRepo, pointManager, pointService);
+        attendanceService = new DefaultAttendanceService(attendanceRepo, pointService);
 
         // 출석 통계
         attendanceStatsService = new JdbcAttendanceStatsService(conn);
