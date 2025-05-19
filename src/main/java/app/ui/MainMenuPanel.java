@@ -38,10 +38,10 @@ public class MainMenuPanel extends JPanel {
 
         add(makeSectionLabel("🔍 보기"));
 
-//        add(makeButton("✅ 출석기록 확인", () -> {
-//            context.getBirdMessageManager().say("🧭 출석 기록 화면으로 이동 중입니다...");
-//            context.showAttendanceStatsFrame();
-//        }));
+        add(makeButton("✅ 출석기록 확인", () -> {
+            context.getBirdMessageManager().say("🧭 출석기록 화면으로 이동 중입니다...");
+            context.showAttendanceStatsFrame();
+        }));
 
         add(makeButton("📋 할 일 보기", () -> {
             context.getBirdMessageManager().say("🧭 할 일 확인 화면으로 이동 중입니다...");
