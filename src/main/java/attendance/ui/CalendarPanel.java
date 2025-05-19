@@ -65,7 +65,7 @@ public class CalendarPanel extends JPanel {
 
     private ImageIcon loadCheckIcon() {
         try {
-            Image img = new ImageIcon(getClass().getResource("/images/check.png")).getImage();
+            Image img = new ImageIcon(getClass().getResource("/img/check.png")).getImage();
             Image scaled = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
             return new ImageIcon(scaled);
         } catch (Exception e) {
