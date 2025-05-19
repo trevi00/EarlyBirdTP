@@ -14,6 +14,8 @@ import java.awt.*;
  * [MainMenuPanel]
  * - 기능 버튼들을 그룹화하고, UI를 정돈하여 UX 향상
  */
+
+
 public class MainMenuPanel extends JPanel {
 
     private JLabel pointLabel;
@@ -75,11 +77,16 @@ public class MainMenuPanel extends JPanel {
         JButton btn = new JButton(text);
         btn.setAlignmentX(Component.CENTER_ALIGNMENT);
         btn.setMaximumSize(new Dimension(250, 40));
-        btn.setBackground(new Color(240, 248, 255));
+        btn.setOpaque(false);                // 배경 불투명 해제
+        btn.setContentAreaFilled(false);     // 내용 영역 채우기 해제
+        btn.setBorderPainted(true);         // 테두리 비활성화 (필요시)
         btn.setFocusPainted(false);
+        btn.setForeground(new Color(40, 40, 40)); // 글씨색(원하는 색상으로)
         btn.addActionListener(e -> action.run());
         return btn;
     }
+
+
 
     // 🔧 섹션 라벨 생성 유틸
     private JLabel makeSectionLabel(String title) {
@@ -89,4 +96,6 @@ public class MainMenuPanel extends JPanel {
         label.setBorder(BorderFactory.createEmptyBorder(15, 0, 10, 0));
         return label;
     }
+
+
 }
