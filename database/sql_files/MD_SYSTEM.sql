@@ -10,4 +10,3 @@ grant create session to earlybird; -- earlybird 사용자에게 로그인 권한
 grant create table, create view, create procedure, create sequence to earlybird; -- earlybird 사용자에게 테이블, 뷰, 프로시져, 시퀀스 생성 권한 부여. CRUD 권한도 함께 부여된다.
 
 alter user earlybird quota unlimited on users; -- earlybird 사용자는 user 테이블스페이스를 무제한으로 사용 가능.
-
