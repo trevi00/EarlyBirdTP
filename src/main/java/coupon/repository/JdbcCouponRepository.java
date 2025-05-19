@@ -3,6 +3,7 @@ package coupon.repository;
 import coupon.model.Coupon;
 import coupon.model.CouponPurchase;
 
+import javax.swing.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -68,7 +69,9 @@ public class JdbcCouponRepository implements CouponRepository {
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
             try (ResultSet rs = stmt.executeQuery()) {
+                int cnt = 0;
                 while (rs.next()) {
+                    ++cnt;
                     Coupon coupon = new Coupon(
                             rs.getString("ID"),
                             rs.getString("NAME"),
