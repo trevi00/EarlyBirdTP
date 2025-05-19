@@ -5,10 +5,6 @@ import todo.model.ToDo;
 import java.time.LocalDate;
 import java.util.List;
 
-/**
- * [ToDoService]
- * - 할 일 기능을 처리하는 서비스 인터페이스
- */
 public interface ToDoService {
 
     boolean add(ToDo todo);
@@ -19,5 +15,7 @@ public interface ToDoService {
 
     List<ToDo> findByUsername(String username);
 
-    void markAsDone(String username, LocalDate date);
+    void markAsDone(String id);  // ✅ ID 기반 완료 처리
+
+    ToDo findById(String id);    // ✅ 완료 처리용 조회
 }

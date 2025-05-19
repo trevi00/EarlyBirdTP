@@ -1,6 +1,5 @@
 package todo.service;
 
-import bird.point.PointManager; // ✅ 패키지 경로 확인
 import bird.point.PointService;
 import todo.model.ToDo;
 import todo.repository.ToDoRepository;
@@ -8,29 +7,19 @@ import todo.repository.ToDoRepository;
 import java.time.LocalDate;
 import java.util.List;
 
-/**
- * [DefaultToDoService]
- * - 할 일 관리 비즈니스 로직 처리
- */
 public class DefaultToDoService implements ToDoService {
 
     private final ToDoRepository repository;
-    private final PointManager pointManager;
-    private PointService pointService;
+    private final PointService pointService;
 
-    public DefaultToDoService(ToDoRepository repository, PointManager pointManager, PointService pointService) {
+    public DefaultToDoService(ToDoRepository repository, PointService pointService) {
         this.repository = repository;
-        this.pointManager = pointManager;
         this.pointService = pointService;
     }
 
     @Override
     public boolean add(ToDo todo) {
-        boolean result = repository.save(todo);
-        if (result) {
-            pointService.addPoint(todo.getUsername(), 5); // ✅ username 제거: bird.point.PointManager는 전역 포인트 누적 구조
-        }
-        return result;
+        return repository.save(todo);
     }
 
     @Override
@@ -49,7 +38,16 @@ public class DefaultToDoService implements ToDoService {
     }
 
     @Override
-    public void markAsDone(String username, LocalDate date) {
-        repository.markAsDone(username, date);
+    public void markAsDone(String id) {
+        ToDo todo = repository.findById(id);
+        if (todo != null && !todo.isDone()) {
+            repository.markAsDone(id);
+            pointService.addPoint(todo.getUsername(), 2);  // ✅ 할 일 1개 완료 시 2점 증가
+        }
+    }
+
+    @Override
+    public ToDo findById(String id) {
+        return repository.findById(id);
     }
 }
