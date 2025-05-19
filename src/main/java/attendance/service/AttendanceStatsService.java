@@ -23,4 +23,6 @@ public interface AttendanceStatsService {
      * 전체 출석 날짜 목록 (최신순)
      */
     List<LocalDate> getAllAttendanceDates(String username);
+
+    List<LocalDate> getMonthlyAttendance(String username, String yearMonth);
 }

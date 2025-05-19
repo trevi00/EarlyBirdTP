@@ -1,10 +1,13 @@
 package attendance.ui;
 
 import attendance.service.AttendanceStatsService;
+import attendance.service.JdbcAttendanceStatsService;
 
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.HashSet;
 import java.util.List;
 
 public class FrameAttendanceStats extends JFrame {
@@ -39,17 +42,11 @@ public class FrameAttendanceStats extends JFrame {
 
         add(summaryPanel, BorderLayout.NORTH);
 
-        // 출석 날짜 리스트
-//        JTextArea textArea = new JTextArea();
-//        textArea.setEditable(false);
-//        List<LocalDate> dates = statsService.getAllAttendanceDates(username);
-//        for (LocalDate date : dates) {
-//            textArea.append("- " + date.toString() + "\n");
-//        }
-//
-//        JScrollPane scrollPane = new JScrollPane(textArea);
-//        add(scrollPane, BorderLayout.CENTER);
+        YearMonth yearMonth = YearMonth.now(); // 캘린더 패널 출력
+        JPanel calenderPanel = new CalendarPanel(yearMonth, new HashSet<LocalDate>(statsService.getMonthlyAttendance(username, yearMonth.toString())));
 
+        add(calenderPanel, BorderLayout.NORTH);
+        
         // 닫기 버튼
         JButton closeButton = new JButton("닫기");
         closeButton.addActionListener(e -> dispose());

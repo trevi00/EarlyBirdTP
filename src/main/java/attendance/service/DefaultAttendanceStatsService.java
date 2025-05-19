@@ -27,4 +27,9 @@ public class DefaultAttendanceStatsService implements AttendanceStatsService {
     public List<LocalDate> getAllAttendanceDates(String username) {
         return repository.findAllAttendanceDates(username);
     }
+
+    @Override
+    public List<LocalDate> getMonthlyAttendance(String username, String yearMonth) {
+        return List.of();
+    }
 }
