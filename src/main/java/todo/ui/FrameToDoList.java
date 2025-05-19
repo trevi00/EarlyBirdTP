@@ -7,13 +7,10 @@ import todo.service.ToDoService;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-/**
- * [FrameToDoList]
- * - 사용자의 할 일 목록을 조회하고 완료 상태를 수정할 수 있는 화면
- */
 public class FrameToDoList extends JFrame {
 
     private final ToDoService toDoService;
@@ -21,6 +18,7 @@ public class FrameToDoList extends JFrame {
     private final BirdMessageManager messageManager;
     private final DefaultTableModel tableModel;
     private final JTable table;
+    private final Map<Integer, String> rowIdMap = new HashMap<>(); // rowIndex -> todoId
 
     public FrameToDoList(ToDoService toDoService, String username, BirdMessageManager messageManager) {
         this.toDoService = toDoService;
@@ -32,20 +30,17 @@ public class FrameToDoList extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        // ✅ 테이블 컬럼 설정
+        // ✅ 테이블 설정
         String[] columnNames = {"날짜", "제목", "내용", "완료 여부"};
         tableModel = new DefaultTableModel(columnNames, 0) {
-            // 체크박스 컬럼 (완료 여부)
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 3) return Boolean.class;
-                return String.class;
+                return (columnIndex == 3) ? Boolean.class : String.class;
             }
 
-            // 완료 여부만 수정 가능
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 3;
+                return column == 3; // 완료 여부만 수정 가능
             }
         };
 
@@ -53,7 +48,7 @@ public class FrameToDoList extends JFrame {
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
 
-        // ✅ 저장 버튼
+        // 저장 버튼
         JButton btnSave = new JButton("변경사항 저장");
         btnSave.addActionListener(e -> handleSave());
         add(btnSave, BorderLayout.SOUTH);
@@ -65,8 +60,11 @@ public class FrameToDoList extends JFrame {
 
     private void loadToDos() {
         List<ToDo> list = toDoService.findByUsername(username);
-        tableModel.setRowCount(0); // 초기화
+        tableModel.setRowCount(0);  // 초기화
+        rowIdMap.clear();
 
+
+        int row = 0;
         for (ToDo todo : list) {
             tableModel.addRow(new Object[]{
                     todo.getDate().toString(),
@@ -74,6 +72,7 @@ public class FrameToDoList extends JFrame {
                     todo.getContent(),
                     todo.isDone()
             });
+            rowIdMap.put(row++, todo.getId()); // row index → id 저장
         }
     }
 
@@ -82,17 +81,12 @@ public class FrameToDoList extends JFrame {
         int changedCount = 0;
 
         for (int i = 0; i < rowCount; i++) {
-            String dateStr = (String) tableModel.getValueAt(i, 0);
-            boolean doneChecked = (Boolean) tableModel.getValueAt(i, 3);
+            boolean checked = (Boolean) tableModel.getValueAt(i, 3);
+            String id = rowIdMap.get(i);
+            ToDo todo = toDoService.findById(id);
 
-            LocalDate date = LocalDate.parse(dateStr);
-            ToDo original = toDoService.findByUsername(username).stream()
-                    .filter(t -> t.getDate().equals(date))
-                    .findFirst()
-                    .orElse(null);
-
-            if (original != null && !original.isDone() && doneChecked) {
-                toDoService.markAsDone(username, date);
+            if (todo != null && !todo.isDone() && checked) {
+                toDoService.markAsDone(id);  // ✅ ID 기반 완료 처리 (포인트 2점 추가)
                 changedCount++;
             }
         }

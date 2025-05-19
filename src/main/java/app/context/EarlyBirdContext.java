@@ -108,7 +108,7 @@ public class EarlyBirdContext {
 
         // 할 일
         ToDoRepository toDoRepo = new JdbcToDoRepository(conn);
-        toDoService = new DefaultToDoService(toDoRepo, pointManager, pointService);
+        toDoService = new DefaultToDoService(toDoRepo, pointService);
 
         // 쿠폰
         CouponRepository couponRepo = new JdbcCouponRepository(conn);

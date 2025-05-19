@@ -7,10 +7,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * [JdbcToDoRepository]
- * - Oracle DB 기반 구현체
- */
 public class JdbcToDoRepository implements ToDoRepository {
 
     private final Connection conn;
@@ -51,11 +47,10 @@ public class JdbcToDoRepository implements ToDoRepository {
     }
 
     @Override
-    public void markAsDone(String username, LocalDate date) {
-        String sql = "UPDATE TODOS SET done = 1 WHERE username = ? AND todo_date = ?";
+    public void markAsDone(String id) {
+        String sql = "UPDATE TODOS SET done = 1 WHERE id = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, username);
-            pstmt.setDate(2, Date.valueOf(date));
+            pstmt.setString(1, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -107,5 +102,27 @@ public class JdbcToDoRepository implements ToDoRepository {
             e.printStackTrace();
         }
         return list;
+    }
+
+    @Override
+    public ToDo findById(String id) {
+        String sql = "SELECT * FROM TODOS WHERE id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return new ToDo(
+                        rs.getString("id"),
+                        rs.getString("username"),
+                        rs.getDate("todo_date").toLocalDate(),
+                        rs.getString("title"),
+                        rs.getString("content"),
+                        rs.getBoolean("done")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
