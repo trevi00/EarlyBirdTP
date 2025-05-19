@@ -36,7 +36,7 @@ public class FrameAttendanceStats extends JFrame {
         LocalDate lastDate = statsService.getLastAttendanceDate(username);
 
         JLabel totalLabel = new JLabel("총 출석일 수: " + totalDays);
-        JLabel lastLabel = new JLabel("마지막 출석일: " + (lastDate != null ? lastDate.toString() : "없음"));
+        JLabel lastLabel = new JLabel("마지막 출석일: " + (lastDate != null ? lastDate.format(DateTimeFormatter.ofPattern("MM월 dd일")) : "--월 --일"));
 
         summaryPanel.add(totalLabel);
         summaryPanel.add(lastLabel);
