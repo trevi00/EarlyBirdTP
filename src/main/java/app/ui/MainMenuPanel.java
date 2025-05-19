@@ -27,10 +27,6 @@ public class MainMenuPanel extends JPanel {
             context.getBirdMessageManager().say("🧭 출석 화면으로 이동 중입니다...");
             context.showAttendanceFrame();
         }));
-        add(makeButton("✅ 출석기록 확인", () -> {
-           context.getBirdMessageManager().say("🧭 출석 기록 화면으로 이동 중입니다...");
-           context.showAttendanceStatsFrame();
-        }));
 
         add(makeButton("🗂️ 할 일 관리", () -> {
             context.getBirdMessageManager().say("🧭 할 일 작성 화면으로 이동 중입니다...");
@@ -41,6 +37,12 @@ public class MainMenuPanel extends JPanel {
         add(Box.createVerticalStrut(15));  // 간격
 
         add(makeSectionLabel("🔍 보기"));
+
+//        add(makeButton("✅ 출석기록 확인", () -> {
+//            context.getBirdMessageManager().say("🧭 출석 기록 화면으로 이동 중입니다...");
+//            context.showAttendanceStatsFrame();
+//        }));
+
         add(makeButton("📋 할 일 보기", () -> {
             context.getBirdMessageManager().say("🧭 할 일 확인 화면으로 이동 중입니다...");
             new FrameToDoList(
