@@ -4,6 +4,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class JdbcAttendanceRepository implements AttendanceRepository {
 
@@ -20,7 +21,9 @@ public class JdbcAttendanceRepository implements AttendanceRepository {
             pstmt.setString(1, username);
             pstmt.setDate(2, Date.valueOf(date));
             ResultSet rs = pstmt.executeQuery();
-            return rs.next();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;  // ✅ count 값이 0보다 큰지 확인
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -29,10 +32,13 @@ public class JdbcAttendanceRepository implements AttendanceRepository {
 
     @Override
     public void save(String username, LocalDate date) {
-        String sql = "INSERT INTO ATTENDANCE (username, attend_date) VALUES (?, ?)";
+        String sql = "INSERT INTO ATTENDANCE (id, username, attend_date) VALUES (?, ?, ?)";
+
+        String id = UUID.randomUUID().toString(); // 또는 적절한 해시 기반 ID
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, username);
-            pstmt.setDate(2, Date.valueOf(date));
+            pstmt.setString(1, id);
+            pstmt.setString(2, username);
+            pstmt.setDate(3, Date.valueOf(date));
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

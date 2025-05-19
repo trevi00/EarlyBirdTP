@@ -48,15 +48,20 @@ public class AttendanceHandler {
         boolean success = attendanceService.checkAttendance(username, today);
 
         if (success) {
-            bird.addPoint(10);
+            int hour = java.time.LocalTime.now().getHour();
 
-            messageManager.say("출석 완료! 오늘도 멋져요 😊");
+            if (hour >= 4 && hour < 10) {
+                messageManager.say("🎉 출석 완료! 얼리버드인 당신이 대단해요!");
+            } else {
+                messageManager.say("출석 완료! 다음엔 더 일찍 만나요 ☀️");
+            }
+
             messageManager.speakRandom();
-
             return true;
         } else {
             JOptionPane.showMessageDialog(parentFrame, "이미 오늘 출석을 완료했습니다! 혹은 아쉽게도 출석 시간이 아니네요!");
             return false;
         }
     }
+
 }
