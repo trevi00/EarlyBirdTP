@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import static team_prototype.database.DatabaseConfig.*;
+import static config.DatabaseConfig.*;
 
 
 public class ConnectDB {

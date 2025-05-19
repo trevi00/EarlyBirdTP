@@ -50,14 +50,12 @@ public class JdbcUserRepository implements UserRepository {
 
     @Override
     public boolean existsByUsername(String username) {
-        String sql = "SELECT COUNT(*) FROM USERS WHERE username = ?";
+        String sql = "SELECT * FROM USERS WHERE username = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                return rs.getInt(1) > 0;
-            }
+            return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }
