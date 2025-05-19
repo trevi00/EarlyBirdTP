@@ -1,6 +1,7 @@
 package todo.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -28,7 +29,7 @@ public class ToDo {
 
     // 신규 등록용 생성자 (id 자동 생성)
     public ToDo(String username, LocalDate date, String title, String content, boolean done) {
-        this.id = generateId(username, date, title); // 내부 해시 기반 ID 생성
+        this.id = generateId(username, title); // 내부 해시 기반 ID 생성
         this.username = username;
         this.date = date;
         this.title = title;
@@ -36,8 +37,8 @@ public class ToDo {
         this.done = done;
     }
 
-    private String generateId(String username, LocalDate date, String title) {
-        return Integer.toHexString((username + "-" + date + "-" + title).hashCode());
+    private String generateId(String username, String title) {
+        return Integer.toHexString((username + "-" + LocalDateTime.now().toString() + "-" + title).hashCode());
     }
 
     // getter

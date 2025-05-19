@@ -40,15 +40,15 @@ public class FrameAttendanceStats extends JFrame {
         add(summaryPanel, BorderLayout.NORTH);
 
         // 출석 날짜 리스트
-        JTextArea textArea = new JTextArea();
-        textArea.setEditable(false);
-        List<LocalDate> dates = statsService.getAllAttendanceDates(username);
-        for (LocalDate date : dates) {
-            textArea.append("- " + date.toString() + "\n");
-        }
-
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        add(scrollPane, BorderLayout.CENTER);
+//        JTextArea textArea = new JTextArea();
+//        textArea.setEditable(false);
+//        List<LocalDate> dates = statsService.getAllAttendanceDates(username);
+//        for (LocalDate date : dates) {
+//            textArea.append("- " + date.toString() + "\n");
+//        }
+//
+//        JScrollPane scrollPane = new JScrollPane(textArea);
+//        add(scrollPane, BorderLayout.CENTER);
 
         // 닫기 버튼
         JButton closeButton = new JButton("닫기");

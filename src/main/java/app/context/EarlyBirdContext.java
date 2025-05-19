@@ -5,7 +5,9 @@ import app.ui.MessageBannerPanel;
 import attendance.repository.AttendanceRepository;
 import attendance.repository.JdbcAttendanceRepository;
 import attendance.service.AttendanceService;
+import attendance.service.AttendanceStatsService;
 import attendance.service.DefaultAttendanceService;
+import attendance.service.JdbcAttendanceStatsService;
 import bird.message.BirdMessageDisplayer;
 import bird.message.BirdMessageManager;
 import bird.message.BirdMessageProvider;
@@ -46,6 +48,7 @@ import java.sql.Connection;
 public class EarlyBirdContext {
 
     public final AttendanceService attendanceService;
+    public final JdbcAttendanceStatsService attendanceStatsService;
     public final PointManager pointManager;
     public final Bird bird;
     public final BirdService birdService;
@@ -84,6 +87,9 @@ public class EarlyBirdContext {
         // 출석
         AttendanceRepository attendanceRepo = new JdbcAttendanceRepository(conn);
         attendanceService = new DefaultAttendanceService(attendanceRepo, pointManager, pointService);
+
+        // 출석 통계
+        attendanceStatsService = new JdbcAttendanceStatsService(conn);
 
         // 새 + 메시지
         BirdRepository birdRepository = new JdbcBirdRepository(conn);
@@ -146,6 +152,13 @@ public class EarlyBirdContext {
                 birdMessageProvider,
                 birdMessageManager,
                 pointService
+        ).setVisible(true);
+    }
+
+    public void showAttendanceStatsFrame() {
+        new attendance.ui.FrameAttendanceStats(
+                attendanceStatsService,
+                currentUsername
         ).setVisible(true);
     }
 
