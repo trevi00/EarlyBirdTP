@@ -59,7 +59,7 @@ public class AttendanceHandler {
             messageManager.speakRandom();
             return true;
         } else {
-            JOptionPane.showMessageDialog(parentFrame, "이미 오늘 출석을 완료했습니다! 혹은 아쉽게도 출석 시간이 아니네요!");
+            JOptionPane.showMessageDialog(parentFrame, "이미 오늘 출석을 완료했습니다!");
             return false;
         }
     }

@@ -14,10 +14,18 @@ public class CalendarPanel extends JPanel {
 
     private final YearMonth yearMonth;
     private final Set<LocalDate> attendanceDays;
+    private ImageIcon checkIcon = null;
 
     public CalendarPanel(YearMonth yearMonth, Set<LocalDate> attendanceDays) {
         this.yearMonth = yearMonth;
         this.attendanceDays = attendanceDays;
+        try {
+            Image img = new ImageIcon(getClass().getResource("/img/check.png")).getImage();
+            Image scaled = img.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            checkIcon = new ImageIcon(scaled);
+        } catch (Exception e) {
+            System.err.println("❌ check.png 이미지 로드 실패: " + e.getMessage());
+        }
         setLayout(new GridLayout(0, 7)); // 7열 (일~토)
         drawCalendar();
     }
@@ -65,8 +73,7 @@ public class CalendarPanel extends JPanel {
 
             if (attended) {
                 // ✅ 출석일: 이미지 아이콘 표시
-                ImageIcon icon = loadCheckIcon();
-                label = new JLabel(icon);
+                label = new JLabel(checkIcon);
                 label.setToolTipText("출석!");
             } else {
                 // 일반 날짜 숫자
@@ -87,17 +94,6 @@ public class CalendarPanel extends JPanel {
             label.setHorizontalAlignment(SwingConstants.CENTER);
             label.setVerticalAlignment(SwingConstants.CENTER);
             add(label);
-        }
-    }
-
-    private ImageIcon loadCheckIcon() {
-        try {
-            Image img = new ImageIcon(getClass().getResource("/img/check.png")).getImage();
-            Image scaled = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-            return new ImageIcon(scaled);
-        } catch (Exception e) {
-            System.err.println("❌ check.png 이미지 로드 실패: " + e.getMessage());
-            return new ImageIcon(); // fallback
         }
     }
 }
