@@ -63,6 +63,7 @@ public class FrameToDoList extends JFrame {
         tableModel.setRowCount(0);  // 초기화
         rowIdMap.clear();
 
+
         int row = 0;
         for (ToDo todo : list) {
             tableModel.addRow(new Object[]{
