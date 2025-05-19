@@ -19,6 +19,7 @@ public class BannerDisplayer implements BirdMessageDisplayer {
 
     @Override
     public void speak(String message) {
-        JOptionPane.showMessageDialog(null, message, "🐤 새가 말해요!", JOptionPane.INFORMATION_MESSAGE);
+        JLabel centerMessage = new JLabel(message, SwingConstants.CENTER);  // 중앙 정렬
+        JOptionPane.showMessageDialog(null, centerMessage, "🐤 새가 말해요!", JOptionPane.PLAIN_MESSAGE);
     }
 }
