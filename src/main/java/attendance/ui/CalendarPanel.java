@@ -25,9 +25,18 @@ public class CalendarPanel extends JPanel {
     private void drawCalendar() {
         // 요일 헤더
         String[] weekDays = {"일", "월", "화", "수", "목", "금", "토"};
-        for (String day : weekDays) {
+        for (int i = 0; i < 7; ++i) {
+            String day = weekDays[i];
             JLabel lbl = new JLabel(day, SwingConstants.CENTER);
             lbl.setFont(lbl.getFont().deriveFont(Font.BOLD));
+            lbl.setOpaque(true);
+            if(i == 0) {
+                lbl.setForeground(Color.RED);
+                lbl.setBackground(Color.PINK);
+            } else if(i == 6) {
+                lbl.setForeground(Color.BLUE);
+                lbl.setBackground(Color.CYAN);
+            }
             add(lbl);
         }
 
@@ -36,7 +45,14 @@ public class CalendarPanel extends JPanel {
 
         // 빈 칸
         for (int i = 0; i < emptyStart; i++) {
-            add(new JLabel(""));
+            JLabel label = new JLabel("");
+            label.setOpaque(true);
+            add(label);
+            if(i == 0) {
+                label.setBackground(Color.PINK);
+            } else if(i == 6) {
+                label.setBackground(Color.CYAN);
+            }
         }
 
         int daysInMonth = yearMonth.lengthOfMonth();
@@ -51,10 +67,21 @@ public class CalendarPanel extends JPanel {
                 // ✅ 출석일: 이미지 아이콘 표시
                 ImageIcon icon = loadCheckIcon();
                 label = new JLabel(icon);
-                label.setToolTipText("출석함");
+                label.setToolTipText("출석!");
             } else {
                 // 일반 날짜 숫자
                 label = new JLabel(String.valueOf(day), SwingConstants.CENTER);
+            }
+
+            int currentDay = (7 + day - emptyStart) % 7;
+//            System.out.println(day + ", " + currentDay);
+            label.setOpaque(true);
+            if(currentDay == 0) {
+                label.setForeground(Color.RED);
+                label.setBackground(Color.PINK);
+            } else if(currentDay == 6) {
+                label.setForeground(Color.BLUE);
+                label.setBackground(Color.CYAN);
             }
 
             label.setHorizontalAlignment(SwingConstants.CENTER);
