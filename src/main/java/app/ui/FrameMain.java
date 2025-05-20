@@ -20,7 +20,7 @@ public class FrameMain extends JFrame {
 
         // === 배경 이미지 로드 ===
         try {
-            URL imgUrl = getClass().getResource("/earlybird3.png");
+            URL imgUrl = getClass().getResource("/earlybird8.png");
             System.out.println("이미지 경로: " + imgUrl);  // ← 디버깅용
 
             if (imgUrl == null) {
