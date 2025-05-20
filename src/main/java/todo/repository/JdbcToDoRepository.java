@@ -58,6 +58,17 @@ public class JdbcToDoRepository implements ToDoRepository {
     }
 
     @Override
+    public void markAsUndone(String id) {
+        String sql = "UPDATE TODOS SET done = 0 where id = ?";
+        try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            pstmt.executeUpdate();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public ToDo findByUsernameAndDate(String username, LocalDate date) {
         String sql = "SELECT * FROM TODOS WHERE username = ? AND todo_date = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {

@@ -51,15 +51,14 @@ public class AttendanceHandler {
             int hour = java.time.LocalTime.now().getHour();
 
             if (hour >= 4 && hour < 10) {
-                messageManager.say("🎉 출석 완료! 얼리버드인 당신이 대단해요!");
+                AttendanceHandlerDesign.showAttendanceMessage(parentFrame, 1);
             } else {
-                messageManager.say("출석 완료! 다음엔 더 일찍 만나요 ☀️");
+                AttendanceHandlerDesign.showAttendanceMessage(parentFrame, 2);
             }
 
-            messageManager.speakRandom();
             return true;
         } else {
-            JOptionPane.showMessageDialog(parentFrame, "이미 오늘 출석을 완료했습니다!");
+            AttendanceHandlerDesign.showAttendanceMessage(parentFrame, 3);
             return false;
         }
     }

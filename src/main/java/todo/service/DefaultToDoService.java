@@ -47,6 +47,15 @@ public class DefaultToDoService implements ToDoService {
     }
 
     @Override
+    public void markAsUndone(String id) {
+        ToDo todo = repository.findById(id);
+        if (todo != null && todo.isDone()) {
+            repository.markAsUndone(id);
+            pointService.addPoint(todo.getUsername(), -2);  // ✅ 달성하지 못한 것으로 처리하므로 2점 감소
+        }
+    }
+
+    @Override
     public ToDo findById(String id) {
         return repository.findById(id);
     }
