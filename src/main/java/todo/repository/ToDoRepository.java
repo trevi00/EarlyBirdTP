@@ -17,6 +17,8 @@ public interface ToDoRepository {
 
     void markAsDone(String id); // ✅ 개별 할 일 기준으로 변경
 
+    void markAsUndone(String id); // ✅ 개별 할 일 기준으로 변경
+
     ToDo findByUsernameAndDate(String username, LocalDate date);
 
     List<ToDo> findByUsername(String username);

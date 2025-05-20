@@ -10,7 +10,6 @@ import bird.service.BirdService;
 import bird.ui.FrameBird;
 
 import javax.swing.*;
-import java.awt.*;
 import java.time.LocalDate;
 
 /**
@@ -23,7 +22,7 @@ public class AttendanceHandler {
     private final Bird bird;
     private final BirdService birdService;
     private final BirdMessageProvider birdMessageProvider;
-    // private final FrameBird frameBird;
+    private final FrameBird frameBird;
     private final BirdMessageManager messageManager;
     private PointService pointService;
 
@@ -31,14 +30,14 @@ public class AttendanceHandler {
                              Bird bird,
                              BirdService birdService,
                              BirdMessageProvider birdMessageProvider,
-                             // FrameBird frameBird,
+                             FrameBird frameBird,
                              BirdMessageManager messageManager,
                              PointService pointService) {
         this.attendanceService = attendanceService;
         this.bird = bird;
         this.birdService = birdService;
         this.birdMessageProvider = birdMessageProvider;
-        // this.frameBird = frameBird;
+        this.frameBird = frameBird;
         this.messageManager = messageManager;
     }
 
@@ -52,15 +51,14 @@ public class AttendanceHandler {
             int hour = java.time.LocalTime.now().getHour();
 
             if (hour >= 4 && hour < 10) {
-                messageManager.say("🎉 출석 완료! 얼리버드인 당신이 대단해요!");
+                AttendanceHandlerDesign.showAttendanceMessage(parentFrame, 1);
             } else {
-                messageManager.say("출석 완료! 다음엔 더 일찍 만나요 ☀️");
+                AttendanceHandlerDesign.showAttendanceMessage(parentFrame, 2);
             }
 
-            messageManager.speakRandom();
             return true;
         } else {
-            JOptionPane.showMessageDialog(parentFrame, "이미 오늘 출석을 완료했습니다!", "출석 완료", JOptionPane.INFORMATION_MESSAGE);
+            AttendanceHandlerDesign.showAttendanceMessage(parentFrame, 3);
             return false;
         }
     }
