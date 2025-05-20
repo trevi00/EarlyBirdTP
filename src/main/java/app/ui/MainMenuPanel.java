@@ -16,6 +16,7 @@ import java.awt.*;
  */
 public class MainMenuPanel extends JPanel {
 
+
     private JLabel pointLabel;
 
     public MainMenuPanel(EarlyBirdContext context) {
@@ -23,12 +24,12 @@ public class MainMenuPanel extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 
         add(makeSectionLabel("기록하기"));
-        add(makeButton("출석하기", () -> {
+        add(makeButton("출석하기", "/출석하기.png", () -> {
             context.getBirdMessageManager().say("출석 화면으로 이동 중입니다...");
             context.showAttendanceFrame();
         }));
 
-        add(makeButton("ToDo 등록", () -> {
+        add(makeButton("ToDo 등록","/Todo등록.png", () -> {
             context.getBirdMessageManager().say("Todo 등록 화면으로 이동 중입니다...");
             new FrameToDo(context.getToDoService(), context.bird, context.getBirdMessageManager(),
                     context.birdService, context.pointService).setVisible(true);
@@ -38,12 +39,7 @@ public class MainMenuPanel extends JPanel {
 
         add(makeSectionLabel("보기"));
 
-        add(makeButton("출석기록 확인", () -> {
-            context.getBirdMessageManager().say("출석기록 화면으로 이동 중입니다...");
-            context.showAttendanceStatsFrame();
-        }));
-
-        add(makeButton("ToDo 리스트 확인", () -> {
+        add(makeButton("ToDo 리스트 확인","/할 일 보기.png", () -> {
             context.getBirdMessageManager().say("ToDo 리스트 목록 화면으로 이동 중입니다...");
             new FrameToDoList(
                     context.getToDoService(),
@@ -52,12 +48,12 @@ public class MainMenuPanel extends JPanel {
             ).setVisible(true);
         }));
 
-        add(makeButton("새 보기", () -> {
+        add(makeButton("새 보기","/새 보기.png", () -> {
             context.getBirdMessageManager().say("새 상태 화면으로 이동 중입니다...");
             new FrameBird(context.bird, context.birdService, context.getBirdMessageManager(), context.pointService).setVisible(true);
         }));
 
-        add(makeButton("쿠폰 보관함", () -> {
+        add(makeButton("쿠폰 보관함","/쿠폰 보관함.png", () -> {
             context.getBirdMessageManager().say("쿠폰 갤러리로 이동 중입니다...");
             new FrameCouponGallery(context.getCouponController(), context.getCurrentUsername()).setVisible(true);
         }));
@@ -65,7 +61,7 @@ public class MainMenuPanel extends JPanel {
         add(Box.createVerticalStrut(15));  // 간격
 
         add(makeSectionLabel("포인트"));
-        add(makeButton("포인트 상점", () -> {
+        add(makeButton("포인트 상점","/포인트 상점.png", () -> {
             context.getBirdMessageManager().say("포인트 상점으로 이동 중입니다...");
             new FrameCouponStore(context.getCouponController(), context.getCurrentUsername()).setVisible(true);
         }));
@@ -77,15 +73,33 @@ public class MainMenuPanel extends JPanel {
     }
 
     // 🔧 버튼 생성 유틸
-    private JButton makeButton(String text, Runnable action) {
-        JButton btn = new JButton(text);
+    // 🔧 버튼 생성 유틸 (이미지만 보이게)
+    private JButton makeButton(String tooltip, String imagePath, Runnable action) {
+        ImageIcon icon = null;
+        try {
+            icon = new ImageIcon(getClass().getResource(imagePath));
+            Image img = icon.getImage().getScaledInstance(150, 40, Image.SCALE_SMOOTH); // 원하는 크기로
+            icon = new ImageIcon(img);
+        } catch (Exception e) {
+            System.err.println("이미지 로드 실패: " + imagePath);
+        }
+
+        JButton btn = new JButton();
+        btn.setIcon(icon);
+        btn.setPreferredSize(new Dimension(300, 50)); // 버튼 크기 조정
+        btn.setMaximumSize(new Dimension(300, 48));
+        btn.setMinimumSize(new Dimension(300, 48));
         btn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btn.setMaximumSize(new Dimension(250, 40));
         btn.setBackground(new Color(240, 248, 255));
         btn.setFocusPainted(false);
+        btn.setBorderPainted(false); // 테두리 없애기(선택)
+        btn.setContentAreaFilled(false); // 배경 없애기(선택)
+        btn.setToolTipText(tooltip); // 툴팁으로 설명 제공
         btn.addActionListener(e -> action.run());
         return btn;
     }
+
+
 
     // 🔧 섹션 라벨 생성 유틸
     private JLabel makeSectionLabel(String title) {
