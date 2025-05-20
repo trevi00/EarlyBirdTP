@@ -83,8 +83,27 @@ public class FrameLogin extends JFrame {
 
         // ✅ 로그인 기능 (임시 메시지)
         loginBtn.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "로그인 시도!");
+            String username = idField.getText().trim();
+            String password = new String(pwField.getPassword());
+
+            if (username.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "아이디와 비밀번호를 입력해주세요.");
+                return;
+            }
+
+            boolean success = loginHandler.tryLogin(username, password);
+            if (success) {
+                JOptionPane.showMessageDialog(this, "로그인 성공!");
+                dispose(); // 로그인 창 닫기
+
+                // 메인 화면으로 이동
+                new app.ui.FrameMain(username); // 또는 new FrameMain(SessionManager.getCurrentUser()) 등
+            } else {
+                JOptionPane.showMessageDialog(this, "로그인 실패. 아이디 또는 비밀번호를 확인해주세요.");
+            }
         });
+
+
 
         // ✅ 회원가입 창 이동
         joinBtn.addActionListener(e -> {

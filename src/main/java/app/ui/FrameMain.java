@@ -11,7 +11,9 @@ import java.util.Enumeration;
  * [FrameMain]
  * - 로그인한 사용자의 username을 기반으로 시스템 초기화
  */
-public class FrameMain extends JFrame {
+public class
+
+FrameMain extends JFrame {
 
     private EarlyBirdContext context;
 
