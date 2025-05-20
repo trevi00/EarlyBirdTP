@@ -16,6 +16,7 @@ import java.awt.*;
  */
 public class MainMenuPanel extends JPanel {
 
+
     private JLabel pointLabel;
 
     public MainMenuPanel(EarlyBirdContext context) {
