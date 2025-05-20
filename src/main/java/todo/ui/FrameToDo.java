@@ -2,9 +2,6 @@ package todo.ui;
 
 import bird.message.BirdMessageManager;
 import bird.model.Bird;
-import bird.point.PointService;
-import bird.service.BirdService;
-import bird.ui.FrameBird;
 import todo.model.ToDo;
 import todo.service.ToDoService;
 
