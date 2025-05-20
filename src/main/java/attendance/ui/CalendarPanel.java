@@ -21,7 +21,7 @@ public class CalendarPanel extends JPanel {
         this.attendanceDays = attendanceDays;
         try {
             Image img = new ImageIcon(getClass().getResource("/img/check.png")).getImage();
-            Image scaled = img.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            Image scaled = img.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
             checkIcon = new ImageIcon(scaled);
         } catch (Exception e) {
             System.err.println("❌ check.png 이미지 로드 실패: " + e.getMessage());
@@ -54,12 +54,13 @@ public class CalendarPanel extends JPanel {
         // 빈 칸
         for (int i = 0; i < emptyStart; i++) {
             JLabel label = new JLabel("");
-            label.setOpaque(true);
             add(label);
             if(i == 0) {
                 label.setBackground(Color.PINK);
+                label.setOpaque(true);
             } else if(i == 6) {
                 label.setBackground(Color.CYAN);
+                label.setOpaque(true);
             }
         }
 
@@ -82,13 +83,14 @@ public class CalendarPanel extends JPanel {
 
             int currentDay = (7 + day - emptyStart) % 7;
 //            System.out.println(day + ", " + currentDay);
-            label.setOpaque(true);
             if(currentDay == 0) {
                 label.setForeground(Color.RED);
                 label.setBackground(Color.PINK);
+                label.setOpaque(true);
             } else if(currentDay == 6) {
                 label.setForeground(Color.BLUE);
                 label.setBackground(Color.CYAN);
+                label.setOpaque(true);
             }
 
             label.setHorizontalAlignment(SwingConstants.CENTER);
