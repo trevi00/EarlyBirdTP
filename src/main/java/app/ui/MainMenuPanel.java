@@ -1,7 +1,6 @@
 package app.ui;
 
 import app.context.EarlyBirdContext;
-import attendance.ui.FrameAttendance;
 import attendance.ui.FrameAttendanceStats;
 import bird.ui.FrameBird;
 import coupon.ui.FrameCouponGallery;
@@ -33,8 +32,7 @@ public class MainMenuPanel extends JPanel {
 
         add(makeButton("ToDo 등록","/Todo등록.png", () -> {
             context.getBirdMessageManager().say("Todo 등록 화면으로 이동 중입니다...");
-            new FrameToDo(context.getToDoService(), context.bird, context.getBirdMessageManager(),
-                    context.birdService, context.pointService).setVisible(true);
+            new FrameToDo(context.getToDoService(), context.bird, context.getBirdMessageManager()).setVisible(true);
         }));
 
         add(Box.createVerticalStrut(15));  // 간격

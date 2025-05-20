@@ -56,15 +56,15 @@ public class FrameBird extends JFrame {
 
         // 하단 버튼
         JPanel buttonPanel = new JPanel();
-        JButton btnEvolve = new JButton("🌱 진화하기");
+        JButton btnEvolve = new JButton("진화하기");
 
         btnEvolve.addActionListener(e -> {
             if (birdService.canEvolve(bird)) {
                 birdService.evolve(bird); // 내부에서 포인트 소모 + 단계 변경
-                messageManager.say("🎉 진화 성공! 현재 단계: " + bird.getStage().getName());
+                messageManager.say("진화 성공! 현재 단계: " + bird.getStage().getName());
                 refresh();
             } else {
-                messageManager.say("⚠ 진화할 수 없습니다. 포인트가 부족하거나 최종 단계입니다.");
+                messageManager.say("진화할 수 없습니다. 포인트가 부족하거나 최종 단계입니다.");
             }
         });
 
@@ -80,9 +80,9 @@ public class FrameBird extends JFrame {
      */
     public void refresh() {
         String info = "<html>" +
-                "🐤 현재 단계: " + bird.getStage().getName() + "<br>" +
+                "현재 단계: " + bird.getStage().getName() + "<br>" +
                 "설명: " + bird.getStage().getDescription() + "<br>" +
-                "🌟 포인트: " + pointService.getCurrentPoint(bird.getUsername()) + "점" +
+                "포인트: " + pointService.getCurrentPoint(bird.getUsername()) + "점" +
                 "</html>";
         lblBirdInfo.setText(info);
         birdRenderer.repaint();
