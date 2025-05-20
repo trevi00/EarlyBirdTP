@@ -72,12 +72,12 @@ public class FrameBird extends JFrame {
         lblBirdInfo = new JLabel("", SwingConstants.CENTER);
         lblBirdInfo.setOpaque(false); // 투명하게
         lblBirdInfo.setFont(new Font("맑은 고딕", Font.BOLD, 16));
-        lblBirdInfo.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        lblBirdInfo.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
         add(lblBirdInfo, BorderLayout.NORTH);
         
         // 하단 버튼
         JPanel buttonPanel = new JPanel();
-        JButton btnEvolve = new JButton("🌱 진화하기");
+        JButton btnEvolve = new JButton("진화하기");
         
         btnEvolve.addActionListener(e -> {
             if (birdService.canEvolve(bird)) {
@@ -89,6 +89,7 @@ public class FrameBird extends JFrame {
             }
         });
         
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
         buttonPanel.setOpaque(false);
         buttonPanel.add(btnEvolve);
         add(buttonPanel, BorderLayout.SOUTH);
@@ -101,11 +102,11 @@ public class FrameBird extends JFrame {
      * 새 상태를 새로 고친다 (진화 후 또는 초기 표시)
      */
     public void refresh() {
-        String info = "<html>" +
+        String info = "<html><div style='text-align:center; width:220px;'>" +
                 "🐤 현재 단계: " + bird.getStage().getName() + "<br>" +
-                "설명: " + bird.getStage().getDescription() + "<br>" +
+                bird.getStage().getDescription() + "</span><br><br>" +
                 "🌟 포인트: " + pointService.getCurrentPoint(bird.getUsername()) + "점" +
-                "</html>";
+                "</div></html>";
         lblBirdInfo.setText(info);
         birdRenderer.repaint();
     }
