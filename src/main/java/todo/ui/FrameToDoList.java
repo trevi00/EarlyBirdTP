@@ -83,6 +83,7 @@ public class FrameToDoList extends JFrame {
 
     private void loadToDos() {
         List<ToDo> list = toDoService.findByUsername(username);
+        list.sort((a, b) -> a.getId().compareTo(b.getId()));
         tableModel.setRowCount(0);  // 초기화
         rowIdMap.clear();
 
@@ -117,9 +118,9 @@ public class FrameToDoList extends JFrame {
         }
 
         if (changedCount > 0) {
-            messageManager.say("✅ " + changedCount + "개의 할 일을 완료 처리했어요!");
+            messageManager.say(changedCount + "개의 할 일을 완료 처리했어요!");
         } else {
-            messageManager.say("📝 변경된 할 일이 없습니다.");
+            messageManager.say("변경된 할 일이 없습니다.");
         }
 
         loadToDos(); // 새로고침

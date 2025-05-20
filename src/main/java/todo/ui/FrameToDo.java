@@ -2,9 +2,6 @@ package todo.ui;
 
 import bird.message.BirdMessageManager;
 import bird.model.Bird;
-import bird.point.PointService;
-import bird.service.BirdService;
-import bird.ui.FrameBird;
 import todo.model.ToDo;
 import todo.service.ToDoService;
 
@@ -21,8 +18,7 @@ public class FrameToDo extends JFrame {
     private final List<ToDoInputPanel> inputPanels = new ArrayList<>();
     private static final int MAX_TODO = 10;
 
-    public FrameToDo(ToDoService toDoService, Bird bird, BirdMessageManager messageManager,
-                     BirdService birdService, PointService pointService) {
+    public FrameToDo(ToDoService toDoService, Bird bird, BirdMessageManager messageManager) {
 
         setTitle("오늘의 할 일 작성");
         setSize(768, 768);
@@ -109,7 +105,6 @@ public class FrameToDo extends JFrame {
             if (savedCount > 0) {
                 JOptionPane.showMessageDialog(this, savedCount + "개의 할 일이 등록되었습니다.", "등록 성공", JOptionPane.INFORMATION_MESSAGE);
                 messageManager.displayRandomMessage();
-                new FrameBird(bird, birdService, messageManager, pointService).setVisible(true);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "입력된 할 일이 없습니다.", "등록 실패", JOptionPane.ERROR_MESSAGE);

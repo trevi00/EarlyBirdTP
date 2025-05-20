@@ -1,7 +1,6 @@
 package app.ui;
 
 import app.context.EarlyBirdContext;
-import attendance.ui.FrameAttendance;
 import attendance.ui.FrameAttendanceStats;
 import bird.ui.FrameBird;
 import coupon.ui.FrameCouponGallery;
@@ -18,9 +17,6 @@ import java.awt.*;
  */
 public class MainMenuPanel extends JPanel {
 
-
-    private JLabel pointLabel;
-
     public MainMenuPanel(EarlyBirdContext context) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
@@ -33,8 +29,7 @@ public class MainMenuPanel extends JPanel {
 
         add(makeButton("ToDo 등록","/Todo등록.png", () -> {
             context.getBirdMessageManager().say("Todo 등록 화면으로 이동 중입니다...");
-            new FrameToDo(context.getToDoService(), context.bird, context.getBirdMessageManager(),
-                    context.birdService, context.pointService).setVisible(true);
+            new FrameToDo(context.getToDoService(), context.bird, context.getBirdMessageManager()).setVisible(true);
         }));
 
         add(Box.createVerticalStrut(15));  // 간격
@@ -72,11 +67,6 @@ public class MainMenuPanel extends JPanel {
             context.getBirdMessageManager().say("포인트 상점으로 이동 중입니다...");
             new FrameCouponStore(context.getCouponController(), context.getCurrentUsername()).setVisible(true);
         }));
-    }
-
-    private void refreshPoint(EarlyBirdContext context) {
-        int point = context.pointService.getCurrentPoint(context.getCurrentUsername());
-        pointLabel.setText("현재 포인트: " + point + "점");
     }
 
     // 🔧 버튼 생성 유틸
