@@ -85,7 +85,7 @@ public class FrameAttendance extends JFrame {
         setResizable(false);
 
         // ✅ 인자 개수 맞춤
-        FrameBird frameBird = new FrameBird(bird, birdService, messageManager, pointService);
+        // FrameBird frameBird = new FrameBird(bird, birdService, messageManager, pointService);
 
         btnCheck.addActionListener(e -> {
             AttendanceHandler handler = new AttendanceHandler(
@@ -93,7 +93,7 @@ public class FrameAttendance extends JFrame {
                     bird,
                     birdService,
                     birdMessageProvider,
-                    frameBird,
+                    // frameBird,
                     messageManager,
                     pointService
             );

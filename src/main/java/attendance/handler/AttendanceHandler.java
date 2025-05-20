@@ -22,7 +22,7 @@ public class AttendanceHandler {
     private final Bird bird;
     private final BirdService birdService;
     private final BirdMessageProvider birdMessageProvider;
-    private final FrameBird frameBird;
+    // private final FrameBird frameBird;
     private final BirdMessageManager messageManager;
     private PointService pointService;
 
@@ -30,14 +30,14 @@ public class AttendanceHandler {
                              Bird bird,
                              BirdService birdService,
                              BirdMessageProvider birdMessageProvider,
-                             FrameBird frameBird,
+                             // FrameBird frameBird,
                              BirdMessageManager messageManager,
                              PointService pointService) {
         this.attendanceService = attendanceService;
         this.bird = bird;
         this.birdService = birdService;
         this.birdMessageProvider = birdMessageProvider;
-        this.frameBird = frameBird;
+        // this.frameBird = frameBird;
         this.messageManager = messageManager;
     }
 
