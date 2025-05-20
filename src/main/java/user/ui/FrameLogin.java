@@ -87,19 +87,19 @@ public class FrameLogin extends JFrame {
             String password = new String(pwField.getPassword());
 
             if (username.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "아이디와 비밀번호를 입력해주세요.");
+                JOptionPane.showMessageDialog(this, "아이디와 비밀번호를 입력해주세요.", "로그인 실패", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             boolean success = loginHandler.tryLogin(username, password);
             if (success) {
-                JOptionPane.showMessageDialog(this, "로그인 성공!");
+                JOptionPane.showMessageDialog(this, "로그인 성공!", "로그인 성공", JOptionPane.INFORMATION_MESSAGE);
                 dispose(); // 로그인 창 닫기
 
                 // 메인 화면으로 이동
                 new app.ui.FrameMain(username); // 또는 new FrameMain(SessionManager.getCurrentUser()) 등
             } else {
-                JOptionPane.showMessageDialog(this, "로그인 실패. 아이디 또는 비밀번호를 확인해주세요.");
+                JOptionPane.showMessageDialog(this, "로그인 실패. 아이디 또는 비밀번호를 확인해주세요.", "로그인 실패", JOptionPane.ERROR_MESSAGE);
             }
         });
 

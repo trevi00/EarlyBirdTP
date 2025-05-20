@@ -38,7 +38,7 @@ public class ToDo {
     }
 
     private String generateId(String username, String title) {
-        return Integer.toHexString((username + "-" + LocalDateTime.now().toString() + "-" + title).hashCode());
+        return username + "-" + LocalDateTime.now().toString();
     }
 
     // getter
