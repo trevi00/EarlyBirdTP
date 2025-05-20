@@ -6,6 +6,7 @@ import todo.service.ToDoService;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +31,8 @@ public class FrameToDoList extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
+        getContentPane().setBackground(new Color(0xFFF6D2)); // 여백 포함 전체 배경 색
+
         // ✅ 테이블 설정
         String[] columnNames = {"날짜", "제목", "내용", "완료 여부"};
         tableModel = new DefaultTableModel(columnNames, 0) {
@@ -45,11 +48,30 @@ public class FrameToDoList extends JFrame {
         };
 
         table = new JTable(tableModel);
+        table.setBackground(new Color(0xFFF6D2)); // 테이블 배경색
+        table.setGridColor(new Color(237, 141, 141)); // 그리드 선 색
+        table.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+
+        JTableHeader header = table.getTableHeader(); // 헤더 배경색
+        header.setBackground(new Color(0xBEE3F8));
+        header.setFont(new Font("맑은 고딕", Font.BOLD, 13)); // 헤더 Bold 폰트
+        header.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(237, 141, 141)));
+
         JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.getViewport().setBackground(new Color(0xFFF6D2)); // 스크롤 영역 색
         add(scrollPane, BorderLayout.CENTER);
+
+        header.setFont(header.getFont().deriveFont(Font.BOLD)); // 헤더 폰트
+        header.setForeground(Color.BLACK);
 
         // 저장 버튼
         JButton btnSave = new JButton("변경사항 저장");
+
+        btnSave.setBackground(new Color(116, 204, 116)); // 버튼 색
+        btnSave.setForeground(Color.WHITE);
+        btnSave.setOpaque(true);
+        btnSave.setBorderPainted(false);
+
         btnSave.addActionListener(e -> handleSave());
         add(btnSave, BorderLayout.SOUTH);
 
