@@ -24,20 +24,12 @@ public class MainMenuPanel extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 
         add(makeSectionLabel("기록하기"));
-<<<<<<< HEAD
-        add(makeButton("출석하기", () -> {
-=======
         add(makeButton("출석하기", "/출석하기.png", () -> {
->>>>>>> origin/gyu
             context.getBirdMessageManager().say("출석 화면으로 이동 중입니다...");
             context.showAttendanceFrame();
         }));
 
-<<<<<<< HEAD
-        add(makeButton("ToDo 등록", () -> {
-=======
         add(makeButton("ToDo 등록","/Todo등록.png", () -> {
->>>>>>> origin/gyu
             context.getBirdMessageManager().say("Todo 등록 화면으로 이동 중입니다...");
             new FrameToDo(context.getToDoService(), context.bird, context.getBirdMessageManager(),
                     context.birdService, context.pointService).setVisible(true);
@@ -47,16 +39,7 @@ public class MainMenuPanel extends JPanel {
 
         add(makeSectionLabel("보기"));
 
-<<<<<<< HEAD
-        add(makeButton("출석기록 확인", () -> {
-            context.getBirdMessageManager().say("출석기록 화면으로 이동 중입니다...");
-            context.showAttendanceStatsFrame();
-        }));
-
-        add(makeButton("ToDo 리스트 확인", () -> {
-=======
         add(makeButton("ToDo 리스트 확인","/할 일 보기.png", () -> {
->>>>>>> origin/gyu
             context.getBirdMessageManager().say("ToDo 리스트 목록 화면으로 이동 중입니다...");
             new FrameToDoList(
                     context.getToDoService(),
@@ -65,20 +48,12 @@ public class MainMenuPanel extends JPanel {
             ).setVisible(true);
         }));
 
-<<<<<<< HEAD
-        add(makeButton("새 보기", () -> {
-=======
         add(makeButton("새 보기","/새 보기.png", () -> {
->>>>>>> origin/gyu
             context.getBirdMessageManager().say("새 상태 화면으로 이동 중입니다...");
             new FrameBird(context.bird, context.birdService, context.getBirdMessageManager(), context.pointService).setVisible(true);
         }));
 
-<<<<<<< HEAD
-        add(makeButton("쿠폰 보관함", () -> {
-=======
         add(makeButton("쿠폰 보관함","/쿠폰 보관함.png", () -> {
->>>>>>> origin/gyu
             context.getBirdMessageManager().say("쿠폰 갤러리로 이동 중입니다...");
             new FrameCouponGallery(context.getCouponController(), context.getCurrentUsername()).setVisible(true);
         }));
@@ -86,11 +61,7 @@ public class MainMenuPanel extends JPanel {
         add(Box.createVerticalStrut(15));  // 간격
 
         add(makeSectionLabel("포인트"));
-<<<<<<< HEAD
-        add(makeButton("포인트 상점", () -> {
-=======
         add(makeButton("포인트 상점","/포인트 상점.png", () -> {
->>>>>>> origin/gyu
             context.getBirdMessageManager().say("포인트 상점으로 이동 중입니다...");
             new FrameCouponStore(context.getCouponController(), context.getCurrentUsername()).setVisible(true);
         }));
