@@ -38,10 +38,6 @@ public class MainMenuPanel extends JPanel {
 
         add(makeSectionLabel("보기"));
 
-        add(makeButton("출석기록 확인","/출석기록확인.png", () -> {
-            context.getBirdMessageManager().say("출석기록 화면으로 이동 중입니다...");
-        }));
-
         add(makeButton("ToDo 리스트 확인","/할 일 보기.png", () -> {
             context.getBirdMessageManager().say("ToDo 리스트 목록 화면으로 이동 중입니다...");
             new FrameToDoList(
