@@ -41,7 +41,7 @@ public class MainMenuPanel extends JPanel {
 
         add(makeSectionLabel("보기"));
 
-        add(makeButton("출석기록 확인", null, () -> {
+        add(makeButton("출석기록 확인", "/출석기록보기.png", () -> {
             context.getBirdMessageManager().say("출석기록 화면으로 이동 중입니다...");
             new FrameAttendanceStats(context.attendanceStatsService, context.getCurrentUsername()).setVisible(true);
         }));
