@@ -21,7 +21,7 @@ public class CalendarPanel extends JPanel {
         this.attendanceDays = attendanceDays;
         try {
             Image img = new ImageIcon(getClass().getResource("/img/check.png")).getImage();
-            Image scaled = img.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            Image scaled = img.getScaledInstance(35, 35, Image.SCALE_SMOOTH);
             checkIcon = new ImageIcon(scaled);
         } catch (Exception e) {
             System.err.println("❌ check.png 이미지 로드 실패: " + e.getMessage());
