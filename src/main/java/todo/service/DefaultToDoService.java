@@ -28,7 +28,7 @@ public class DefaultToDoService implements ToDoService {
     }
 
     @Override
-    public ToDo findTodayToDo(String username) {
+    public List<ToDo> findTodayToDo(String username) {
         return repository.findByUsernameAndDate(username, LocalDate.now());
     }
 

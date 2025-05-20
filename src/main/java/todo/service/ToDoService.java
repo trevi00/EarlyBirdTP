@@ -2,7 +2,6 @@ package todo.service;
 
 import todo.model.ToDo;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface ToDoService {
@@ -11,7 +10,7 @@ public interface ToDoService {
 
     boolean hasToDoToday(String username);
 
-    ToDo findTodayToDo(String username);
+    List<ToDo> findTodayToDo(String username);
 
     List<ToDo> findByUsername(String username);
 
