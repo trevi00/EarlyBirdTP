@@ -10,6 +10,7 @@ import bird.service.BirdService;
 import bird.ui.FrameBird;
 
 import javax.swing.*;
+import java.awt.*;
 import java.time.LocalDate;
 
 /**
@@ -59,7 +60,7 @@ public class AttendanceHandler {
             messageManager.speakRandom();
             return true;
         } else {
-            JOptionPane.showMessageDialog(parentFrame, "이미 오늘 출석을 완료했습니다!");
+            JOptionPane.showMessageDialog(parentFrame, "이미 오늘 출석을 완료했습니다!", "출석 완료", JOptionPane.INFORMATION_MESSAGE);
             return false;
         }
     }

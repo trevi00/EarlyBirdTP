@@ -107,12 +107,12 @@ public class FrameToDo extends JFrame {
             }
 
             if (savedCount > 0) {
-                JOptionPane.showMessageDialog(this, savedCount + "개의 할 일이 등록되었습니다.");
+                JOptionPane.showMessageDialog(this, savedCount + "개의 할 일이 등록되었습니다.", "등록 성공", JOptionPane.INFORMATION_MESSAGE);
                 messageManager.displayRandomMessage();
                 new FrameBird(bird, birdService, messageManager, pointService).setVisible(true);
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "입력된 할 일이 없습니다.");
+                JOptionPane.showMessageDialog(this, "입력된 할 일이 없습니다.", "등록 실패", JOptionPane.ERROR_MESSAGE);
             }
         });
 
