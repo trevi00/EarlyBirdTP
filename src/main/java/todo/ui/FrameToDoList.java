@@ -9,6 +9,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,12 +121,14 @@ public class FrameToDoList extends JFrame {
 
     private void loadToDos() {
         List<ToDo> list = toDoService.findByUsername(username);
+        list.sort(Comparator.comparing(ToDo::getId));
         tableModel.setRowCount(0);  // 초기화
         rowIdMap.clear();
 
-
+        LocalDate today = LocalDate.now();
         int row = 0;
         for (ToDo todo : list) {
+            if(!todo.getDate().equals(today)) continue;
             tableModel.addRow(new Object[]{
                     todo.getDate().toString(),
                     todo.getTitle(),
