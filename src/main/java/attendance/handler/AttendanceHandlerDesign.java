@@ -26,8 +26,8 @@ public class AttendanceHandlerDesign {
         ));
         Image bgImage = bgIcon.getImage();
 
-        int width = bgIcon.getIconWidth();
-        int height = bgIcon.getIconHeight();
+        int width = parent.getWidth();
+        int height = parent.getHeight();
 
         // 2. 메시지/색상
         String message;
@@ -45,7 +45,7 @@ public class AttendanceHandlerDesign {
 
         // 3. 커스텀 다이얼로그 생성
         JDialog dialog = new JDialog(parent, "출석 안내", true);
-        dialog.setUndecorated(true); // 테두리 없음
+        dialog.setUndecorated(false); // 테두리
 
         // 4. 배경 패널
         JPanel panel = new JPanel() {
