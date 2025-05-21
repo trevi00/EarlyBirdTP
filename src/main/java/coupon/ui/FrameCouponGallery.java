@@ -50,9 +50,9 @@ public class FrameCouponGallery extends JFrame {
             String couponName = purchase.getCoupon().getName();
 
             if (couponName.equals("싸이버거")) {
-                imagePath = "/img/siburger.png";
+                imagePath = "/img/thighburger.jpg";
             } else if (couponName.equals("박카스")) {
-                imagePath = "/img/baccas.png";
+                imagePath = "/img/baccas.jpg";
             }
 
             ImageIcon icon = null;
