@@ -16,6 +16,7 @@ public class BirdRenderer extends JPanel {
 
     public BirdRenderer(Bird bird) {
         this.bird = bird;
+        setOpaque(false);
         setPreferredSize(new Dimension(200, 200));
     }
 
