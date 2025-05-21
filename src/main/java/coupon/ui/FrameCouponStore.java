@@ -44,9 +44,9 @@ public class FrameCouponStore extends JFrame {
             String resourcePath = null;
 
             if (coupon.getName().equals("싸이버거")) {
-                resourcePath = "/img/siburger.png";
+                resourcePath = "/img/thighburger.jpg";
             } else if (coupon.getName().equals("박카스")) {
-                resourcePath = "/img/baccas.png";
+                resourcePath = "/img/baccas.jpg";
             }
 
             if (resourcePath != null) {
@@ -64,7 +64,7 @@ public class FrameCouponStore extends JFrame {
             }
 
             JButton button = new JButton(coupon.getName() + " - " + coupon.getPrice() + "P");
-            button.setBackground(Color.CYAN);
+            button.setBackground(Color.WHITE);
             button.addActionListener(e -> handlePurchase(coupon));
 
             // ✅ 이미지 + 버튼을 하나의 행 패널에 넣는다
