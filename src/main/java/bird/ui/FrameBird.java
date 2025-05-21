@@ -37,7 +37,25 @@ public class FrameBird extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
+        // 배경 패널
+        JPanel backgroundPanel = new JPanel() {
+            Image bgImage = new ImageIcon(getClass().getResource("/img/Earlybird_Bird_DEM.png")).getImage();
+
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this); // 전체 배경
+            }
+        };
+        backgroundPanel.setLayout(new BorderLayout());
+        setContentPane(backgroundPanel); // 배경 패널을 프레임 contentPane으로 설정
+
         // 새 그림 그리는 패널
+        JPanel imagePanel = new JPanel();
+        imagePanel.setOpaque(false); // 배경 투명
+        imagePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0)); // 수평 중앙 정렬
+        imagePanel.setBorder(BorderFactory.createEmptyBorder(0,13,0,0));
+
         birdRenderer = new BirdRenderer(bird);
         birdRenderer.setCursor(new Cursor(Cursor.HAND_CURSOR));
         birdRenderer.addMouseListener(new MouseAdapter() {
@@ -46,12 +64,15 @@ public class FrameBird extends JFrame {
                 messageManager.speakRandom();
             }
         });
-        add(birdRenderer, BorderLayout.CENTER);
+
+        imagePanel.add(birdRenderer); // 이미지 가운데 배치
+        add(imagePanel, BorderLayout.CENTER);
 
         // 새 상태 텍스트
         lblBirdInfo = new JLabel("", SwingConstants.CENTER);
+        lblBirdInfo.setOpaque(false);
         lblBirdInfo.setFont(new Font("맑은 고딕", Font.BOLD, 16));
-        lblBirdInfo.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        lblBirdInfo.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
         add(lblBirdInfo, BorderLayout.NORTH);
 
         // 하단 버튼
@@ -68,6 +89,8 @@ public class FrameBird extends JFrame {
             }
         });
 
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
+        buttonPanel.setOpaque(false);
         buttonPanel.add(btnEvolve);
         add(buttonPanel, BorderLayout.SOUTH);
 
@@ -79,11 +102,11 @@ public class FrameBird extends JFrame {
      * 새 상태를 새로 고친다 (진화 후 또는 초기 표시)
      */
     public void refresh() {
-        String info = "<html>" +
-                "현재 단계: " + bird.getStage().getName() + "<br>" +
-                "설명: " + bird.getStage().getDescription() + "<br>" +
-                "포인트: " + pointService.getCurrentPoint(bird.getUsername()) + "점" +
-                "</html>";
+        String info = "<html><div style='text-align:center; width:220px;'>" +
+                "🐤 현재 단계: " + bird.getStage().getName() + "<br>" +
+                bird.getStage().getDescription() + "<br><br>" +
+                "🌟 포인트: " + pointService.getCurrentPoint(bird.getUsername()) + "점" +
+                "</div></html>";
         lblBirdInfo.setText(info);
         birdRenderer.repaint();
     }

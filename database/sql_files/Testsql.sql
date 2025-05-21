@@ -11,4 +11,6 @@ delete from users;
 insert into coupons values('00001', '싸이버거', 20);
 insert into coupons values('00002', '박카스', 5);
 
+delete from attendance where id = '123' and attend_date = '2025-05-21';
+
 commit;
