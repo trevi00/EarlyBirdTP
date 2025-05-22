@@ -25,7 +25,7 @@ public class BirdRenderer extends JPanel {
         super.paintComponent(g);
 
         BirdStage stage = bird.getStage();
-        String imagePath = "img/" + stage.name().toLowerCase() + ".png"; // ✅ 64x64 제거
+        String imagePath = "img/마이얼리버드/" + stage.name().toLowerCase() + ".png"; // ✅ 64x64 제거
         Image image = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource(imagePath));
 
         // 이미지가 있다면 중앙에 그리기
