@@ -3,7 +3,9 @@ package coupon.repository;
 import coupon.model.Coupon;
 import coupon.model.CouponPurchase;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class InMemoryCouponRepository implements CouponRepository {
@@ -27,7 +29,7 @@ public class InMemoryCouponRepository implements CouponRepository {
     public void savePurchase(String username, Coupon coupon) {
         purchaseHistory
                 .computeIfAbsent(username, k -> new ArrayList<>())
-                .add(new CouponPurchase(coupon, LocalDate.now()));
+                .add(new CouponPurchase(coupon, Timestamp.valueOf(LocalDateTime.now().toString())));
     }
 
     @Override
