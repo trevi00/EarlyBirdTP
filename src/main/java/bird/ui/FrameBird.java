@@ -31,7 +31,7 @@ public class FrameBird extends JFrame {
         this.messageManager = messageManager;
         this.pointService = pointService;
 
-        setTitle("새 보기");
+        setTitle("마이 얼리버드");
         setSize(300, 450);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -75,13 +75,20 @@ public class FrameBird extends JFrame {
         lblBirdInfo.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
         add(lblBirdInfo, BorderLayout.NORTH);
 
-        // 하단 버튼
-        JPanel buttonPanel = new JPanel();
-        JButton btnEvolve = new JButton("진화하기");
+        // 진화 버튼
+        
+        // 하단 버튼 패널
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0)); // 수평 중앙 정렬
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0)); // 아래쪽 30px 여백
+        buttonPanel.setOpaque(false); // 배경 투명 처리
 
+        // 버튼 생성 및 크기 설정
+        JButton btnEvolve = new JButton("진화하기");
+        btnEvolve.setPreferredSize(new Dimension(120, 20)); // 크기 설정
+        
         btnEvolve.addActionListener(e -> {
             if (birdService.canEvolve(bird)) {
-                birdService.evolve(bird); // 내부에서 포인트 소모 + 단계 변경
+                birdService.evolve(bird);
                 messageManager.say("진화 성공! 현재 단계: " + bird.getStage().getName());
                 refresh();
             } else {
@@ -89,8 +96,6 @@ public class FrameBird extends JFrame {
             }
         });
 
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
-        buttonPanel.setOpaque(false);
         buttonPanel.add(btnEvolve);
         add(buttonPanel, BorderLayout.SOUTH);
 

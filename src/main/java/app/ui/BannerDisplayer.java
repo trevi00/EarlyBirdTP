@@ -19,6 +19,6 @@ public class BannerDisplayer implements BirdMessageDisplayer {
 
     @Override
     public void speak(String message) {
-        JOptionPane.showMessageDialog(null, message, "🐤 새가 말해요!", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, message, "🐤 마이 얼리버드", JOptionPane.INFORMATION_MESSAGE);
     }
 }
