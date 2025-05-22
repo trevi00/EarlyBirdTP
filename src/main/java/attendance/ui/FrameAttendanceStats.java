@@ -24,6 +24,8 @@ public class FrameAttendanceStats extends JFrame {
         setSize(400, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        getContentPane().setBackground(new Color(255, 255, 255));
+        getContentPane().setVisible(true);
         initUI();
     }
 
@@ -43,6 +45,7 @@ public class FrameAttendanceStats extends JFrame {
         JLabel monthLabel = new JLabel(monthText);
         monthLabel.setFont(monthLabel.getFont().deriveFont(Font.BOLD));
         monthPanel.add(monthLabel, SwingConstants.CENTER);
+        monthPanel.setBackground(new Color(255, 255, 255));
         add(monthPanel, BorderLayout.NORTH);
 
         List<LocalDate> dateList = statsService.getMonthlyAttendance(username, formatted);
@@ -50,6 +53,7 @@ public class FrameAttendanceStats extends JFrame {
 
         // ✅ CalendarPanel에 출석 날짜 전달
         CalendarPanel calendarPanel = new CalendarPanel(yearMonth, attendanceSet);
+        calendarPanel.setBackground(new Color(255, 255, 255));
         add(calendarPanel, BorderLayout.CENTER);
 
         // 닫기 버튼
