@@ -10,16 +10,14 @@ import java.util.function.Consumer;
 
 public class CouponUIUtil {
 
-    // 이미지 경로 매핑
     private static final Map<String, String> couponImageMap = Map.of(
-            "허니브레드", "/img/포인트상점/hunny.jpg",
-            "프라푸치노", "/img/포인트상점/frafuchino.jpg",
-            "아메리카노", "/img/포인트상점/americano.jpg",
-            "콜라", "/img/포인트상점/cola.jpg"
+            "허니브레드", "/img/포인트상점/hunny.png",
+            "프라푸치노", "/img/포인트상점/frafuchino.png",
+            "아메리카노", "/img/포인트상점/americano.png",
+            "콜라", "/img/포인트상점/cola.png"
     );
 
-    // 이미지 로딩
-    public static ImageIcon loadCouponImage(String name) {
+    public static ImageIcon loadCouponImage(String name, int width, int height) {
         String path = couponImageMap.getOrDefault(name, null);
         if (path == null) return null;
 
@@ -29,38 +27,39 @@ public class CouponUIUtil {
             return null;
         }
 
-        Image img = new ImageIcon(url).getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH);
+        Image img = new ImageIcon(url).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         return new ImageIcon(img);
     }
 
-    // 카드 생성
-    public static JPanel createCouponCard(Coupon coupon, Consumer<Coupon> onPurchase) {
+    public static JPanel createCouponCard(String name, int price, String dateText, ImageIcon icon) {
         JPanel card = new JPanel(new BorderLayout());
         card.setBackground(Color.WHITE);
-        card.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1, true));
-        card.setMaximumSize(new Dimension(380, 80));
+        card.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1, true),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)
+        ));
+        card.setMaximumSize(new Dimension(420, 100));
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel imgLabel = new JLabel(loadCouponImage(coupon.getName()));
-        imgLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        JLabel imgLabel = new JLabel(icon);
+        imgLabel.setPreferredSize(new Dimension(200, 140));
 
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
         textPanel.setBackground(Color.WHITE);
 
-        JLabel nameLabel = new JLabel(coupon.getName());
+        JLabel nameLabel = new JLabel("쿠폰: " + name);
         nameLabel.setFont(getTitleFont());
 
-        JButton buyButton = new JButton(coupon.getPrice() + "P로 구매");
-        buyButton.setFont(getBodyFont());
-        buyButton.setBackground(getButtonColor());
-        buyButton.setForeground(Color.WHITE);
-        buyButton.setFocusPainted(false);
-        buyButton.addActionListener(e -> onPurchase.accept(coupon));
+        JLabel priceLabel = new JLabel("가격: " + price + "P");
+        priceLabel.setFont(getBodyFont());
+
+        JLabel dateLabel = new JLabel("구매일시: " + dateText);
+        dateLabel.setFont(getBodyFont());
 
         textPanel.add(nameLabel);
-        textPanel.add(Box.createRigidArea(new Dimension(0, 5)));
-        textPanel.add(buyButton);
+        textPanel.add(priceLabel);
+        textPanel.add(dateLabel);
 
         card.add(imgLabel, BorderLayout.WEST);
         card.add(textPanel, BorderLayout.CENTER);
@@ -68,7 +67,48 @@ public class CouponUIUtil {
         return card;
     }
 
-    // 스타일
+    public static JPanel createStoreCard(Coupon coupon, Consumer<Coupon> onPurchase) {
+        ImageIcon icon = loadCouponImage(coupon.getName(), 200, 140);
+
+        JPanel card = new JPanel(new BorderLayout());
+        card.setBackground(Color.WHITE);
+        card.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1, true),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)
+        ));
+        card.setMaximumSize(new Dimension(420, 100));
+        card.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel imgLabel = new JLabel(icon);
+        imgLabel.setPreferredSize(new Dimension(200, 140)); // 기존 100x80 → 120x100
+
+        // 👉 텍스트 + 버튼 패널 (수직 정렬)
+        JPanel textPanel = new JPanel();
+        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
+        textPanel.setBackground(Color.WHITE);
+
+        JLabel nameLabel = new JLabel(coupon.getName());
+        nameLabel.setFont(getTitleFont());
+        nameLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+
+        JButton buyButton = new JButton(coupon.getPrice() + "P로 구매");
+        buyButton.setFont(getBodyFont());
+        buyButton.setBackground(new Color(100, 180, 255));
+        buyButton.setForeground(Color.WHITE);
+        buyButton.setFocusPainted(false);
+        buyButton.setAlignmentX(Component.RIGHT_ALIGNMENT); // 👉 오른쪽 정렬
+        buyButton.addActionListener(e -> onPurchase.accept(coupon));
+
+        textPanel.add(nameLabel);
+        textPanel.add(Box.createVerticalStrut(5));
+        textPanel.add(buyButton);
+
+        card.add(imgLabel, BorderLayout.WEST);
+        card.add(textPanel, BorderLayout.EAST); // 👉 동쪽에 배치
+
+        return card;
+    }
+
     public static Font getTitleFont() {
         return new Font("맑은 고딕", Font.BOLD, 14);
     }
@@ -79,9 +119,5 @@ public class CouponUIUtil {
 
     public static Color getBackgroundColor() {
         return new Color(200, 230, 255);
-    }
-
-    public static Color getButtonColor() {
-        return new Color(100, 180, 255);
     }
 }

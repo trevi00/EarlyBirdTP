@@ -31,7 +31,7 @@ public class FrameCouponStore extends JFrame {
 
         List<Coupon> coupons = couponController.getAvailableCoupons();
         for (Coupon coupon : coupons) {
-            JPanel card = CouponUIUtil.createCouponCard(coupon, this::handlePurchase);
+            JPanel card = CouponUIUtil.createStoreCard(coupon, this::handlePurchase);
             contentPanel.add(Box.createRigidArea(new Dimension(0, 10)));
             contentPanel.add(card);
         }
@@ -44,16 +44,12 @@ public class FrameCouponStore extends JFrame {
 
     private void handlePurchase(Coupon coupon) {
         boolean success = couponController.purchase(username, coupon);
-        if (success) {
-            JOptionPane.showMessageDialog(this,
-                    coupon.getName() + " 쿠폰을 구매했습니다!",
-                    "구매 성공",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this,
-                    "포인트가 부족합니다.",
-                    "구매 실패",
-                    JOptionPane.ERROR_MESSAGE);
-        }
+        String message = success ?
+                coupon.getName() + " 쿠폰을 구매했습니다!" :
+                "포인트가 부족합니다.";
+
+        JOptionPane.showMessageDialog(this, message,
+                success ? "구매 성공" : "구매 실패",
+                success ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
     }
 }
