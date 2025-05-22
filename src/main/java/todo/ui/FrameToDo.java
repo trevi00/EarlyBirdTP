@@ -27,7 +27,7 @@ public class FrameToDo extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         // 배경 이미지
-        ImageIcon bgIcon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("img/memo.png")));
+        ImageIcon bgIcon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("img/ToDo/memo.png")));
         Image bgImage = bgIcon.getImage();
 
         // 배경 패널 생성 및 paintComponent 오버라이드

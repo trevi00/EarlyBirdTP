@@ -44,13 +44,13 @@ public class FrameCouponStore extends JFrame {
             String resourcePath = null;
 
             if (coupon.getName().equals("허니브레드")) {
-                resourcePath = "/img/hunny.jpg";
+                resourcePath = "/img/포인트상점/hunny.jpg";
             } else if (coupon.getName().equals("프라푸치노")) {
-                resourcePath = "/img/frafuchino.jpg";
+                resourcePath = "/img/포인트상점/frafuchino.jpg";
             } else if (coupon.getName().equals("아메리카노")) {
-                resourcePath = "/img/americano.jpg";
+                resourcePath = "/img/포인트상점/americano.jpg";
             } else if (coupon.getName().equals("콜라")) {
-                resourcePath = "/img/cola.jpg";
+                resourcePath = "/img/포인트상점/cola.jpg";
             }
 
             if (resourcePath != null) {
