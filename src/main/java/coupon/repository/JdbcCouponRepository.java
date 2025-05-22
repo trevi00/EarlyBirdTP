@@ -6,6 +6,7 @@ import coupon.model.CouponPurchase;
 import javax.swing.*;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -77,9 +78,8 @@ public class JdbcCouponRepository implements CouponRepository {
                             rs.getString("NAME"),
                             rs.getInt("COST")
                     );
-                    Date date = rs.getDate("PURCHASE_DATE");
-                    LocalDate localDate = date.toLocalDate();
-                    list.add(new CouponPurchase(coupon, localDate));
+                    Timestamp purchaseDate = rs.getTimestamp("PURCHASE_DATE");
+                    list.add(new CouponPurchase(coupon, purchaseDate));
                 }
             }
         } catch (SQLException e) {

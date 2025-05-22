@@ -1,17 +1,17 @@
 package coupon.model;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
 
 public class CouponPurchase {
     private final Coupon coupon;
-    private final LocalDate purchaseDate;
+    private final Timestamp purchaseDate;
 
-    public CouponPurchase(Coupon coupon, LocalDate purchaseDate) {
+    public CouponPurchase(Coupon coupon, Timestamp purchaseDate) {
         this.coupon = coupon;
         this.purchaseDate = purchaseDate;
     }
 
     public Coupon getCoupon() { return coupon; }
-    public LocalDate getPurchaseDate() { return purchaseDate; }
+    public Timestamp getPurchaseDate() { return purchaseDate; }
 }
 
