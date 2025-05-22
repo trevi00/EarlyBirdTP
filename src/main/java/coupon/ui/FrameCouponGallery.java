@@ -6,6 +6,7 @@ import coupon.model.CouponPurchase;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.Comparator;
 import java.util.List;
 import java.net.URL;
 /**
@@ -32,10 +33,11 @@ public class FrameCouponGallery extends JFrame {
     private void initUI() {
         List<CouponPurchase> history = couponController.getPurchaseHistory(username);
 
-        // ✅ 이미지 컬럼 추가
+        // ✅ 구매일 오름차순 정렬 (가장 먼저 산 것 위로)
+        history.sort(Comparator.comparing(CouponPurchase::getPurchaseDate));
+
         String[] columnNames = {"이미지", "쿠폰 이름", "가격", "구매일"};
 
-        // ✅ 이미지 표시 위해 getColumnClass 오버라이드
         DefaultTableModel model = new DefaultTableModel(columnNames, 0) {
             @Override
             public Class<?> getColumnClass(int column) {
@@ -45,19 +47,25 @@ public class FrameCouponGallery extends JFrame {
         };
 
         for (CouponPurchase purchase : history) {
-            // 쿠폰 이름에 따라 이미지 선택
             String imagePath = null;
             String couponName = purchase.getCoupon().getName();
 
-            if (couponName.equals("허니브레드")) {
-                imagePath = "/img/포인트상점/hunny.jpg";
-            } else if (couponName.equals("프라푸치노")) {
-                imagePath = "/img/포인트상점/frafuchino.jpg";
-            } else if (couponName.equals("아메리카노")) {
-                imagePath = "/img/포인트상점/americano.jpg";
-            } else if (couponName.equals("콜라")) {
-                imagePath = "/img/포인트상점/cola.jpg";
+            switch (couponName) {
+                case "허니브레드":
+                    imagePath = "/img/포인트상점/hunny.jpg";
+                    break;
+                case "프라푸치노":
+                    imagePath = "/img/포인트상점/frafuchino.jpg";
+                    break;
+                case "아메리카노":
+                    imagePath = "/img/포인트상점/americano.jpg";
+                    break;
+                case "콜라":
+                    imagePath = "/img/포인트상점/cola.jpg";
+                    break;
+                default:
             }
+
             ImageIcon icon = null;
             if (imagePath != null) {
                 URL imageUrl = getClass().getResource(imagePath);
@@ -70,7 +78,7 @@ public class FrameCouponGallery extends JFrame {
             }
 
             Object[] row = {
-                    icon, // 이미지
+                    icon,
                     couponName,
                     purchase.getCoupon().getPrice(),
                     purchase.getPurchaseDate().toString()
@@ -80,7 +88,7 @@ public class FrameCouponGallery extends JFrame {
         }
 
         JTable table = new JTable(model);
-        table.setRowHeight(50); // ✅ 이미지 보이도록 행 높이 조정
+        table.setRowHeight(50);
 
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
