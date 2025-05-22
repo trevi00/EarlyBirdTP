@@ -174,7 +174,7 @@ public class FrameToDo extends JFrame {
 
             // 제목 입력창
             titleField = new JTextField();
-            titleField.setBackground(new Color(255, 255, 200));
+            titleField.setBackground(new Color(255, 255, 255));
             titleField.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
             titleField.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 170), 1, true));
             titleField.setBounds(90, 30, 340, 28);
