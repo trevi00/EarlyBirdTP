@@ -14,7 +14,7 @@ import java.util.Objects;
 
 public class FrameToDo extends JFrame {
 
-    private int initialSize = 0;
+    private int initialSize;
     private final JPanel listPanel;
     private final List<ToDoInputPanel> inputPanels = new ArrayList<>();
     private static final int MAX_TODO = 10;
@@ -183,7 +183,7 @@ public class FrameToDo extends JFrame {
             contentArea = new JTextArea();
             contentArea.setLineWrap(true);
             contentArea.setWrapStyleWord(true);
-            contentArea.setBackground(new Color(255, 255, 230));
+            contentArea.setBackground(new Color(255, 255, 255));
             contentArea.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
             contentArea.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 170), 1, true));
 

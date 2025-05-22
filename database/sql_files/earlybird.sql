@@ -75,7 +75,7 @@ CREATE TABLE COUPON_PURCHASES (
     id VARCHAR2(100) PRIMARY KEY,
     username VARCHAR2(50) NOT NULL,
     coupon_id VARCHAR2(50) NOT NULL,
-    purchase_date DATE DEFAULT SYSDATE,
+    purchase_date TIMESTAMP DEFAULT SYSDATE,
     CONSTRAINT fk_cp_user FOREIGN KEY (username) REFERENCES USERS(username),
     CONSTRAINT fk_cp_coupon FOREIGN KEY (coupon_id) REFERENCES COUPONS(id)
 );
