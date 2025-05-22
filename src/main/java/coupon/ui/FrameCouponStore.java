@@ -5,16 +5,8 @@ import coupon.model.Coupon;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
-/**
- * [FrameCouponStore]
- * - 사용자가 포인트로 쿠폰을 구매할 수 있는 상점 화면
- */
 public class FrameCouponStore extends JFrame {
 
     private final CouponController couponController;
@@ -25,7 +17,7 @@ public class FrameCouponStore extends JFrame {
         this.username = username;
 
         setTitle("포인트 상점");
-        setSize(400, 300);
+        setSize(450, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -33,55 +25,23 @@ public class FrameCouponStore extends JFrame {
     }
 
     private void initializeUI() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // 세로 배치
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+        contentPanel.setBackground(CouponUIUtil.getBackgroundColor());
 
         List<Coupon> coupons = couponController.getAvailableCoupons();
         for (Coupon coupon : coupons) {
-            JPanel rowPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-            JLabel imageLabel = new JLabel();
-            String resourcePath = null;
-
-            if (coupon.getName().equals("허니브레드")) {
-                resourcePath = "/img/포인트상점/hunny.jpg";
-            } else if (coupon.getName().equals("프라푸치노")) {
-                resourcePath = "/img/포인트상점/frafuchino.jpg";
-            } else if (coupon.getName().equals("아메리카노")) {
-                resourcePath = "/img/포인트상점/americano.jpg";
-            } else if (coupon.getName().equals("콜라")) {
-                resourcePath = "/img/포인트상점/cola.jpg";
-            }
-
-            if (resourcePath != null) {
-                URL imageUrl = getClass().getResource(resourcePath);
-                if (imageUrl != null) {
-                    ImageIcon icon = new ImageIcon(imageUrl);
-                    Image img = icon.getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH);
-                    icon = new ImageIcon(img);
-
-                    imageLabel.setIcon(icon);
-                    imageLabel.setPreferredSize(new Dimension(80, 60)); // 크기 지정
-                } else {
-                    System.out.println("❌ 이미지 로딩 실패: " + resourcePath);
-                }
-            }
-
-            JButton button = new JButton(coupon.getName() + " - " + coupon.getPrice() + "P");
-            button.setBackground(Color.WHITE);
-            button.addActionListener(e -> handlePurchase(coupon));
-
-            // ✅ 이미지 + 버튼을 하나의 행 패널에 넣는다
-            rowPanel.add(imageLabel);
-            rowPanel.add(Box.createRigidArea(new Dimension(10, 0))); // 간격
-            rowPanel.add(button);
-
-            // ✅ 행 전체를 메인 패널에 넣는다
-            panel.add(rowPanel);
+            JPanel card = CouponUIUtil.createCouponCard(coupon, this::handlePurchase);
+            contentPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+            contentPanel.add(card);
         }
 
-        add(panel);
+        JScrollPane scrollPane = new JScrollPane(contentPanel);
+        scrollPane.setBorder(null);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        add(scrollPane);
     }
+
     private void handlePurchase(Coupon coupon) {
         boolean success = couponController.purchase(username, coupon);
         if (success) {
