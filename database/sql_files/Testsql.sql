@@ -9,8 +9,11 @@ delete from coupons;
 delete from users;
 
 insert into users values('123', '123', '123');
-insert into coupons values('00001', '싸이버거', 20);
-insert into coupons values('00002', '박카스', 5);
+insert into coupons values('00004', '허니버터칩', 20);
+insert into coupons values('00003', '프라푸치노', 15);
+insert into coupons values('00002', '아메리카노', 10);
+insert into coupons values('00001', '콜라', 5);
+
 insert into points values('123', 5000);
 
 delete from attendance where id = '123' and attend_date = '2025-05-21';

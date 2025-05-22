@@ -43,10 +43,14 @@ public class FrameCouponStore extends JFrame {
             JLabel imageLabel = new JLabel();
             String resourcePath = null;
 
-            if (coupon.getName().equals("싸이버거")) {
-                resourcePath = "/img/thighburger.jpg";
-            } else if (coupon.getName().equals("박카스")) {
-                resourcePath = "/img/baccas.jpg";
+            if (coupon.getName().equals("허니버터칩")) {
+                resourcePath = "/img/hunny.png";
+            } else if (coupon.getName().equals("프라푸치노")) {
+                resourcePath = "/img/frafuchino.jpg";
+            } else if (coupon.getName().equals("아메리카노")) {
+                resourcePath = "/img/americano.jpg";
+            } else if (coupon.getName().equals("콜라")) {
+                resourcePath = "/img/cola.jpg";
             }
 
             if (resourcePath != null) {
