@@ -23,7 +23,7 @@ public class FrameLogin extends JFrame {
         // 🐦 상단 새 이미지
         JLabel birdLabel = new JLabel();
         try {
-            URL imageUrl = getClass().getResource("/img/bird.png");
+            URL imageUrl = getClass().getResource("/img/로그인/bird.png");
             if (imageUrl != null) {
                 ImageIcon icon = new ImageIcon(imageUrl);
                 Image scaledImage = icon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);

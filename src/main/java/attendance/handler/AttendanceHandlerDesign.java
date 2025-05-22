@@ -16,9 +16,9 @@ public class AttendanceHandlerDesign {
         // 1. 배경 이미지 불러오기
         String imagePath;
         if (messageType == 3) {
-            imagePath = "img/X.png"; // 실패 이미지
+            imagePath = "img/출석/X.png"; // 실패 이미지
         } else {
-            imagePath = "img/O.png"; // 성공 이미지
+            imagePath = "img/출석/O.png"; // 성공 이미지
         }
 
         ImageIcon bgIcon = new ImageIcon(Objects.requireNonNull(

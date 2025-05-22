@@ -50,13 +50,13 @@ public class FrameCouponGallery extends JFrame {
             String couponName = purchase.getCoupon().getName();
 
             if (couponName.equals("허니브레드")) {
-                imagePath = "/img/hunny.jpg";
+                imagePath = "/img/포인트상점/hunny.jpg";
             } else if (couponName.equals("프라푸치노")) {
-                imagePath = "/img/frafuchino.jpg";
+                imagePath = "/img/포인트상점/frafuchino.jpg";
             } else if (couponName.equals("아메리카노")) {
-                imagePath = "/img/americano.jpg";
+                imagePath = "/img/포인트상점/americano.jpg";
             } else if (couponName.equals("콜라")) {
-                imagePath = "/img/cola.jpg";
+                imagePath = "/img/포인트상점/cola.jpg";
             }
             ImageIcon icon = null;
             if (imagePath != null) {
@@ -65,7 +65,7 @@ public class FrameCouponGallery extends JFrame {
                     Image image = new ImageIcon(imageUrl).getImage().getScaledInstance(60, 40, Image.SCALE_SMOOTH);
                     icon = new ImageIcon(image);
                 } else {
-                    System.out.println("⚠ 이미지 로딩 실패: " + imagePath);
+                    System.out.println("이미지 로딩 실패: " + imagePath);
                 }
             }
 

@@ -20,7 +20,7 @@ public class CalendarPanel extends JPanel {
         this.yearMonth = yearMonth;
         this.attendanceDays = attendanceDays;
         try {
-            Image img = new ImageIcon(getClass().getResource("/img/check.png")).getImage();
+            Image img = new ImageIcon(getClass().getResource("/img/출석확인/check.png")).getImage();
             Image scaled = img.getScaledInstance(35, 35, Image.SCALE_SMOOTH);
             checkIcon = new ImageIcon(scaled);
         } catch (Exception e) {

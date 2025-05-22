@@ -51,7 +51,7 @@ public class FrameAttendance extends JFrame {
         int height = 350;
 
         // 2: 이미지 리소스 불러오기 및 리사이즈
-        ImageIcon originalIcon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("img/chick_bg.png")));
+        ImageIcon originalIcon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("img/출석/chick_bg.png")));
 
         // 3. 배경 이미지 라벨 생성 및 레이아웃 설정
         ImagePanel backgroundPanel = new ImagePanel(originalIcon.getImage(), width, height);

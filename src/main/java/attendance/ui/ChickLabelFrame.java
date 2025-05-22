@@ -6,7 +6,7 @@ import java.util.Objects;
 public class ChickLabelFrame extends JFrame {
     public ChickLabelFrame() {
         // 1. 이미지 불러오기 (리소스에서)
-        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("img/chick_bg.png")));
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("img/출석/chick_bg.png")));
 
         // 2. 이미지 크기 얻기
         int width = icon.getIconWidth();

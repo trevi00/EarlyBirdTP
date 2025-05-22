@@ -39,7 +39,7 @@ public class FrameBird extends JFrame {
 
         // 배경 패널
         JPanel backgroundPanel = new JPanel() {
-            Image bgImage = new ImageIcon(getClass().getResource("/img/Earlybird_Bird_DEM.png")).getImage();
+            Image bgImage = new ImageIcon(getClass().getResource("/img/마이얼리버드/Earlybird_Bird_DEM.png")).getImage();
 
             @Override
             protected void paintComponent(Graphics g) {
