@@ -18,6 +18,8 @@ public class MainMenuPanel extends JPanel {
         setPreferredSize(new Dimension(500, 520)); // 스크롤 없는 고정 크기
         setOpaque(false);
 
+        setBorder(BorderFactory.createEmptyBorder(40, 0, 0, 0));
+
         // 버튼 그룹 생성
         add(makeRow(
                 makeButton("출석하기", "/img/메인화면/출석하기.png", () -> {

@@ -35,8 +35,8 @@ public class FrameMain extends JFrame {
         }
 
         setTitle("EarlyBird 🌅");
-        setSize(500, 600);
-        setMinimumSize(new Dimension(500, 600));
+        setSize(550, 600);
+        setMinimumSize(new Dimension(550, 600));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
