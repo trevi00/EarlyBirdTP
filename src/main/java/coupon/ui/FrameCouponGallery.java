@@ -49,12 +49,15 @@ public class FrameCouponGallery extends JFrame {
             String imagePath = null;
             String couponName = purchase.getCoupon().getName();
 
-            if (couponName.equals("싸이버거")) {
-                imagePath = "/img/thighburger.jpg";
-            } else if (couponName.equals("박카스")) {
-                imagePath = "/img/baccas.jpg";
+            if (couponName.equals("허니브레드")) {
+                imagePath = "/img/hunny.jpg";
+            } else if (couponName.equals("프라푸치노")) {
+                imagePath = "/img/frafuchino.jpg";
+            } else if (couponName.equals("아메리카노")) {
+                imagePath = "/img/americano.jpg";
+            } else if (couponName.equals("콜라")) {
+                imagePath = "/img/cola.jpg";
             }
-
             ImageIcon icon = null;
             if (imagePath != null) {
                 URL imageUrl = getClass().getResource(imagePath);
