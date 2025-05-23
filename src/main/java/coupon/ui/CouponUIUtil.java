@@ -68,43 +68,37 @@ public class CouponUIUtil {
     }
 
     public static JPanel createStoreCard(Coupon coupon, Consumer<Coupon> onPurchase) {
-        ImageIcon icon = loadCouponImage(coupon.getName(), 200, 140);
+        // ✅ 이미지 확대
+        ImageIcon icon = loadCouponImage(coupon.getName(), 350, 120);
 
-        JPanel card = new JPanel(new BorderLayout());
+        JPanel card = new JPanel();
+        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBackground(Color.WHITE);
         card.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1, true),
-                BorderFactory.createEmptyBorder(10, 10, 10, 10)
+                BorderFactory.createEmptyBorder(5, 10, 5, 10) // 위아래 여백 축소
         ));
-        card.setMaximumSize(new Dimension(420, 100));
+        card.setMaximumSize(new Dimension(420, 160)); // 기존보다 여백 줄인 높이
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel imgLabel = new JLabel(icon);
-        imgLabel.setPreferredSize(new Dimension(200, 140)); // 기존 100x80 → 120x100
+        // ✅ 이미지 클릭 가능
+        JLabel imageButton = new JLabel(icon);
+        imageButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        imageButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        imageButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onPurchase.accept(coupon);
+            }
+        });
 
-        // 👉 텍스트 + 버튼 패널 (수직 정렬)
-        JPanel textPanel = new JPanel();
-        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
-        textPanel.setBackground(Color.WHITE);
-
-        JLabel nameLabel = new JLabel(coupon.getName());
+        // ✅ 텍스트 (여백 없이 붙이기)
+        JLabel nameLabel = new JLabel(coupon.getName() + " - " + coupon.getPrice() + "P");
         nameLabel.setFont(getTitleFont());
-        nameLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        nameLabel.setBorder(BorderFactory.createEmptyBorder(3, 0, 0, 0)); // 간격 최소화
 
-        JButton buyButton = new JButton(coupon.getPrice() + "P로 구매");
-        buyButton.setFont(getBodyFont());
-        buyButton.setBackground(new Color(100, 180, 255));
-        buyButton.setForeground(Color.WHITE);
-        buyButton.setFocusPainted(false);
-        buyButton.setAlignmentX(Component.RIGHT_ALIGNMENT); // 👉 오른쪽 정렬
-        buyButton.addActionListener(e -> onPurchase.accept(coupon));
-
-        textPanel.add(nameLabel);
-        textPanel.add(Box.createVerticalStrut(5));
-        textPanel.add(buyButton);
-
-        card.add(imgLabel, BorderLayout.WEST);
-        card.add(textPanel, BorderLayout.EAST); // 👉 동쪽에 배치
+        card.add(imageButton);
 
         return card;
     }
