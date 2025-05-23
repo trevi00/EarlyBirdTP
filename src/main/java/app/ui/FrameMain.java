@@ -35,12 +35,13 @@ public class FrameMain extends JFrame {
         }
 
         setTitle("EarlyBird 🌅");
-        setSize(550, 600);
-        setMinimumSize(new Dimension(550, 600));
+        setSize(850, 600);
+        setMinimumSize(new Dimension(850, 600));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.context = new EarlyBirdContext(username);
+
 
         // 메인 메뉴 패널 생성
         MainMenuPanel mainPanel = new MainMenuPanel(context);

@@ -14,23 +14,24 @@ import java.awt.*;
 public class MainMenuPanel extends JPanel {
 
     public MainMenuPanel(EarlyBirdContext context) {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setPreferredSize(new Dimension(500, 520)); // 스크롤 없는 고정 크기
+        setLayout(new GridLayout(2, 2, 50, 0));
+        setPreferredSize(new Dimension(850, 600)); // 스크롤 없는 고정 크기
         setOpaque(false);
 
         setBorder(BorderFactory.createEmptyBorder(40, 0, 0, 0));
 
+        JPanel[] panels = new JPanel[4];
+        for(int i = 0; i < 4; ++i) panels[i] = new JPanel();
         // 버튼 그룹 생성
-        add(makeRow(
-                makeButton("출석하기", "/img/메인화면/출석하기.png", () -> {
-                    context.getBirdMessageManager().say("출석 화면으로 이동 중입니다...");
-                    context.showAttendanceFrame();
-                }),
-                makeButton("ToDo 등록", "/img/메인화면/Todo등록.png", () -> {
+        panels[0].add(makeButton("출석하기", "/img/메인화면/출석하기.png", () -> {
+            context.getBirdMessageManager().say("출석 화면으로 이동 중입니다...");
+            context.showAttendanceFrame();
+        }), );
+        panels[0].add(makeButton("ToDo 등록", "/img/메인화면/Todo등록.png", () -> {
                     context.getBirdMessageManager().say("Todo 등록 화면으로 이동 중입니다...");
                     new FrameToDo(context.getToDoService(), context.bird, context.getBirdMessageManager()).setVisible(true);
-                })
-        ));
+        }), SwingConstants.SOUTH);
+        for(int i = 0; i < 4; ++i) add(panels[i]);
 
         add(makeRow(
                 makeButton("출석기록보기", "/img/메인화면/출석기록보기.png", () -> {
@@ -72,7 +73,7 @@ public class MainMenuPanel extends JPanel {
         ImageIcon icon = null;
         try {
             icon = new ImageIcon(getClass().getResource(imagePath));
-            Image img = icon.getImage().getScaledInstance(160, 45, Image.SCALE_SMOOTH);
+            Image img = icon.getImage().getScaledInstance(300, 50, Image.SCALE_SMOOTH);
             icon = new ImageIcon(img);
         } catch (Exception e) {
             System.err.println("이미지 로드 실패: " + imagePath);
@@ -80,7 +81,7 @@ public class MainMenuPanel extends JPanel {
 
         JButton btn = new JButton();
         btn.setIcon(icon);
-        btn.setPreferredSize(new Dimension(180, 50));
+        btn.setPreferredSize(new Dimension(300, 50));
         btn.setFocusPainted(false);
         btn.setContentAreaFilled(false);
         btn.setBorderPainted(false);
