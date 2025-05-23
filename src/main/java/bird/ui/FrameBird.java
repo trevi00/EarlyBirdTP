@@ -97,10 +97,10 @@ public class FrameBird extends JFrame {
         btnEvolve.setEnabled(birdService.canEvolve(bird));
         
         btnEvolve.addActionListener(e -> {
-            // 반드시 canEvolve가 true일 때만 이 블록이 실행됩니다
-            birdService.evolve(bird);
-            if (birdService.canEvolve(bird)) {
-                birdService.evolve(bird);
+            if (!birdService.canEvolve(bird)) {
+                messageManager.say("진화할 수 없습니다. 포인트가 부족하거나 최종 단계입니다.");
+            } else {
+                birdService.evolve(bird);  // 딱 한 번만
                 String msg = "진화 성공!\n현재 단계: " + bird.getStage().getName();
                 JOptionPane.showMessageDialog(
                         FrameBird.this,
@@ -109,9 +109,9 @@ public class FrameBird extends JFrame {
                         JOptionPane.INFORMATION_MESSAGE
                 );
                 refresh();
-            } else {
-                btnEvolve.setEnabled(birdService.canEvolve(bird));
             }
+            // 버튼 활성화 상태 갱신
+            btnEvolve.setEnabled(birdService.canEvolve(bird));
         });
 
         buttonPanel.add(btnEvolve);
