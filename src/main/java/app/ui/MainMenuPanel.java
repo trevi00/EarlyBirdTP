@@ -24,7 +24,7 @@ public class MainMenuPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.LINE_END;
-        gbc.insets = new Insets(50, 100, 0, 250);
+        gbc.insets = new Insets(150, 100, 0, 80);
         add(makeVerticalPanel(
                 makeButton("출석 체크", "/img/메인메뉴 디자인/출석 체크.png", () ->
                         context.showAttendanceFrame()),
@@ -32,10 +32,21 @@ public class MainMenuPanel extends JPanel {
                         new FrameAttendanceStats(context.attendanceStatsService, context.getCurrentUsername()).setVisible(true))
         ), gbc);
 
-        // 오른쪽 상단: To Do 등록 + 보기
+        // 오른쪽 상단: 마이 얼리버드 ← 이동됨
         gbc.gridx = 1;
+        gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.LINE_START;
-        gbc.insets = new Insets(50, 0, 0, 100);
+        gbc.insets = new Insets(100, 0, 0, 90);
+        add(makeCenteredPanel(
+                makeButton("마이 얼리버드", "/img/메인메뉴 디자인/마이 얼리버드.png", () ->
+                        new FrameBird(context.bird, context.birdService, context.getBirdMessageManager(), context.pointService).setVisible(true))
+        ), gbc);
+
+// 왼쪽 하단: To Do 등록 + 보기 ← 이동됨
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.LINE_END;
+        gbc.insets = new Insets(200, 100, 100, 80);
         add(makeVerticalPanel(
                 makeButton("To Do 등록", "/img/메인메뉴 디자인/To Do 등록.png", () ->
                         new FrameToDo(context.getToDoService(), context.bird, context.getBirdMessageManager()).setVisible(true)),
@@ -43,20 +54,10 @@ public class MainMenuPanel extends JPanel {
                         new FrameToDoList(context.getToDoService(), context.getCurrentUsername(), context.getBirdMessageManager()).setVisible(true))
         ), gbc);
 
-        // 왼쪽 하단: 마이 얼리버드
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.anchor = GridBagConstraints.LINE_END;
-        gbc.insets = new Insets(250, 100, 100, 250);
-        add(makeCenteredPanel(
-                makeButton("마이 얼리버드", "/img/메인메뉴 디자인/마이 얼리버드.png", () ->
-                        new FrameBird(context.bird, context.birdService, context.getBirdMessageManager(), context.pointService).setVisible(true))
-        ), gbc);
-
         // 오른쪽 하단: 쿠폰 보관함 + 포인트 상점
         gbc.gridx = 1;
         gbc.anchor = GridBagConstraints.LINE_START;
-        gbc.insets = new Insets(180, 0, 0, 100);
+        gbc.insets = new Insets(100, 0, 0, 90);
         add(makeVerticalPanel(
                 makeButton("쿠폰 보관함", "/img/메인메뉴 디자인/쿠폰 보관함.png", () ->
                         new FrameCouponGallery(context.getCouponController(), context.getCurrentUsername()).setVisible(true)),
@@ -90,7 +91,7 @@ public class MainMenuPanel extends JPanel {
         ImageIcon icon = null;
         try {
             icon = new ImageIcon(getClass().getResource(imagePath));
-            Image img = icon.getImage().getScaledInstance(180, 50, Image.SCALE_SMOOTH);
+            Image img = icon.getImage().getScaledInstance(300, 50, Image.SCALE_SMOOTH);
             icon = new ImageIcon(img);
         } catch (Exception e) {
             System.err.println("이미지 로드 실패: " + imagePath);
@@ -98,7 +99,7 @@ public class MainMenuPanel extends JPanel {
 
         JButton btn = new JButton();
         btn.setIcon(icon);
-        btn.setPreferredSize(new Dimension(180, 50));
+        btn.setPreferredSize(new Dimension(300, 50));
         btn.setFocusPainted(false);
         btn.setContentAreaFilled(false);
         btn.setBorderPainted(false);
