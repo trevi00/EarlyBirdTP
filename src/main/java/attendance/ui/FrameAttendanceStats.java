@@ -20,13 +20,18 @@ public class FrameAttendanceStats extends JFrame {
     public FrameAttendanceStats(AttendanceStatsService statsService, String username) {
         this.statsService = statsService;
         this.username = username;
+        try {
+            ImageIcon icon = new ImageIcon(getClass().getResource("/img/출석현황/bg_brown.png"));
+            bg = new JLabel(icon);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
 
         setTitle("출석현황");
-        setSize(400, 400);
+        setSize(400, 430);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        getContentPane().setBackground(new Color(255, 255, 255));
-        getContentPane().setVisible(true);
+        setContentPane(bg);
         initUI();
     }
 
@@ -48,7 +53,7 @@ public class FrameAttendanceStats extends JFrame {
         JLabel monthLabel = new JLabel(monthText);
         monthLabel.setFont(monthLabel.getFont().deriveFont(Font.BOLD));
         monthPanel.add(monthLabel, SwingConstants.CENTER);
-        monthPanel.setBackground(new Color(255, 255, 255));
+        monthPanel.setOpaque(false);
         add(monthPanel, BorderLayout.NORTH);
 
         List<LocalDate> dateList = statsService.getMonthlyAttendance(username, formatted);
@@ -56,7 +61,7 @@ public class FrameAttendanceStats extends JFrame {
 
         // ✅ CalendarPanel에 출석 날짜 전달
         CalendarPanel calendarPanel = new CalendarPanel(yearMonth, attendanceSet);
-        calendarPanel.setBackground(new Color(255, 255, 255));
+        calendarPanel.setOpaque(false);
         add(calendarPanel, BorderLayout.CENTER);
 
         // 닫기 버튼

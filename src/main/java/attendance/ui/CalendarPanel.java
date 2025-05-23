@@ -28,23 +28,12 @@ public class CalendarPanel extends JPanel {
             Image img = new ImageIcon(getClass().getResource("/img/출석현황/check.png")).getImage();
             Image scaled = img.getScaledInstance(35, 35, Image.SCALE_SMOOTH);
             checkIcon = new ImageIcon(scaled);
-            URL imageURL = getClass().getResource("/img/출석현황/bg_brown.png");
-            background = ImageIO.read(imageURL);
         } catch (Exception e) {
             System.err.println("이미지 로드 실패: " + e.getMessage());
         }
         setLayout(new GridLayout(0, 7)); // 7열 (일~토)
 
         drawCalendar();
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        if (background != null) {
-            // Draw image to fill the entire panel
-            g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
-        }
     }
 
     private void drawCalendar() {
