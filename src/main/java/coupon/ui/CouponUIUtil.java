@@ -48,13 +48,13 @@ public class CouponUIUtil {
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
         textPanel.setBackground(Color.WHITE);
 
-        JLabel nameLabel = new JLabel("쿠폰: " + name);
+        JLabel nameLabel = new JLabel("쿠폰 : " + name);
         nameLabel.setFont(getTitleFont());
 
-        JLabel priceLabel = new JLabel("가격: " + price + "P");
+        JLabel priceLabel = new JLabel("가격 : " + price + "P");
         priceLabel.setFont(getBodyFont());
 
-        JLabel dateLabel = new JLabel("구매일시: " + dateText);
+        JLabel dateLabel = new JLabel("구매일시 : " + dateText);
         dateLabel.setFont(getBodyFont());
 
         textPanel.add(nameLabel);
