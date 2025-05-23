@@ -52,11 +52,7 @@ public class FrameAttendanceStats extends JFrame {
         String monthText = "<html><div style='text-align:center;'>" +
                 String.valueOf(monthChars) + "</div></html>";
         JLabel monthLabel = new JLabel(monthText);
-        Font font = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts()[485];
-//        for(int i = 0; i < allFonts.length; ++i) {
-//            System.out.println(allFonts[i] + ", " + i);
-//        }
-        monthLabel.setFont(font.deriveFont(20f).deriveFont(Font.BOLD));
+        monthLabel.setFont(monthLabel.getFont().deriveFont(20f).deriveFont(Font.BOLD));
         monthLabel.setForeground(new Color(150, 97, 71));
         monthPanel.add(monthLabel, SwingConstants.CENTER);
         monthPanel.setOpaque(false);
