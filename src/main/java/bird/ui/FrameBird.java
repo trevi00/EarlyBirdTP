@@ -24,6 +24,7 @@ public class FrameBird extends JFrame {
     private final BirdRenderer birdRenderer;
     private final JLabel lblBirdInfo;
     private final PointService pointService;
+    private final JButton btnEvolve;
 
     public FrameBird(Bird bird, BirdService birdService, BirdMessageManager messageManager, PointService pointService) {
         this.bird = bird;
@@ -54,7 +55,7 @@ public class FrameBird extends JFrame {
         JPanel imagePanel = new JPanel();
         imagePanel.setOpaque(false); // 배경 투명
         imagePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0)); // 수평 중앙 정렬
-        imagePanel.setBorder(BorderFactory.createEmptyBorder(0,13,0,0));
+        imagePanel.setBorder(BorderFactory.createEmptyBorder(20,13,0,0));
 
         birdRenderer = new BirdRenderer(bird);
         birdRenderer.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -72,27 +73,44 @@ public class FrameBird extends JFrame {
         lblBirdInfo = new JLabel("", SwingConstants.CENTER);
         lblBirdInfo.setOpaque(false);
         lblBirdInfo.setFont(new Font("맑은 고딕", Font.BOLD, 16));
-        lblBirdInfo.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
+        lblBirdInfo.setBorder(BorderFactory.createEmptyBorder(60, 0, 0, 0));
         add(lblBirdInfo, BorderLayout.NORTH);
 
         // 진화 버튼
         
         // 하단 버튼 패널
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0)); // 수평 중앙 정렬
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0)); // 아래쪽 30px 여백
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 50, 0)); // 아래쪽 30px 여백
         buttonPanel.setOpaque(false); // 배경 투명 처리
 
         // 버튼 생성 및 크기 설정
-        JButton btnEvolve = new JButton("진화하기");
-        btnEvolve.setPreferredSize(new Dimension(120, 20)); // 크기 설정
+        btnEvolve = new JButton("진화하기");
+        btnEvolve.setPreferredSize(new Dimension(120, 30)); // 크기 설정
+        btnEvolve.setOpaque(true);
+        btnEvolve.setContentAreaFilled(true);
+        // 색 지정
+        btnEvolve.setBackground(new Color(190, 227, 248));
+        btnEvolve.setForeground(Color.BLACK);
+        btnEvolve.setBorderPainted(true);
+        btnEvolve.setFocusPainted(false);
+        // 초기 버튼 활성화 상태 설정
+        btnEvolve.setEnabled(birdService.canEvolve(bird));
         
         btnEvolve.addActionListener(e -> {
+            // 반드시 canEvolve가 true일 때만 이 블록이 실행됩니다
+            birdService.evolve(bird);
             if (birdService.canEvolve(bird)) {
                 birdService.evolve(bird);
-                messageManager.say("진화 성공! 현재 단계: " + bird.getStage().getName());
+                String msg = "진화 성공!\n현재 단계: " + bird.getStage().getName();
+                JOptionPane.showMessageDialog(
+                        FrameBird.this,
+                        msg,
+                        "진화 결과",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
                 refresh();
             } else {
-                messageManager.say("진화할 수 없습니다. 포인트가 부족하거나 최종 단계입니다.");
+                btnEvolve.setEnabled(birdService.canEvolve(bird));
             }
         });
 
@@ -108,8 +126,6 @@ public class FrameBird extends JFrame {
      */
     public void refresh() {
         String info = "<html><div style='text-align:center; width:220px;'>" +
-                "🐤 현재 단계: " + bird.getStage().getName() + "<br>" +
-                bird.getStage().getDescription() + "<br><br>" +
                 "🌟 포인트: " + pointService.getCurrentPoint(bird.getUsername()) + "점" +
                 "</div></html>";
         lblBirdInfo.setText(info);
