@@ -14,24 +14,23 @@ import java.awt.*;
 public class MainMenuPanel extends JPanel {
 
     public MainMenuPanel(EarlyBirdContext context) {
-        setLayout(new GridLayout(2, 2, 50, 0));
-        setPreferredSize(new Dimension(850, 600)); // 스크롤 없는 고정 크기
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        setPreferredSize(new Dimension(300, 30)); // 스크롤 없는 고정 크기
         setOpaque(false);
 
         setBorder(BorderFactory.createEmptyBorder(40, 0, 0, 0));
 
-        JPanel[] panels = new JPanel[4];
-        for(int i = 0; i < 4; ++i) panels[i] = new JPanel();
         // 버튼 그룹 생성
-        panels[0].add(makeButton("출석하기", "/img/메인화면/출석하기.png", () -> {
-            context.getBirdMessageManager().say("출석 화면으로 이동 중입니다...");
-            context.showAttendanceFrame();
-        }), );
-        panels[0].add(makeButton("ToDo 등록", "/img/메인화면/Todo등록.png", () -> {
+        add(makeRow(
+                makeButton("출석하기", "/img/메인화면/출석하기.png", () -> {
+                    context.getBirdMessageManager().say("출석 화면으로 이동 중입니다...");
+                    context.showAttendanceFrame();
+                }),
+                makeButton("ToDo 등록", "/img/메인화면/Todo등록.png", () -> {
                     context.getBirdMessageManager().say("Todo 등록 화면으로 이동 중입니다...");
                     new FrameToDo(context.getToDoService(), context.bird, context.getBirdMessageManager()).setVisible(true);
-        }), SwingConstants.SOUTH);
-        for(int i = 0; i < 4; ++i) add(panels[i]);
+                })
+        ));
 
         add(makeRow(
                 makeButton("출석기록보기", "/img/메인화면/출석기록보기.png", () -> {
@@ -48,14 +47,6 @@ public class MainMenuPanel extends JPanel {
                 })
         ));
 
-        // 중앙 단독 "새 보기"
-        add(centeredRow(
-                makeButton("새 보기", "/img/메인화면/새 보기.png", () -> {
-                    context.getBirdMessageManager().say("새 상태 화면으로 이동 중입니다...");
-                    new FrameBird(context.bird, context.birdService, context.getBirdMessageManager(), context.pointService).setVisible(true);
-                })
-        ));
-
         add(makeRow(
                 makeButton("쿠폰보관함", "/img/메인화면/쿠폰 보관함.png", () -> {
                     context.getBirdMessageManager().say("쿠폰 갤러리로 이동 중입니다...");
@@ -66,6 +57,16 @@ public class MainMenuPanel extends JPanel {
                     new FrameCouponStore(context.getCouponController(), context.getCurrentUsername()).setVisible(true);
                 })
         ));
+
+        // 중앙 단독 "새 보기"
+        add(//centeredRow(
+                makeButton("새 보기", "/img/메인화면/새 보기.png", () -> {
+                    context.getBirdMessageManager().say("새 상태 화면으로 이동 중입니다...");
+                    new FrameBird(context.bird, context.birdService, context.getBirdMessageManager(), context.pointService).setVisible(true);
+                }));
+        //));
+
+
     }
 
     // 🔧 공통 버튼 생성 유틸
