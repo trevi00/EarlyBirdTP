@@ -37,12 +37,18 @@ public class CalendarPanel extends JPanel {
     }
 
     private void drawCalendar() {
+        Font font = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts()[485];
+//        for(int i = 0; i < allFonts.length; ++i) {
+//            System.out.println(allFonts[i] + ", " + i);
+//        }
+
         // 요일 헤더
         String[] weekDays = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
         for (int i = 0; i < 7; ++i) {
             String day = weekDays[i];
             JLabel lbl = new JLabel(day, SwingConstants.CENTER);
-            lbl.setFont(lbl.getFont().deriveFont(Font.BOLD).deriveFont(15f));
+            lbl.setFont(font.deriveFont(16f).deriveFont(Font.BOLD));
+            lbl.setForeground(new Color(150, 97, 71));
             add(lbl);
         }
 
@@ -70,16 +76,12 @@ public class CalendarPanel extends JPanel {
             } else {
                 // 일반 날짜 숫자
                 label = new JLabel(String.valueOf(day), SwingConstants.CENTER);
-                label.setFont(label.getFont().deriveFont(Font.BOLD).deriveFont(15f));
+                label.setFont(font.deriveFont(15f).deriveFont(Font.BOLD));
+                label.setForeground(new Color(150, 97, 71));
             }
 
             int currentDay = (7 + day - emptyStart) % 7;
 //            System.out.println(day + ", " + currentDay);
-            if(currentDay == 0) {
-                label.setForeground(Color.RED);
-            } else if(currentDay == 6) {
-                label.setForeground(Color.BLUE);
-            }
 
             label.setHorizontalAlignment(SwingConstants.CENTER);
             label.setVerticalAlignment(SwingConstants.CENTER);
