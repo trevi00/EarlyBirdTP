@@ -37,17 +37,13 @@ public class CalendarPanel extends JPanel {
     }
 
     private void drawCalendar() {
-        Font font = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts()[485];
-//        for(int i = 0; i < allFonts.length; ++i) {
-//            System.out.println(allFonts[i] + ", " + i);
-//        }
 
         // 요일 헤더
         String[] weekDays = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
         for (int i = 0; i < 7; ++i) {
             String day = weekDays[i];
             JLabel lbl = new JLabel(day, SwingConstants.CENTER);
-            lbl.setFont(font.deriveFont(16f).deriveFont(Font.BOLD));
+            lbl.setFont(lbl.getFont().deriveFont(16f).deriveFont(Font.BOLD));
             lbl.setForeground(new Color(150, 97, 71));
             add(lbl);
         }
