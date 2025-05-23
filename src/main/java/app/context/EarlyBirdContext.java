@@ -1,5 +1,6 @@
 package app.context;
 
+import config.DatabaseConfig;
 import app.ui.BannerDisplayer;
 import app.ui.MessageBannerPanel;
 import attendance.repository.AttendanceRepository;
@@ -19,7 +20,6 @@ import bird.repository.*;
 import bird.service.BirdService;
 import bird.service.DefaultBirdService;
 import bird.service.StageEvolutionPolicy;
-import config.DatabaseConfig;
 import coupon.controller.CouponController;
 import coupon.repository.CouponRepository;
 import coupon.repository.JdbcCouponRepository;
