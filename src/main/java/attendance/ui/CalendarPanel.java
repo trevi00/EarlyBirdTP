@@ -76,7 +76,7 @@ public class CalendarPanel extends JPanel {
             } else {
                 // 일반 날짜 숫자
                 label = new JLabel(String.valueOf(day), SwingConstants.CENTER);
-                label.setFont(font.deriveFont(15f).deriveFont(Font.BOLD));
+                label.setFont(label.getFont().deriveFont(15f).deriveFont(Font.BOLD));
                 label.setForeground(new Color(150, 97, 71));
             }
 
