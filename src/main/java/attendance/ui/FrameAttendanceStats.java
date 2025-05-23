@@ -7,6 +7,7 @@ import java.awt.*;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,17 +16,23 @@ public class FrameAttendanceStats extends JFrame {
 
     private final AttendanceStatsService statsService;
     private final String username;
+    private JLabel bg = null;
 
     public FrameAttendanceStats(AttendanceStatsService statsService, String username) {
         this.statsService = statsService;
         this.username = username;
+        try {
+            ImageIcon icon = new ImageIcon(getClass().getResource("/img/출석현황/bg_brown.png"));
+            bg = new JLabel(icon);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
 
-        setTitle("출석기록");
-        setSize(400, 400);
+        setTitle("출석현황");
+        setSize(400, 430);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        getContentPane().setBackground(new Color(255, 255, 255));
-        getContentPane().setVisible(true);
+        setContentPane(bg);
         initUI();
     }
 
@@ -37,15 +44,22 @@ public class FrameAttendanceStats extends JFrame {
         // ✅ 날짜 포맷을 "yyyy-MM" 형식으로 맞추어 전달
         YearMonth yearMonth = YearMonth.now();
         String formatted = yearMonth.format(DateTimeFormatter.ofPattern("yyyy-MM"));
-
+        char[] monthChars = yearMonth.getMonth().toString().toCharArray();
+        for(int i = 1; i < monthChars.length; ++i) {
+            monthChars[i] = Character.toLowerCase(monthChars[i]);
+        }
         JPanel monthPanel = new JPanel();
         String monthText = "<html><div style='text-align:center;'>" +
-                yearMonth.format(DateTimeFormatter.ofPattern("M")) + " 월"
-                + "</div></html>";
+                String.valueOf(monthChars) + "</div></html>";
         JLabel monthLabel = new JLabel(monthText);
-        monthLabel.setFont(monthLabel.getFont().deriveFont(Font.BOLD));
+        Font font = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts()[485];
+//        for(int i = 0; i < allFonts.length; ++i) {
+//            System.out.println(allFonts[i] + ", " + i);
+//        }
+        monthLabel.setFont(font.deriveFont(20f).deriveFont(Font.BOLD));
+        monthLabel.setForeground(new Color(150, 97, 71));
         monthPanel.add(monthLabel, SwingConstants.CENTER);
-        monthPanel.setBackground(new Color(255, 255, 255));
+        monthPanel.setOpaque(false);
         add(monthPanel, BorderLayout.NORTH);
 
         List<LocalDate> dateList = statsService.getMonthlyAttendance(username, formatted);
@@ -53,7 +67,7 @@ public class FrameAttendanceStats extends JFrame {
 
         // ✅ CalendarPanel에 출석 날짜 전달
         CalendarPanel calendarPanel = new CalendarPanel(yearMonth, attendanceSet);
-        calendarPanel.setBackground(new Color(255, 255, 255));
+        calendarPanel.setOpaque(false);
         add(calendarPanel, BorderLayout.CENTER);
 
         // 닫기 버튼
