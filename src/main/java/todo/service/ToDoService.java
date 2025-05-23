@@ -2,7 +2,6 @@ package todo.service;
 
 import todo.model.ToDo;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface ToDoService {
@@ -11,11 +10,13 @@ public interface ToDoService {
 
     boolean hasToDoToday(String username);
 
-    ToDo findTodayToDo(String username);
+    List<ToDo> findTodayToDo(String username);
 
     List<ToDo> findByUsername(String username);
 
     void markAsDone(String id);  // ✅ ID 기반 완료 처리
+
+    void markAsUndone(String id);
 
     ToDo findById(String id);    // ✅ 완료 처리용 조회
 }

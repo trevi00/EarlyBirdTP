@@ -20,8 +20,8 @@ public class CalendarPanel extends JPanel {
         this.yearMonth = yearMonth;
         this.attendanceDays = attendanceDays;
         try {
-            Image img = new ImageIcon(getClass().getResource("/img/check.png")).getImage();
-            Image scaled = img.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            Image img = new ImageIcon(getClass().getResource("/img/출석확인/check.png")).getImage();
+            Image scaled = img.getScaledInstance(35, 35, Image.SCALE_SMOOTH);
             checkIcon = new ImageIcon(scaled);
         } catch (Exception e) {
             System.err.println("❌ check.png 이미지 로드 실패: " + e.getMessage());
@@ -37,13 +37,10 @@ public class CalendarPanel extends JPanel {
             String day = weekDays[i];
             JLabel lbl = new JLabel(day, SwingConstants.CENTER);
             lbl.setFont(lbl.getFont().deriveFont(Font.BOLD));
-            lbl.setOpaque(true);
             if(i == 0) {
                 lbl.setForeground(Color.RED);
-                lbl.setBackground(Color.PINK);
             } else if(i == 6) {
                 lbl.setForeground(Color.BLUE);
-                lbl.setBackground(Color.CYAN);
             }
             add(lbl);
         }
@@ -55,13 +52,6 @@ public class CalendarPanel extends JPanel {
         for (int i = 0; i < emptyStart; i++) {
             JLabel label = new JLabel("");
             add(label);
-            if(i == 0) {
-                label.setBackground(Color.PINK);
-                label.setOpaque(true);
-            } else if(i == 6) {
-                label.setBackground(Color.CYAN);
-                label.setOpaque(true);
-            }
         }
 
         int daysInMonth = yearMonth.lengthOfMonth();
@@ -85,12 +75,8 @@ public class CalendarPanel extends JPanel {
 //            System.out.println(day + ", " + currentDay);
             if(currentDay == 0) {
                 label.setForeground(Color.RED);
-                label.setBackground(Color.PINK);
-                label.setOpaque(true);
             } else if(currentDay == 6) {
                 label.setForeground(Color.BLUE);
-                label.setBackground(Color.CYAN);
-                label.setOpaque(true);
             }
 
             label.setHorizontalAlignment(SwingConstants.CENTER);

@@ -58,26 +58,38 @@ public class JdbcToDoRepository implements ToDoRepository {
     }
 
     @Override
-    public ToDo findByUsernameAndDate(String username, LocalDate date) {
+    public void markAsUndone(String id) {
+        String sql = "UPDATE TODOS SET done = 0 where id = ?";
+        try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            pstmt.executeUpdate();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<ToDo> findByUsernameAndDate(String username, LocalDate date) {
+        List<ToDo> result = new ArrayList<>();
         String sql = "SELECT * FROM TODOS WHERE username = ? AND todo_date = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, username);
             pstmt.setDate(2, Date.valueOf(date));
             ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                return new ToDo(
+            while(rs.next()) {
+                result.add(new ToDo(
                         rs.getString("id"),
                         rs.getString("username"),
                         rs.getDate("todo_date").toLocalDate(),
                         rs.getString("title"),
                         rs.getString("content"),
                         rs.getBoolean("done")
-                );
+                ));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return result;
     }
 
     @Override

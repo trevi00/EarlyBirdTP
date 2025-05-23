@@ -20,7 +20,7 @@ public class FrameMain extends JFrame {
 
         // === 배경 이미지 로드 ===
         try {
-            URL imgUrl = getClass().getResource("/earlybird0.png");
+            URL imgUrl = getClass().getResource("/earlybird8.png");
             System.out.println("이미지 경로: " + imgUrl);  // ← 디버깅용
 
             if (imgUrl == null) {
@@ -35,7 +35,7 @@ public class FrameMain extends JFrame {
         }
 
         setTitle("EarlyBird 🌅");
-        setSize(700, 700);
+        setSize(500, 600);
         setMinimumSize(new Dimension(500, 600));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

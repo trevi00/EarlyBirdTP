@@ -28,7 +28,7 @@ public class DefaultToDoService implements ToDoService {
     }
 
     @Override
-    public ToDo findTodayToDo(String username) {
+    public List<ToDo> findTodayToDo(String username) {
         return repository.findByUsernameAndDate(username, LocalDate.now());
     }
 
@@ -43,6 +43,15 @@ public class DefaultToDoService implements ToDoService {
         if (todo != null && !todo.isDone()) {
             repository.markAsDone(id);
             pointService.addPoint(todo.getUsername(), 2);  // ✅ 할 일 1개 완료 시 2점 증가
+        }
+    }
+
+    @Override
+    public void markAsUndone(String id) {
+        ToDo todo = repository.findById(id);
+        if (todo != null && todo.isDone()) {
+            repository.markAsUndone(id);
+            pointService.addPoint(todo.getUsername(), -2);  // ✅ 달성하지 못한 것으로 처리하므로 2점 감소
         }
     }
 

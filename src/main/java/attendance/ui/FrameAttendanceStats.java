@@ -20,42 +20,46 @@ public class FrameAttendanceStats extends JFrame {
         this.statsService = statsService;
         this.username = username;
 
-        setTitle("출석 통계 📊");
+        setTitle("출석기록");
         setSize(400, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
+        getContentPane().setBackground(new Color(255, 255, 255));
+        getContentPane().setVisible(true);
         initUI();
     }
 
     private void initUI() {
         setLayout(new BorderLayout());
-
-        JPanel summaryPanel = new JPanel(new GridLayout(2, 1));
-        int totalDays = statsService.getTotalAttendanceCount(username);
-        LocalDate lastDate = statsService.getLastAttendanceDate(username);
-
-        JLabel totalLabel = new JLabel("총 출석일 수: " + totalDays);
-        JLabel lastLabel = new JLabel("마지막 출석일: " + (lastDate != null ? lastDate.format(DateTimeFormatter.ofPattern("MM월 dd일")) : "--월 --일"));
-
-        summaryPanel.add(totalLabel);
-        summaryPanel.add(lastLabel);
-
-        add(summaryPanel, BorderLayout.NORTH);
+        getContentPane().setBackground(Color.WHITE);
+        getContentPane().setVisible(true);
 
         // ✅ 날짜 포맷을 "yyyy-MM" 형식으로 맞추어 전달
         YearMonth yearMonth = YearMonth.now();
         String formatted = yearMonth.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+
+        JPanel monthPanel = new JPanel();
+        String monthText = "<html><div style='text-align:center;'>" +
+                yearMonth.format(DateTimeFormatter.ofPattern("M")) + " 월"
+                + "</div></html>";
+        JLabel monthLabel = new JLabel(monthText);
+        monthLabel.setFont(monthLabel.getFont().deriveFont(Font.BOLD));
+        monthPanel.add(monthLabel, SwingConstants.CENTER);
+        monthPanel.setBackground(new Color(255, 255, 255));
+        add(monthPanel, BorderLayout.NORTH);
 
         List<LocalDate> dateList = statsService.getMonthlyAttendance(username, formatted);
         Set<LocalDate> attendanceSet = new HashSet<>(dateList);
 
         // ✅ CalendarPanel에 출석 날짜 전달
         CalendarPanel calendarPanel = new CalendarPanel(yearMonth, attendanceSet);
+        calendarPanel.setBackground(new Color(255, 255, 255));
         add(calendarPanel, BorderLayout.CENTER);
 
         // 닫기 버튼
         JButton closeButton = new JButton("닫기");
+        closeButton.setOpaque(false);
+        closeButton.setBorderPainted(false);
         closeButton.addActionListener(e -> dispose());
         add(closeButton, BorderLayout.SOUTH);
     }

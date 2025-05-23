@@ -1,7 +1,6 @@
 package app.ui;
 
 import app.context.EarlyBirdContext;
-import attendance.ui.FrameAttendance;
 import attendance.ui.FrameAttendanceStats;
 import bird.ui.FrameBird;
 import coupon.ui.FrameCouponGallery;
@@ -12,82 +11,68 @@ import todo.ui.FrameToDoList;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * [MainMenuPanel]
- * - 기능 버튼들을 그룹화하고, UI를 정돈하여 UX 향상
- */
 public class MainMenuPanel extends JPanel {
-
-
-    private JLabel pointLabel;
 
     public MainMenuPanel(EarlyBirdContext context) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setBorder(BorderFactory.createEmptyBorder(120, 20, 20, 30));
+        setPreferredSize(new Dimension(500, 520)); // 스크롤 없는 고정 크기
+        setOpaque(false);
 
-        add(makeButton("출석하기", "/출석하기.png", () -> {
-            context.getBirdMessageManager().say("출석 화면으로 이동 중입니다...");
-            context.showAttendanceFrame();
-        }));
+        setBorder(BorderFactory.createEmptyBorder(40, 0, 0, 0));
 
-        add(makeButton("ToDo 등록","/Todo등록.png", () -> {
-            context.getBirdMessageManager().say("Todo 등록 화면으로 이동 중입니다...");
-            new FrameToDo(context.getToDoService(), context.bird, context.getBirdMessageManager(),
-                    context.birdService, context.pointService).setVisible(true);
-        }));
+        // 버튼 그룹 생성
+        add(makeRow(
+                makeButton("출석하기", "/img/메인화면/출석하기.png", () -> {
+                    context.getBirdMessageManager().say("출석 화면으로 이동 중입니다...");
+                    context.showAttendanceFrame();
+                }),
+                makeButton("ToDo 등록", "/img/메인화면/Todo등록.png", () -> {
+                    context.getBirdMessageManager().say("Todo 등록 화면으로 이동 중입니다...");
+                    new FrameToDo(context.getToDoService(), context.bird, context.getBirdMessageManager()).setVisible(true);
+                })
+        ));
 
-        add(Box.createVerticalStrut(15));  // 간격
+        add(makeRow(
+                makeButton("출석기록보기", "/img/메인화면/출석기록보기.png", () -> {
+                    context.getBirdMessageManager().say("출석기록 화면으로 이동 중입니다...");
+                    new FrameAttendanceStats(context.attendanceStatsService, context.getCurrentUsername()).setVisible(true);
+                }),
+                makeButton("ToDo 보기", "/img/메인화면/할 일 보기.png", () -> {
+                    context.getBirdMessageManager().say("ToDo 리스트 목록 화면으로 이동 중입니다...");
+                    new FrameToDoList(
+                            context.getToDoService(),
+                            context.getCurrentUsername(),
+                            context.getBirdMessageManager()
+                    ).setVisible(true);
+                })
+        ));
 
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setBorder(BorderFactory.createEmptyBorder(120, 50, 20, 30));
+        // 중앙 단독 "새 보기"
+        add(centeredRow(
+                makeButton("새 보기", "/img/메인화면/새 보기.png", () -> {
+                    context.getBirdMessageManager().say("새 상태 화면으로 이동 중입니다...");
+                    new FrameBird(context.bird, context.birdService, context.getBirdMessageManager(), context.pointService).setVisible(true);
+                })
+        ));
 
-        add(makeButton("출석기록 확인", "/출석기록보기.png", () -> {
-            context.getBirdMessageManager().say("출석기록 화면으로 이동 중입니다...");
-            new FrameAttendanceStats(context.attendanceStatsService, context.getCurrentUsername()).setVisible(true);
-        }));
-
-        add(makeButton("ToDo 리스트 확인","/할 일 보기.png", () -> {
-            context.getBirdMessageManager().say("ToDo 리스트 목록 화면으로 이동 중입니다...");
-            new FrameToDoList(
-                    context.getToDoService(),
-                    context.getCurrentUsername(),
-                    context.getBirdMessageManager()
-            ).setVisible(true);
-        }));
-
-        add(makeButton("새 보기","/새 보기.png", () -> {
-            context.getBirdMessageManager().say("새 상태 화면으로 이동 중입니다...");
-            new FrameBird(context.bird, context.birdService, context.getBirdMessageManager(), context.pointService).setVisible(true);
-        }));
-
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setBorder(BorderFactory.createEmptyBorder(120, 10, 20, 30));
-
-        add(makeButton("쿠폰 보관함","/쿠폰 보관함.png", () -> {
-            context.getBirdMessageManager().say("쿠폰 갤러리로 이동 중입니다...");
-            new FrameCouponGallery(context.getCouponController(), context.getCurrentUsername()).setVisible(true);
-        }));
-
-        add(Box.createVerticalStrut(15));  // 간격
-
-        add(makeButton("포인트 상점","/포인트 상점.png", () -> {
-            context.getBirdMessageManager().say("포인트 상점으로 이동 중입니다...");
-            new FrameCouponStore(context.getCouponController(), context.getCurrentUsername()).setVisible(true);
-        }));
+        add(makeRow(
+                makeButton("쿠폰보관함", "/img/메인화면/쿠폰 보관함.png", () -> {
+                    context.getBirdMessageManager().say("쿠폰 갤러리로 이동 중입니다...");
+                    new FrameCouponGallery(context.getCouponController(), context.getCurrentUsername()).setVisible(true);
+                }),
+                makeButton("포인트상점", "/img/메인화면/포인트 상점.png", () -> {
+                    context.getBirdMessageManager().say("포인트 상점으로 이동 중입니다...");
+                    new FrameCouponStore(context.getCouponController(), context.getCurrentUsername()).setVisible(true);
+                })
+        ));
     }
 
-    private void refreshPoint(EarlyBirdContext context) {
-        int point = context.pointService.getCurrentPoint(context.getCurrentUsername());
-        pointLabel.setText("현재 포인트: " + point + "점");
-    }
-
-    // 🔧 버튼 생성 유틸
-    // 🔧 버튼 생성 유틸 (이미지만 보이게)
+    // 🔧 공통 버튼 생성 유틸
     private JButton makeButton(String tooltip, String imagePath, Runnable action) {
         ImageIcon icon = null;
         try {
             icon = new ImageIcon(getClass().getResource(imagePath));
-            Image img = icon.getImage().getScaledInstance(250, 60, Image.SCALE_SMOOTH); // 원하는 크기로
+            Image img = icon.getImage().getScaledInstance(160, 45, Image.SCALE_SMOOTH);
             icon = new ImageIcon(img);
         } catch (Exception e) {
             System.err.println("이미지 로드 실패: " + imagePath);
@@ -95,27 +80,29 @@ public class MainMenuPanel extends JPanel {
 
         JButton btn = new JButton();
         btn.setIcon(icon);
-        btn.setPreferredSize(new Dimension(250, 50)); // 버튼 크기 조정
-        btn.setMaximumSize(new Dimension(300, 48));
-        btn.setMinimumSize(new Dimension(300, 48));
-        btn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btn.setBackground(new Color(240, 248, 255));
+        btn.setPreferredSize(new Dimension(180, 50));
         btn.setFocusPainted(false);
-        btn.setBorderPainted(false); // 테두리 없애기(선택)
-        btn.setContentAreaFilled(false); // 배경 없애기(선택)
-        btn.setToolTipText(tooltip); // 툴팁으로 설명 제공
+        btn.setContentAreaFilled(false);
+        btn.setBorderPainted(false);
+        btn.setToolTipText(tooltip);
         btn.addActionListener(e -> action.run());
         return btn;
     }
 
+    // 🔧 두 버튼 가로 정렬 패널
+    private JPanel makeRow(JButton left, JButton right) {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 12));
+        panel.setOpaque(false);
+        panel.add(left);
+        panel.add(right);
+        return panel;
+    }
 
-
-    // 🔧 섹션 라벨 생성 유틸
-    private JLabel makeSectionLabel(String title) {
-        JLabel label = new JLabel(title);
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("맑은 고딕", Font.BOLD, 16));
-        label.setBorder(BorderFactory.createEmptyBorder(15, 0, 10, 0));
-        return label;
+    // 🔧 단일 버튼 중앙 정렬 패널
+    private JPanel centeredRow(JButton center) {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 12));
+        panel.setOpaque(false);
+        panel.add(center);
+        return panel;
     }
 }

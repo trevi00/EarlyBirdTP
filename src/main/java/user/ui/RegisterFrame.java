@@ -20,7 +20,7 @@ public class RegisterFrame extends JFrame {
         // 🐦 새 이미지 (중앙 배치)
         JLabel birdLabel = new JLabel();
         try {
-            URL imageUrl = getClass().getResource("/img/bird2.png");
+            URL imageUrl = getClass().getResource("/img/회원가입/bird2.png");
             if (imageUrl != null) {
                 ImageIcon icon = new ImageIcon(imageUrl);
                 Image scaledImage = icon.getImage().getScaledInstance(140, 140, Image.SCALE_SMOOTH);
