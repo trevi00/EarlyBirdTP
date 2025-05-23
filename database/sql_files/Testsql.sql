@@ -19,3 +19,5 @@ insert into points values('123', 5000);
 delete from attendance where id = '123' and attend_date = '2025-05-21';
 
 commit;
+
+update POINTS set total_point=1000 where username=789;
