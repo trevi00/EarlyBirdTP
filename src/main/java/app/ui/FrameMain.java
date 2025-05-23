@@ -20,11 +20,11 @@ public class FrameMain extends JFrame {
 
         // === 배경 이미지 로드 ===
         try {
-            URL imgUrl = getClass().getResource("/img/메인화면/earlybird.png");
+            URL imgUrl = getClass().getResource("/img/메인메뉴 디자인/메인메뉴.png");
             System.out.println("이미지 경로: " + imgUrl);  // ← 디버깅용
 
             if (imgUrl == null) {
-                throw new IOException("earlybird.png 파일을 찾을 수 없습니다!");
+                throw new IOException("메인메뉴.png 파일을 찾을 수 없습니다!");
             }
             bgImage = ImageIO.read(imgUrl);
         } catch (IOException e) {
