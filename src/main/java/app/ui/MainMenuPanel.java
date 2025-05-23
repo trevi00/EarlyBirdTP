@@ -23,9 +23,8 @@ public class MainMenuPanel extends JPanel {
 
     public MainMenuPanel(EarlyBirdContext context) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        setBorder(BorderFactory.createEmptyBorder(120, 20, 20, 30));
 
-        add(makeSectionLabel("기록하기"));
         add(makeButton("출석하기", "/출석하기.png", () -> {
             context.getBirdMessageManager().say("출석 화면으로 이동 중입니다...");
             context.showAttendanceFrame();
@@ -39,7 +38,8 @@ public class MainMenuPanel extends JPanel {
 
         add(Box.createVerticalStrut(15));  // 간격
 
-        add(makeSectionLabel("보기"));
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setBorder(BorderFactory.createEmptyBorder(120, 50, 20, 30));
 
         add(makeButton("출석기록 확인", "/출석기록보기.png", () -> {
             context.getBirdMessageManager().say("출석기록 화면으로 이동 중입니다...");
@@ -60,6 +60,9 @@ public class MainMenuPanel extends JPanel {
             new FrameBird(context.bird, context.birdService, context.getBirdMessageManager(), context.pointService).setVisible(true);
         }));
 
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setBorder(BorderFactory.createEmptyBorder(120, 10, 20, 30));
+
         add(makeButton("쿠폰 보관함","/쿠폰 보관함.png", () -> {
             context.getBirdMessageManager().say("쿠폰 갤러리로 이동 중입니다...");
             new FrameCouponGallery(context.getCouponController(), context.getCurrentUsername()).setVisible(true);
@@ -67,7 +70,6 @@ public class MainMenuPanel extends JPanel {
 
         add(Box.createVerticalStrut(15));  // 간격
 
-        add(makeSectionLabel("포인트"));
         add(makeButton("포인트 상점","/포인트 상점.png", () -> {
             context.getBirdMessageManager().say("포인트 상점으로 이동 중입니다...");
             new FrameCouponStore(context.getCouponController(), context.getCurrentUsername()).setVisible(true);
@@ -85,7 +87,7 @@ public class MainMenuPanel extends JPanel {
         ImageIcon icon = null;
         try {
             icon = new ImageIcon(getClass().getResource(imagePath));
-            Image img = icon.getImage().getScaledInstance(150, 40, Image.SCALE_SMOOTH); // 원하는 크기로
+            Image img = icon.getImage().getScaledInstance(250, 60, Image.SCALE_SMOOTH); // 원하는 크기로
             icon = new ImageIcon(img);
         } catch (Exception e) {
             System.err.println("이미지 로드 실패: " + imagePath);
@@ -93,7 +95,7 @@ public class MainMenuPanel extends JPanel {
 
         JButton btn = new JButton();
         btn.setIcon(icon);
-        btn.setPreferredSize(new Dimension(300, 50)); // 버튼 크기 조정
+        btn.setPreferredSize(new Dimension(250, 50)); // 버튼 크기 조정
         btn.setMaximumSize(new Dimension(300, 48));
         btn.setMinimumSize(new Dimension(300, 48));
         btn.setAlignmentX(Component.CENTER_ALIGNMENT);
